@@ -1,19 +1,28 @@
 return {
-    {
-        "ThePrimeagen/harpoon",
-        branch = "harpoon2",
-        config = function()
-            local harpoon = require("harpoon")
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    requires = { { "nvim-lua/plenary.nvim" } },
+    config = function()
+        local harpoon = require("harpoon")
 
-            harpoon:setup()
+        harpoon:setup({
+            settings = {
+                save_on_toggle = true,
+                save_on_ui_close = true
 
-            vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
-            vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+            }
+        })
 
-            vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-            vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
-            vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
-            vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
-        end
-    },
+        require("telescope").load_extension("harpoon")
+        -- add file to list
+        vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+        -- quick switch between first 4 files
+        vim.keymap.set("n", "<C-f>", function() harpoon:list():select(1) end)
+        vim.keymap.set("n", "<C-h>", function() harpoon:list():select(2) end)
+        vim.keymap.set("n", "<C-t>", function() harpoon:list():select(3) end)
+        vim.keymap.set("n", "<C-y>", function() harpoon:list():select(4) end)
+
+        -- show ui (internal)
+        vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+    end
 }

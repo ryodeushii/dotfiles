@@ -13,5 +13,5 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = "ryodeushii.lazy",
-    change_detection = { notify = true } -- FIXME: change to false
+    change_detection = { notify = false }
 })
