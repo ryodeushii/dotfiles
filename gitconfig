@@ -1,0 +1,76 @@
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	email = 3193631@gmail.com
+	name = Evgeny K
+[core]
+	editor = nvim
+    whitespace = -trailing-space
+
+[credential]
+	helper = store
+[push]
+    autoSetupRemote = true
+    followTags = true
+    default = upstream
+
+[color]
+    ui = auto
+
+[aliases]
+    # List available aliases
+    aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
+    # Command shortcuts
+    ci = commit
+
+    co = checkout
+    st = status
+    # Display tree-like log, because default log is a pain
+    lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+    # Useful when you have to update your last commit
+    # with staged files without editing the commit message.
+    oops = commit --amend --no-edit
+    # Ensure that force-pushing won't lose someone else's work (only mine).
+    push-with-lease = push --force-with-lease
+    # Rebase wont trigger hooks on each "replayed" commit.
+
+    # This is an ugly hack that will replay each commit during rebase with the
+    # standard `commit` command which will trigger hooks.
+    rebase-with-hooks = rebase -x 'git reset --soft HEAD~1 && git commit -C HEAD@{1}'
+    # List local commits that were not pushed to remote repository
+    review-local = "!git lg @{push}.."
+    # Edit last commit message
+    reword = commit --amend
+
+    # Undo last commit but keep changed files in stage
+    uncommit = reset --soft HEAD~1
+    # Remove file(s) from Git but not from disk
+    untrack = rm --cache --
+
+[diff]
+    # Use better, descriptive initials (c, i, w) instead of a/b.
+    mnemonicPrefix = true
+    # Show renames/moves as such
+    renames = true
+    # When using --word-diff, assume --word-diff-regex=.
+    wordRegex = .
+    # Display submodule-related information (commit listings)
+    submodule = log
+
+[fetch]
+    recurseSubmodules = on-demand
+[grep]
+    break = true
+    heading = true
+    lineNumber = true
+    # Consider most regexes to be ERE
+
+    extendedRegexp = true
+[log]
+    abbrevCommit = true
+
+[status]
+    submoduleSummary = true
+[tag]
+    sort = version:refname
