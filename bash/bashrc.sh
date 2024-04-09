@@ -162,3 +162,6 @@ alias ??="gh copilot suggest "
 if [ -f ~/.bash_config ]; then
     source ~/.bash_config
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+

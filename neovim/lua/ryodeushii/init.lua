@@ -1,3 +1,6 @@
+require("ryodeushii.set")
+require("ryodeushii.remap")
+
 require("ryodeushii.lazy_init")
 
 local augroup = vim.api.nvim_create_augroup
