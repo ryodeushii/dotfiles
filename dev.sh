@@ -1,11 +1,8 @@
 #!/bin/bash
 
 # This script is used to run the development environment for the project.
-echo "Install required packages"
 ./requirements.sh
 
-
-echo "Install oh-my-bash"
 ./bash/install.sh
 
 # symlink files
