@@ -50,4 +50,5 @@ autocmd('LspAttach', {
 
 
 
-ApplyColorScheme()
+-- ApplyColorScheme("onedark")
+ApplyColorScheme("tokyodark")
