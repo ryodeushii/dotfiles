@@ -1,4 +1,4 @@
-return {
+return { {
     "neovim/nvim-lspconfig",
     dependencies = {
         "williamboman/mason.nvim",
@@ -82,7 +82,7 @@ return {
         })
 
         vim.diagnostic.config({
-            -- update_in_insert = true,
+            update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",
@@ -92,5 +92,32 @@ return {
                 prefix = "",
             },
         })
+
+
+        -- FIXME: test setup for oxlint lsp
+        local lspconfig = require("lspconfig")
+        local configs = require("lspconfig.configs")
+
+        if not configs.oxlint then
+            configs.oxlint = {
+                default_config = {
+                    cmd = { "oxlint" },
+                    filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                    root_dir = lspconfig.util.root_pattern(".git"),
+                    settings = {},
+                },
+            }
+        end
+
+        lspconfig.oxlint.setup({
+            capabilities = capabilities,
+        })
     end
+},
+    {
+        "windwp/nvim-projectconfig",
+        config = function()
+            require('nvim-projectconfig').setup()
+        end,
+    }
 }
