@@ -112,6 +112,34 @@ return { {
         lspconfig.oxlint.setup({
             capabilities = capabilities,
         })
+
+
+        lspconfig.tsserver.setup({
+            capabilities = capabilities,
+            on_attach = function(client)
+                client.server_capabilities.documentFormattingProvider = false
+            end
+        })
+        lspconfig.eslint.setup({
+            capabilities = capabilities,
+            flags = { debounce_text_changes = 500 },
+
+            on_attach = function(client, bufnr)
+                client.server_capabilities.documentFormattingProvider = true
+                if client.server_capabilities.documentFormattingProvider then
+                    local au_lsp = vim.api.nvim_create_augroup("eslint_lsp", { clear = true })
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        pattern = "*",
+                        callback = function()
+                            vim.lsp.buf.format({ async = true })
+                        end,
+                        group = au_lsp,
+
+                    })
+                end
+            end,
+
+        })
     end
 },
     {
