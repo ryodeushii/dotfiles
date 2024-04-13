@@ -25,24 +25,22 @@ return {
             },
             sections = {
                 lualine_a = { 'mode' },
-                lualine_b = { 'branch', 'diff', 'diagnostics' },
-                lualine_c = { 'filename' },
-                lualine_x = { 'encoding', 'fileformat', 'filetype' },
-                lualine_y = { 'progress' },
+                lualine_b = { 'filename' },
+                lualine_c = { 'branch', 'diff', 'diagnostics' },
+
+                lualine_x = { 'filetype' },
+                lualine_y = {},
                 lualine_z = { 'location' }
             },
             inactive_sections = {
-                lualine_a = {},
-
+                lualine_a = { 'filename' },
                 lualine_b = {},
-                lualine_c = { 'filename' },
-                lualine_x = { 'location' },
+                lualine_c = {},
+
+                lualine_x = { 'filetype', 'location' },
                 lualine_y = {},
-
                 lualine_z = {}
-
             },
-
             tabline = {},
             winbar = {},
             inactive_winbar = {},
