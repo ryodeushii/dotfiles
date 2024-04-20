@@ -1,29 +1,32 @@
 [credential "https://github.com"]
 	helper =
 	helper = !/usr/bin/gh auth git-credential
-[user]
-	email = 3193631@gmail.com
-	name = Evgeny K
+[include]
+    path = ~/.user.gitconfig
+
 [core]
 	editor = nvim
     whitespace = -trailing-space
+    pager = delta
 
 [credential]
 	helper = store
+
 [push]
     autoSetupRemote = true
     followTags = true
-    default = upstream
+    default = current
 
 [color]
     ui = auto
 
 [aliases]
+    sr2 = reset --soft HEAD~2
+    sr3 = reset --soft HEAD~3
     # List available aliases
     aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
     # Command shortcuts
     ci = commit
-
     co = checkout
     st = status
     # Display tree-like log, because default log is a pain
@@ -58,6 +61,8 @@
     # Display submodule-related information (commit listings)
     submodule = log
 
+    colorMoved = default
+
 [fetch]
     recurseSubmodules = on-demand
 [grep]
@@ -72,5 +77,23 @@
 
 [status]
     submoduleSummary = true
+
 [tag]
     sort = version:refname
+
+[gpg]
+	program = gpg2
+
+[commit]
+	gpgsign = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    side-by-side = true
+
+[merge]
+    conflictstyle = diff3
+

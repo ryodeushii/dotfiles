@@ -53,3 +53,10 @@ if ! command -v tree-sitter &>/dev/null; then
 	    exit 1
 	fi
 fi
+
+
+# install delta diff tool if not found
+if ! command -v delta &>/dev/null; then
+    echo "Install delta"
+    cargo install git-delta
+fi
