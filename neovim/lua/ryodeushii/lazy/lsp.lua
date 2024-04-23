@@ -109,6 +109,18 @@ return { {
             }
         end
 
+        lspconfig.gopls.setup({
+            capabilities = capabilities,
+            settings = {
+                gopls = {
+                    analyses = {
+                        composites = false,
+                    }
+                }
+            },
+        })
+
+
         lspconfig.oxlint.setup({
             capabilities = capabilities,
         })
