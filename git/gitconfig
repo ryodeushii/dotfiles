@@ -20,7 +20,8 @@
 [color]
     ui = auto
 
-[aliases]
+[alias]
+    last = log -1 HEAD
     sr2 = reset --soft HEAD~2
     sr3 = reset --soft HEAD~3
     # List available aliases
