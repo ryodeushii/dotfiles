@@ -2,3 +2,7 @@
 	email = 3193631@gmail.com
 	name = Evgeny K
 	signingkey = 6945296229DBBC74
+
+[commit]
+	gpgsign = true
+
