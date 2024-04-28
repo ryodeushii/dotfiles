@@ -96,18 +96,19 @@ return { {
 
         -- FIXME: test setup for oxlint lsp
         local lspconfig = require("lspconfig")
-        local configs = require("lspconfig.configs")
-
-        if not configs.oxlint then
-            configs.oxlint = {
-                default_config = {
-                    cmd = { "oxlint" },
-                    filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-                    root_dir = lspconfig.util.root_pattern(".git"),
-                    settings = {},
-                },
-            }
-        end
+        -- TODO: probably later enable it back
+        -- local configs = require("lspconfig.configs")
+        --
+        -- if not configs.oxlint then
+        --     configs.oxlint = {
+        --         default_config = {
+        --             cmd = { "oxlint" },
+        --             filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+        --             root_dir = lspconfig.util.root_pattern(".git"),
+        --             settings = {},
+        --         },
+        --     }
+        -- end
 
         lspconfig.gopls.setup({
             capabilities = capabilities,
@@ -121,9 +122,9 @@ return { {
         })
 
 
-        lspconfig.oxlint.setup({
-            capabilities = capabilities,
-        })
+        -- lspconfig.oxlint.setup({
+        --     capabilities = capabilities,
+        -- })
 
 
         lspconfig.tsserver.setup({

@@ -60,3 +60,10 @@ if ! command -v delta &>/dev/null; then
     echo "Install delta"
     cargo install git-delta
 fi
+
+#
+# # install oxlint cli if not found
+# if ! command -v oxlint &>/dev/null; then
+#     echo "Install oxlint"
+#     npm i -g oxlint
+# fi
