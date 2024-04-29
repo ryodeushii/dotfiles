@@ -83,8 +83,10 @@ fi
 rm -rf ~/.bash_aliases
 ln -s $(pwd)/bash/bash_aliases.sh ~/.bash_aliases
 
+if [ -f ~/.bashrc ]; then
 mv ~/.bashrc ~/.bashrc.bak
 ln -s $(pwd)/bash/bashrc.sh ~/.bashrc
+fi
 
 echo "GIT..."
 # if no .gitconfig.bak then backup
