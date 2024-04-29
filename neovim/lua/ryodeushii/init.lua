@@ -4,7 +4,7 @@ require("ryodeushii.remap")
 require("ryodeushii.lazy_init")
 
 local augroup = vim.api.nvim_create_augroup
-local RyodeushiiGroup = augroup('ThePrimeagen', {})
+local RyodeushiiGroup = augroup('ryodeushiiAG', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
