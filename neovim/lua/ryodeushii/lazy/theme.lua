@@ -7,20 +7,9 @@ function ApplyColorScheme(color)
 end
 
 return {
-    {
-        "uloco/bluloco.nvim",
-        dependencies = { 'rktjmp/lush.nvim' }
-    },
-    { "shaunsingh/moonlight.nvim" },
     { "eldritch-theme/eldritch.nvim" },
-    { "rebelot/kanagawa.nvim" },
-    { "rose-pine/neovim" },
     { "scottmckendry/cyberdream.nvim" },
-    { "sainnhe/sonokai" },
-    { "rmehri01/onenord.nvim" },
     { "zootedb0t/citruszest.nvim" },
-    { "comfysage/evergarden" },
-    { "catppuccin/nvim",              name = "catppuccin" },
     {
         "vague2k/huez.nvim",
         dependencies = {
@@ -59,40 +48,16 @@ return {
                     "sorbet",
                     "zaibatsu",
                     "wildcharm",
+                    "onedark",
+                    "onelight",
+                    "retrobox"
                 }
             })
             vim.keymap.set("n", "<leader>co", "<cmd>Huez<cr>")
         end
     },
     {
-        "folke/tokyonight.nvim",
-        config = function()
-            require("tokyonight").setup({
-                style = "storm",
-                transparent = true,
-                terminal_colors = true,
-                styles = {
-                    -- sidebars = "dark",
-                    -- floats = "dark",
-                    comments = { italic = true },
-                    keywords = { italic = false },
-                },
-
-            })
-        end
-
-    },
-    {
         "olimorris/onedarkpro.nvim",
-    },
-    {
-        "AlexvZyl/nordic.nvim",
-        config = function()
-            require("nordic").setup({
-                italic_comments = true,
-                transparent = true,
-            })
-        end
     },
     {
         "tiagovla/tokyodark.nvim",
