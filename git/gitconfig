@@ -17,6 +17,9 @@
     followTags = true
     default = current
 
+[pull]
+    autoSetupRebase = always
+
 [color]
     ui = auto
 
