@@ -8,12 +8,28 @@ return { {
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/nvim-cmp",
-        "L3MON4D3/LuaSnip",
+        {
+            "L3MON4D3/LuaSnip",
+            dependencies = {
+                "mireq/luasnip-snippets",
+                init = function()
+                    -- Mandatory setup function
+                    require('luasnip_snippets.common.snip_utils').setup()
+                end
+
+            }
+        },
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
     },
 
     config = function()
+        require("luasnip").setup({
+            load_ft_func = require('luasnip_snippets.common.snip_utils').load_ft_func,
+            ft_func = require('luasnip_snippets.common.snip_utils').ft_func,
+        })
+
+
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
         local capabilities = vim.tbl_deep_extend(

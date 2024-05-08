@@ -5,7 +5,6 @@ return {
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
-            "marilari88/neotest-vitest",
             "rouge8/neotest-rust",
             "nvim-neotest/neotest-go",
             "nvim-neotest/neotest-jest",
@@ -16,7 +15,6 @@ return {
             local neotest = require("neotest")
             neotest.setup({
                 adapters = {
-                    -- require("neotest-vitest"),
                     require("neotest-go") {
                         experimental = {
                             test_table = true,
@@ -37,11 +35,12 @@ return {
                         jest_test_discovery = false,
                     }),
                     require("neotest-go"),
-                    require("neotest-plenary").setup({
-                        -- this is my standard location for minimal vim rc
-                        -- in all my projects
-                        min_init = "./scripts/tests/minimal.vim",
-                    }),
+                    require("neotest-plenary")
+                    --     .setup({
+                    --     -- this is my standard location for minimal vim rc
+                    --     -- in all my projects
+                    --     min_init = "./scripts/tests/minimal.vim",
+                    -- }),
                 }
             })
 
