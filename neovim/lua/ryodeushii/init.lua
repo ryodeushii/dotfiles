@@ -50,5 +50,4 @@ autocmd('LspAttach', {
 })
 
 -- Use <leader>co to open the color picker
-local colorscheme = require("huez.api").get_colorscheme()
-ApplyColorScheme(colorscheme)
+ApplyColorScheme("onedark_dark")
