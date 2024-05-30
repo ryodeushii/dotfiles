@@ -180,12 +180,15 @@ return {
     },
     {
         "saecki/crates.nvim",
-        tag = "stable",
+        event = { "BufRead Cargo.toml" },
         config = function()
             require("crates").setup({
-                null_ls = {
+                lsp = {
                     enabled = true,
                     name = "crates.nvim",
+                    actions = true,
+                    completion = true,
+                    hover = true,
                 },
 
             })
@@ -198,5 +201,11 @@ return {
                 end,
             })
         end,
+    },
+    {
+        'dmmulroy/ts-error-translator.nvim',
+        config = function()
+            require('ts-error-translator').setup()
+        end
     }
 }

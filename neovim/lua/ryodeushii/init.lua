@@ -49,5 +49,4 @@ autocmd('LspAttach', {
     end
 })
 
--- Use <leader>co to open the color picker
-ApplyColorScheme("onedark_dark")
+ApplyColorScheme("catppuccin")
