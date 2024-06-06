@@ -63,7 +63,10 @@ done
 
 echo "Symlink files"
 echo "NEOVIM..."
-rm -rf ~/.config/nvim
+
+[ -d ~/.config/nvim ] && rm -rf ~/.config/nvim
+[ -d ~/.config ] || mkdir -p ~/.config/
+
 ln -s $(pwd)/neovim ~/.config/nvim
 
 echo "TMUX..."
@@ -90,12 +93,16 @@ fi
 
 echo "GIT..."
 # if no .gitconfig.bak then backup
+if [ -f ~/.gitconfig ]; then
 [ -f ~/.gitconfig.bak ] ||mv ~/.gitconfig ~/.gitconfig.bak
 
 # if work config is selected then replace include path in gitconfig with work config
 # if personal config is selected then replace include path in gitconfig with personal config
 rm ~/.gitconfig
-rm ~/.user.gitconfig
+fi
 
+if [ -f ~/.user.gitconfig ]; then
+rm ~/.user.gitconfig
+fi
 ln -s $(pwd)/git/.$config.gitconfig ~/.user.gitconfig
 ln -s $(pwd)/git/gitconfig ~/.gitconfig
