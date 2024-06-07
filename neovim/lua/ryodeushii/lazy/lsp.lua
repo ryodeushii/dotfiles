@@ -59,14 +59,14 @@ return {
             })
 
             local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
+            require("ryodeushii.snippets").register_cmp_source()
             cmp.setup({
                 -- TODO: setup native nvim snippets
-                -- snippet = {
-                --     expand = function(args)
-                --         require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-                --     end,
-                -- },
+                snippet = {
+                    expand = function(args)
+                        vim.snippet.expand(args.body)
+                    end,
+                },
                 mapping = cmp.mapping.preset.insert({
                     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
@@ -74,8 +74,8 @@ return {
                     ["<C-Space>"] = cmp.mapping.complete(),
                 }),
                 sources = cmp.config.sources({
+                    { name = 'snp' },
                     { name = 'nvim_lsp' },
-                    { name = 'luasnip' }, -- For luasnip users.
                 }, {
                     { name = 'buffer' },
                 })
