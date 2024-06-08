@@ -52,7 +52,7 @@ return {
                 neotest.run.run(vim.fn.expand("%"))
             end)
 
-            vim.keymap.set("n", "<leader>td", function()
+            vim.keymap.set("n", "<leader>dt", function()
                 neotest.run.run({ strategy = "dap" })
             end)
 
