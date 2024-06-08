@@ -70,7 +70,7 @@ end
 
 -- setup keybinds for snippets jumping
 vim.keymap.set({ 'i', 's' }, '<Tab>', function()
-    if vim.snippet.jumpable(1) then
+    if vim.snippet and vim.snippet.jumpable and vim.snippet.jumpable(1) then
         return '<cmd>lua vim.snippet.jump(1)<cr>'
     else
         return '<Tab>'
@@ -78,7 +78,7 @@ vim.keymap.set({ 'i', 's' }, '<Tab>', function()
 end, { expr = true })
 
 vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
-    if vim.snippet.jumpable(-1) then
+    if vim.snippet and vim.snippet.jumpable and vim.snippet.jumpable(-1) then
         return '<cmd>lua vim.snippet.jump(-1)<cr>'
     else
         return '<S-Tab>'

@@ -146,10 +146,13 @@ return {
     {
         "mxsdev/nvim-dap-vscode-js",
         dependencies = {
-            "microsoft/vscode-js-debug",
+            {
+                "microsoft/vscode-js-debug",
+                version = "1.x",
+                build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
+            },
             "mfussenegger/nvim-dap",
         },
-        run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
         config = function()
             require("dap-vscode-js").setup({
                 -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
@@ -159,6 +162,7 @@ return {
                 -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
                 -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
                 -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
+                debugger_path = vim.fn.stdpath('data') .. '/lazy/vscode-js-debug',
             })
 
             for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
@@ -224,12 +228,13 @@ return {
             dap.listeners.before.launch.dapui_config = function()
                 dapui.open()
             end
-            dap.listeners.before.event_terminated.dapui_config = function()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited.dapui_config = function()
-                dapui.close()
-            end
+            -- NOTE: due to nature of nodejs tests - it's better to close dapui manually
+            -- dap.listeners.before.event_terminated.dapui_config = function()
+            --     dapui.close()
+            -- end
+            -- dap.listeners.before.event_exited.dapui_config = function()
+            --     dapui.close()
+            -- end
         end,
     },
 }
