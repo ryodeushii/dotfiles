@@ -14,6 +14,8 @@ return {
     },
 
     config = function()
+        local add_to_trouble = require("trouble.sources.telescope").add
+
         require('telescope').setup({
             pickers = {
                 find_files = {
@@ -23,6 +25,16 @@ return {
                     hidden = true
                 }
             },
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<c-t>"] = add_to_trouble,
+                    },
+                    n = {
+                        ["<c-t>"] = add_to_trouble,
+                    }
+                }
+            }
         })
 
         local builtin = require('telescope.builtin')
