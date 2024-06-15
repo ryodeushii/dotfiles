@@ -101,7 +101,6 @@ aliases=(
 plugins=(
   git
   bashmarks
-  zoxide
   npm
   nvm
   sudo
