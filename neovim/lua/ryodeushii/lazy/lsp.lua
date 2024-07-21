@@ -1,4 +1,17 @@
 return {
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    after = "mason.nvim",
+    config = function()
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "prettier",
+          "prettierd",
+          "shfmt",
+        }
+      })
+    end,
+  },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -31,8 +44,13 @@ return {
                     "gopls",
                     "jsonls",
                     "eslint",
+                    "biome",
+                    "clangd",
                     "bashls",
                     "ast_grep",
+                    -- "prettierd",
+                    -- "prettier",
+                    -- "shfmt",
                 },
                 handlers = {
                     function(server_name) -- default handler (optional)
@@ -94,9 +112,8 @@ return {
             })
 
 
-            -- FIXME: test setup for oxlint lsp
             local lspconfig = require("lspconfig")
-            -- TODO: probably later enable it back
+            -- NOTE: probably later enable it back, but doubt, now stick to biome as it combines linter & formatter
             -- local configs = require("lspconfig.configs")
             --
             -- if not configs.oxlint then
