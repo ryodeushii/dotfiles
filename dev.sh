@@ -106,3 +106,13 @@ rm ~/.user.gitconfig
 fi
 ln -s $(pwd)/git/.$config.gitconfig ~/.user.gitconfig
 ln -s $(pwd)/git/gitconfig ~/.gitconfig
+
+if [ $config == "personal" ]; then
+    echo "Copy gpg config to fix signing issue in neovim"
+    if [ -f ~/.gnupg/gpg.conf ]; then
+        mv ~/.gnupg/gpg.conf ~/.gnupg/gpg.conf.bak
+    fi
+    [ -d ~/.gnupg ] || mkdir -p ~/.gnupg
+
+    ln -s $(pwd)/gpg.conf ~/.gnupg/gpg.conf
+fi
