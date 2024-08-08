@@ -27,6 +27,7 @@ return { {
                 sh = true,
                 bash = true,
                 groovy = true,
+                c = true,
                 ["*"] = false,
             }
         })
