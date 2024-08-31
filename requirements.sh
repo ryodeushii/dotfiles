@@ -2,6 +2,12 @@
 
 goversion=1.22.2.linux-amd64
 
+
+if ! command -v proto &>/dev/null; then
+    echo "Install moonrepos's proto cli for toolchain management"
+    curl -fsSL https://moonrepo.dev/install/proto.sh | bash
+fi
+
 if ! command -v cargo &>/dev/null; then
 	echo "Install rust"
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
