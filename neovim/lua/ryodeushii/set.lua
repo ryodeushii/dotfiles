@@ -1,7 +1,7 @@
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -43,3 +43,4 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.opt.clipboard:append("unnamedplus")
 
+vim.opt.cursorline = true

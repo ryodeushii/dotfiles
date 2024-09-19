@@ -131,7 +131,19 @@ return {
         capabilities = capabilities,
         on_attach = function(client)
           client.server_capabilities.documentFormattingProvider = false
-        end
+        end,
+        root_dir = lspconfig.util.root_pattern ".git",
+        settings = {
+          typescript = {
+            disableAutomaticTypingAcquisition = false,
+            tsserver = {
+              experimental = {
+                enableProjectDiagnostics = true,
+              },
+            },
+          },
+        },
+
       })
       lspconfig.eslint.setup({
         capabilities = capabilities,
