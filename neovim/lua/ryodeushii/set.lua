@@ -44,3 +44,17 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.clipboard:append("unnamedplus")
 
 vim.opt.cursorline = true
+
+
+-- define custom filetypes overrides
+vim.cmd([[
+  augroup ryodeushiiCustomTypes
+    au! BufRead,BufNewFile *.inc setfiletype c
+    au! BufRead,BufNewFile *.h setfiletype c
+    au! BufRead,BufNewFile *.c setfiletype c
+    au! BufRead,BufNewFile *.xstddef setfiletype c
+    au! BufRead,BufNewFile *.type_traits setfiletype c
+    au! BufRead,BufNewFile *.utility setfiletype c
+    au! BufRead,BufNewFile *.ranges setfiletype c
+  augroup END
+]])

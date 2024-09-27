@@ -145,6 +145,7 @@ return {
         },
 
       })
+
       lspconfig.eslint.setup({
         capabilities = capabilities,
         flags = { debounce_text_changes = 500 },
