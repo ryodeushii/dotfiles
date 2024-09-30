@@ -40,7 +40,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "rust_analyzer",
-          "tsserver",
+          "ts_ls",
           "gopls",
           "jsonls",
           "eslint",
@@ -127,7 +127,7 @@ return {
         },
       })
 
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = function(client)
           client.server_capabilities.documentFormattingProvider = false
