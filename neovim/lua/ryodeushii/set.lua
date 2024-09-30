@@ -58,3 +58,6 @@ vim.cmd([[
     au! BufRead,BufNewFile *.ranges setfiletype c
   augroup END
 ]])
+
+-- for hereterm to work properly
+vim.opt.hidden = true
