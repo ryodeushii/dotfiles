@@ -9,6 +9,12 @@ end
 
 return {
   {
+    "brenoprata10/nvim-highlight-colors",
+    config = function()
+      require("nvim-highlight-colors").setup {}
+    end,
+  },
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
@@ -34,36 +40,31 @@ return {
         },
         color_overrides = {
           mocha = {
-            rosewater = "#ffd7d9",
-            flamingo = "#ffb3b8",
-            pink = "#ff7eb6",
-            mauve = "#d4bbff",
-            red = "#fa4d56",
-            maroon = "#ff8389",
-
-            peach = "#ff832b",
-            yellow = "#fddc69",
-            green = "#42be65",
-            teal = "#3ddbd9",
-
-            sky = "#82cfff",
-
-            sapphire = "#78a9ff",
-            blue = "#4589ff",
-            lavender = "#be95ff",
-            text = "#f4f4f4",
-            subtext1 = "#e0e0e0",
-            subtext0 = "#c6c6c6",
-            overlay2 = "#a8a8a8",
-            overlay1 = "#8d8d8d",
-
+            rosewater = "#f5e0dc",
+            flamingo = "#f2cdcd",
+            pink = "#f5c2e7",
+            mauve = "#cba6f7",
+            red = "#f38ba8",
+            maroon = "#eba0ac",
+            peach = "#fab387",
+            yellow = "#f9e2af",
+            green = "#a6e3a1",
+            teal = "#94e2d5",
+            sky = "#89dceb",
+            sapphire = "#74c7ec",
+            blue = "#89b4fa",
+            lavender = "#b4befe",
+            text = "#cdd6f4",
+            subtext1 = "#bac2de",
+            subtext0 = "#a6adc8",
+            overlay2 = "#9399b2",
+            overlay1 = "#7f849c",
             overlay0 = "#6f6f6f",
             surface2 = "#525252",
             surface1 = "#393939",
             surface0 = "#262626",
             base = "#161616",
             mantle = "#0b0b0b",
-
             crust = "#000000"
           },
         },
@@ -77,5 +78,5 @@ return {
     opts = {
       terminal_colors = true,
     }
-}
+  }
 }
