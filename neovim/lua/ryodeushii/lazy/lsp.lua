@@ -203,5 +203,10 @@ return {
     config = function()
       require('ts-error-translator').setup()
     end
-  }
+  },
+  { 'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" }, config = function()
+    -- require("jenkinsfile_linter").validate()
+    -- this command is used to validate jenkinsfile
+    vim.cmd("command! JenkinsfileLinter lua require('jenkinsfile_linter').validate()")
+  end, }
 }
