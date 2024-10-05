@@ -40,7 +40,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "rust_analyzer",
-          "ts_ls",
+          "vtsls",
           "gopls",
           "jsonls",
           "eslint",
@@ -127,12 +127,15 @@ return {
         },
       })
 
-      lspconfig.ts_ls.setup({
+      lspconfig.vtsls.setup({
         capabilities = capabilities,
         on_attach = function(client)
           client.server_capabilities.documentFormattingProvider = false
         end,
-        root_dir = lspconfig.util.root_pattern ".git",
+        cmd = { "vtsls", "--stdio" },
+        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+        root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
+        single_file_support = true,
         settings = {
           typescript = {
             disableAutomaticTypingAcquisition = false,
