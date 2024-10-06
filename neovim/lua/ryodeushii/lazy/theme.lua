@@ -1,4 +1,5 @@
 function ApplyColorScheme(color)
+  -- used without arg as a workaround for markview
   color = color or "catppuccin"
 
   vim.cmd.colorscheme(color)

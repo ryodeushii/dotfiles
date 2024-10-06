@@ -49,5 +49,4 @@ autocmd('LspAttach', {
   end
 })
 
--- ApplyColorScheme("oldworld")
-ApplyColorScheme("catppuccin")
+ApplyColorScheme()

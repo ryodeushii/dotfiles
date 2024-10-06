@@ -56,6 +56,7 @@ vim.cmd([[
     au! BufRead,BufNewFile *.type_traits setfiletype c
     au! BufRead,BufNewFile *.utility setfiletype c
     au! BufRead,BufNewFile *.ranges setfiletype c
+    au! BufRead,BufNewFile *.mdx setfiletype markdown
   augroup END
 ]])
 

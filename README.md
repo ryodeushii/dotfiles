@@ -1,10 +1,10 @@
-## TODO
+# TODO
 
-- [x] setup neovim config
-- [x] setup tmux (borrow from original)
-- [x] setup bash (borrow from original)
-- [x] setup git (borrow from original)
-- [x] setup script(s) to manage dotfiles!!!
+- [X] setup neovim config
+- [X] setup tmux (borrow from original)
+- [X] setup bash (borrow from original)
+- [X] setup git (borrow from original)
+- [X] setup script(s) to manage dotfiles!!!
 
 
 ## REQUIREMENTS

@@ -6,7 +6,7 @@ return { {
       -- A list of parser names, or "all"
       ensure_installed = {
         "vimdoc", "javascript", "typescript", "lua", "rust", "go",
-        "jsdoc", "bash", "markdown", "markdown_inline"
+        "jsdoc", "bash", "markdown", "markdown_inline", "html",
       },
 
       -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -40,17 +40,6 @@ return { {
         branch = "master",
       },
     }
-
-    local autocmd = vim.api.nvim_create_autocmd
-    autocmd({
-      "BufNewFile", "BufRead",
-    }, {
-      pattern = { "*.mdx" },
-      callback = function()
-        local buf = vim.api.nvim_get_current_buf()
-        vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
-      end,
-    })
 
     vim.treesitter.language.register("templ", "templ")
   end
@@ -86,7 +75,7 @@ return { {
           },
           move = {
             enable = true,
-            set_jumps = true,             -- whether to set jumps in the jumplist
+            set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
               ["]m"] = "@function.outer",
               ["]]"] = "@class.outer",
