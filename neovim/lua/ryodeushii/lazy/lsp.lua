@@ -150,7 +150,7 @@ return {
             disableAutomaticTypingAcquisition = false,
             tsserver = {
               experimental = {
-                enableProjectDiagnostics = true,
+                -- enableProjectDiagnostics = true, -- FIXME: enable back after some time, vtsls bug in place
               },
             },
           },
