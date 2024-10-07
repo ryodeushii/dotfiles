@@ -48,7 +48,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "rust_analyzer",
-          "vtsls",
+          "ts_ls",
           "gopls",
           "jsonls",
           "eslint",
@@ -136,12 +136,11 @@ return {
         },
       })
 
-      lspconfig.vtsls.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = function(client)
           client.server_capabilities.documentFormattingProvider = false
         end,
-        cmd = { "vtsls", "--stdio" },
         filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
         root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
         single_file_support = true,
@@ -150,7 +149,7 @@ return {
             disableAutomaticTypingAcquisition = false,
             tsserver = {
               experimental = {
-                -- enableProjectDiagnostics = true, -- FIXME: enable back after some time, vtsls bug in place
+                enableProjectDiagnostics = true,
               },
             },
           },
