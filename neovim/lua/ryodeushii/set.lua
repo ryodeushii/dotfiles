@@ -62,3 +62,9 @@ vim.cmd([[
 
 -- for hereterm to work properly
 vim.opt.hidden = true
+
+vim.filetype.add({
+  extension = {
+    ['http'] = 'http',
+  },
+})
