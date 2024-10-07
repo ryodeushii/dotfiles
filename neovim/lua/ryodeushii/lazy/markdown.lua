@@ -19,7 +19,7 @@ return {
 
 
       require("markview").setup({
-        buf_ignore = { "nofile" },
+        buf_ignore = { "nofile", "json" },
         debounce = 50,
         filetypes = { "markdown", "quarto", "rmd" },
         hybrid_modes = nil,
