@@ -23,6 +23,14 @@ return {
       "hrsh7th/cmp-cmdline",
       "hrsh7th/nvim-cmp",
       "j-hui/fidget.nvim",
+      {
+        "David-Kunz/cmp-npm",
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        ft = "json",
+        config = function()
+          require('cmp-npm').setup({})
+        end
+      }
     },
 
     config = function()
@@ -94,6 +102,7 @@ return {
         sources = cmp.config.sources({
           { name = 'snp' },
           { name = 'nvim_lsp' },
+          { name = 'npm',     keyword_length = 4 },
         }, {
           { name = 'buffer' },
         })
@@ -207,9 +216,13 @@ return {
       require('ts-error-translator').setup()
     end
   },
-  { 'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" }, config = function()
-    -- require("jenkinsfile_linter").validate()
-    -- this command is used to validate jenkinsfile
-    vim.cmd("command! JenkinsfileLinter lua require('jenkinsfile_linter').validate()")
-  end, }
+  {
+    'ckipp01/nvim-jenkinsfile-linter',
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      -- require("jenkinsfile_linter").validate()
+      -- this command is used to validate jenkinsfile
+      vim.cmd("command! JenkinsfileLinter lua require('jenkinsfile_linter').validate()")
+    end,
+  }
 }
