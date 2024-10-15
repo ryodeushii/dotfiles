@@ -55,6 +55,8 @@
     # Remove file(s) from Git but not from disk
     untrack = rm --cache --
 
+    poh = push --force
+
 [diff]
     # Use better, descriptive initials (c, i, w) instead of a/b.
     mnemonicPrefix = true
