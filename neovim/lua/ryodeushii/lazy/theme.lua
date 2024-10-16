@@ -1,6 +1,7 @@
 function ApplyColorScheme(color)
   -- used without arg as a workaround for markview
-  color = color or "catppuccin"
+  -- color = color or "catppuccin"
+  color = color or "ryodeushii"
 
   vim.cmd.colorscheme(color)
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -79,5 +80,8 @@ return {
     opts = {
       terminal_colors = true,
     }
+  },
+  {
+    "tjdevries/colorbuddy.nvim",
   }
 }
