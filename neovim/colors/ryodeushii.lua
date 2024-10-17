@@ -30,21 +30,21 @@ local c = colorbuddy.colors
 local g = colorbuddy.groups
 local s = colorbuddy.styles
 
-Color.new('white', '#f2e5bc')
-Color.new('red', '#cc6666')
+Color.new('white', '#9da39d')
+Color.new('red', '#e06c75')
 Color.new('pink', '#fcdc65')
 Color.new('green', '#99cc99')
-Color.new('yellow', '#f8fe7a')
+Color.new('yellow', '#e5c07b')
 Color.new('blue', '#81a2be')
 Color.new('aqua', '#8ec07c')
-Color.new('cyan', '#8abeb7')
-Color.new('purple', '#8e6fbd')
-Color.new('violet', '#b294bb')
+Color.new('cyan', '#61afef')
+Color.new('purple', '#5e6fbd')
+Color.new('violet', '#c688dd')
 Color.new('orange', '#de935f')
-Color.new('brown', '#a3685a')
+Color.new('brown', '#be8a59')
 
-Color.new('seagreen', '#99cc99')
-Color.new('turquoise', '#43fa86')
+Color.new('turquoise', '#96c266')
+Color.new('seagreen', '#98c379')
 
 local background_string = "#111111"
 Color.new("background", background_string)

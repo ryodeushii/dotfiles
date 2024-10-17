@@ -1,7 +1,7 @@
 function ApplyColorScheme(color)
   -- used without arg as a workaround for markview
-  -- color = color or "catppuccin"
-  color = color or "ryodeushii"
+  color = color or "catppuccin"
+  -- color = color or "ryodeushii"
 
   vim.cmd.colorscheme(color)
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -46,15 +46,15 @@ return {
             flamingo = "#f2cdcd",
             pink = "#f5c2e7",
             mauve = "#cba6f7",
-            red = "#f38ba8",
+            red = "#e06c75",
             maroon = "#eba0ac",
             peach = "#fab387",
-            yellow = "#f9e2af",
-            green = "#a6e3a1",
-            teal = "#94e2d5",
+            yellow = "#e5c07b",
+            green = "#98c379",
+            teal = "#56b6c2",
             sky = "#89dceb",
             sapphire = "#74c7ec",
-            blue = "#89b4fa",
+            blue = "#61afef",
             lavender = "#b4befe",
             text = "#cdd6f4",
             subtext1 = "#bac2de",
