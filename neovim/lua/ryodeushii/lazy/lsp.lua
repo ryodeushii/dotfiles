@@ -1,5 +1,48 @@
 return {
   {
+    'saghen/blink.cmp',
+    lazy = false, -- lazy loading handled internally
+    -- optional: provides snippets for the snippet source
+    dependencies = 'rafamadriz/friendly-snippets',
+    version = 'v0.*',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      highlight = {
+        -- sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- useful for when your theme doesn't support blink.cmp
+        -- will be removed in a future release, assuming themes add support
+        use_nvim_cmp_as_default = true,
+      },
+      -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+      -- adjusts spacing to ensure icons are aligned
+      nerd_font_variant = 'normal',
+
+      -- experimental auto-brackets support
+      -- accept = { auto_brackets = { enabled = true } }
+
+      -- experimental signature help support
+      -- trigger = { signature_help = { enabled = true } }
+    },
+    keymap = {
+      show = '<C-space>',
+      hide = '<C-e>',
+      accept = { '<Tab>', '<C-y>' },
+      select_and_accept = '',
+      select_prev = { '<Up>', '<C-p>' },
+      select_next = { '<Down>', '<C-n>' },
+
+      show_documentation = '<C-space>',
+      hide_documentation = '<C-space>',
+      scroll_documentation_up = '',
+      scroll_documentation_down = '',
+
+      snippet_forward = '<Tab>',
+      snippet_backward = '<S-Tab>',
+    },
+
+  },
+  {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     after = "mason.nvim",
     config = function()
@@ -17,30 +60,14 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/nvim-cmp",
       "j-hui/fidget.nvim",
-      {
-        "David-Kunz/cmp-npm",
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        ft = "json",
-        config = function()
-          require('cmp-npm').setup({})
-        end
-      }
     },
-
     config = function()
-      local cmp = require('cmp')
-      local cmp_lsp = require("cmp_nvim_lsp")
       local capabilities = vim.tbl_deep_extend(
         "force",
         {},
-        vim.lsp.protocol.make_client_capabilities(),
-        cmp_lsp.default_capabilities())
+        vim.lsp.protocol.make_client_capabilities()
+      )
 
       require("fidget").setup({})
       require("mason").setup()
@@ -57,6 +84,9 @@ return {
           "bashls",
           "ast_grep",
           "yamlls",
+          "dockerls",
+          "pylsp",
+          "csharp_ls",
           -- "prettierd",
           -- "prettier",
           -- "shfmt",
@@ -79,15 +109,15 @@ return {
                   },
                   schemas = {
                     kubernetes = "*.yaml",
-                    ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-                    ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-                    ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-                    ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-                    ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+                    ["http://json.schemastore.org/github-workflow.json"] = ".github/workflows/*",
+                    ["https://json.schemastore.org/github-action.json"] = ".github/action.{yml,yaml}",
+                    ["https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks"] = "roles/tasks/*.{yml,yaml}",
+                    ["https://json.schemastore.org/prettierrc.json"] = ".prettierrc.{yml,yaml}",
+                    ["http://json.schemastore.org/kustomization.json"] = "kustomization.{yml,yaml}",
                     ["https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook"] = "*play*.{yml,yaml}",
                     ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
                     ["https://json.schemastore.org/dependabot-2.0"] = ".github/dependabot.{yml,yaml}",
-                    ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+                    ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "*gitlab-ci*.{yml,yaml}",
                     ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
                     ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-{compose,stack}*.{yml,yaml}",
                     ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
@@ -113,30 +143,6 @@ return {
             }
           end,
         }
-      })
-
-      local cmp_select = { behavior = cmp.SelectBehavior.Select }
-      require("ryodeushii.snippets").register_cmp_source()
-      cmp.setup({
-        -- TODO: setup native nvim snippets
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-          ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-          ["<C-Space>"] = cmp.mapping.complete(),
-        }),
-        sources = cmp.config.sources({
-          { name = 'snp' },
-          { name = 'nvim_lsp' },
-          { name = 'npm',     keyword_length = 4 },
-        }, {
-          { name = 'buffer' },
-        })
       })
 
       vim.diagnostic.config({
@@ -214,30 +220,6 @@ return {
     "windwp/nvim-projectconfig",
     config = function()
       require('nvim-projectconfig').setup()
-    end,
-  },
-  {
-    "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    config = function()
-      require("crates").setup({
-        lsp = {
-          enabled = true,
-          name = "crates.nvim",
-          actions = true,
-          completion = true,
-          hover = true,
-        },
-
-      })
-      local cmp = require("cmp")
-      vim.api.nvim_create_autocmd("BufRead", {
-        group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
-        pattern = "Cargo.toml",
-        callback = function()
-          cmp.setup.buffer({ sources = { { name = "crates" } } })
-        end,
-      })
     end,
   },
   {
