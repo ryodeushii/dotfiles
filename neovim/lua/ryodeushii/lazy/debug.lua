@@ -139,9 +139,10 @@ return {
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
-    after = "nvim-dap",
+    before = "nvim-dap",
     config = function()
       require("mason-nvim-dap").setup({
+        force = true,
         ensure_installed = {
           "codelldb",
           "delve",
