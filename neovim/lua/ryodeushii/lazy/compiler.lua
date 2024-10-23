@@ -21,7 +21,7 @@ return {
   },
   { -- The task runner we use
     "stevearc/overseer.nvim",
-    commit = "68a2d344cea4a2e11acfb5690dc8ecd1a1ec0ce0",
+    commit = "6f8bc37eb729a00e185cdf38b1ed3309a05bfeef",
 
     cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
     opts = {
