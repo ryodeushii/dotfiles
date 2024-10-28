@@ -95,9 +95,6 @@ return {
 
       require("markview.extras.headings").setup()
 
-
-      ApplyColorScheme()
-
       vim.keymap.set("n", "<leader>mhh", "<cmd>HeadingDecrease<CR>", { noremap = true, silent = true })
       vim.keymap.set("n", "<leader>mhl", "<cmd>HeadingIncrease<CR>", { noremap = true, silent = true })
       vim.keymap.set("n", "<leader>mcc", "<cmd>CheckboxToggle<CR>", { noremap = true, silent = true })
