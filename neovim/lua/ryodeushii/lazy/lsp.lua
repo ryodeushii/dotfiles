@@ -3,10 +3,10 @@ return {
     'saghen/blink.cmp',
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
-    dependencies = 'rafamadriz/friendly-snippets',
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+    },
     version = 'v0.*',
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
     opts = {
       highlight = {
         use_nvim_cmp_as_default = true,
@@ -30,7 +30,19 @@ return {
       snippet_forward = '<Tab>',
       snippet_backward = '<S-Tab>',
     },
+    config = function()
+      local opts = {
+        completion = {
+          enabled_providers = { "lsp", "path", "snippets", "buffer" },
+        },
+        highlight = {
+          use_nvim_cmp_as_default = true,
+        },
+        nerd_font_variant = 'normal',
 
+      }
+      require("blink.cmp").setup(opts)
+    end,
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
