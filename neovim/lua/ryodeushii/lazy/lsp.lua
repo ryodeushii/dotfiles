@@ -9,20 +9,10 @@ return {
     ---@type blink.cmp.Config
     opts = {
       highlight = {
-        -- sets the fallback highlight groups to nvim-cmp's highlight groups
-        -- useful for when your theme doesn't support blink.cmp
-        -- will be removed in a future release, assuming themes add support
         use_nvim_cmp_as_default = true,
       },
-      -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-      -- adjusts spacing to ensure icons are aligned
       nerd_font_variant = 'normal',
 
-      -- experimental auto-brackets support
-      -- accept = { auto_brackets = { enabled = true } }
-
-      -- experimental signature help support
-      -- trigger = { signature_help = { enabled = true } }
     },
     keymap = {
       show = '<C-space>',
@@ -87,9 +77,6 @@ return {
           "dockerls",
           "pylsp",
           "csharp_ls",
-          -- "prettierd",
-          -- "prettier",
-          -- "shfmt",
         },
         handlers = {
           function(server_name) -- default handler (optional)
@@ -200,27 +187,10 @@ return {
 
         on_attach = function(client, bufnr)
           client.server_capabilities.documentFormattingProvider = true
-          -- if client.server_capabilities.documentFormattingProvider then
-          --     local au_lsp = vim.api.nvim_create_augroup("eslint_lsp", { clear = true })
-          --     vim.api.nvim_create_autocmd("BufWritePre", {
-          --         pattern = "*",
-          --         callback = function()
-          --             vim.lsp.buf.format({ async = true })
-          --         end,
-          --         group = au_lsp,
-          --
-          --     })
-          -- end
         end,
 
       })
     end
-  },
-  {
-    "windwp/nvim-projectconfig",
-    config = function()
-      require('nvim-projectconfig').setup()
-    end,
   },
   {
     'dmmulroy/ts-error-translator.nvim',
