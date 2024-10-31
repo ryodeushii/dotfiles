@@ -19,7 +19,7 @@ return {
 
 
       require("markview").setup({
-        buf_ignore = { "nofile", "json" },
+        buf_ignore = { "nofile", "json", "lua" },
         debounce = 50,
         filetypes = { "markdown", "quarto", "rmd" },
         hybrid_modes = nil,
@@ -95,10 +95,14 @@ return {
 
       require("markview.extras.headings").setup()
 
-      vim.keymap.set("n", "<leader>mhh", "<cmd>HeadingDecrease<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>mhl", "<cmd>HeadingIncrease<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>mcc", "<cmd>CheckboxToggle<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>mcm", "<cmd>CheckboxNext<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>mhh", "<cmd>HeadingDecrease<CR>",
+        { noremap = true, silent = true, desc = "Decrease heading" })
+      vim.keymap.set("n", "<leader>mhl", "<cmd>HeadingIncrease<CR>",
+        { noremap = true, silent = true, desc = "Increase heading" })
+      vim.keymap.set("n", "<leader>mcc", "<cmd>CheckboxToggle<CR>",
+        { noremap = true, silent = true, desc = "Toggle checkbox" })
+      vim.keymap.set("n", "<leader>mcm", "<cmd>CheckboxNext<CR>",
+        { noremap = true, silent = true, desc = "Next checkbox" })
     end,
   }
 }
