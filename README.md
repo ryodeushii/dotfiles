@@ -9,10 +9,8 @@
 
 ## REQUIREMENTS
 
-1. install lua5.1 and remove higher lua versions (5.4, etc)
-2. install liblua5.1-dev or liblua5.1-0-dev headers so that neovim can compile lua plugins
-
-
+1. install lua5.1 and remove higher lua versions (5.4, etc.) <!-- spellwarn:disable-line -->
+2. install liblua5.1-dev or liblua5.1-0-dev headers so that neovim can compile lua plugins <!-- spellwarn:disable-line -->
 
 
 ## Install
@@ -24,5 +22,4 @@ cd <this repo>
 # or
 ./dev -w # for work setup
 ```
-
 

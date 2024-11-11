@@ -1,3 +1,4 @@
+-- call this function to apply a color scheme in any module
 function ApplyColorScheme(color)
   color = color or "rose-pine"
 
@@ -10,6 +11,8 @@ end
 return {
   {
     "rose-pine/neovim",
+    priority = 999,
+    lazy = false,
     name = "rose-pine",
     config = function()
       require('rose-pine').setup({
