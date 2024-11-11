@@ -1,2 +1,4 @@
 tmux/plugins
 bash/bash_vars.sh
+*/*.kdl.bak
+*/*.kdl.bak*
