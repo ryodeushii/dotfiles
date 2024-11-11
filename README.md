@@ -11,3 +11,18 @@
 
 1. install lua5.1 and remove higher lua versions (5.4, etc)
 2. install liblua5.1-dev or liblua5.1-0-dev headers so that neovim can compile lua plugins
+
+
+
+
+## Install
+
+```bash
+git clone <this repo>
+cd <this repo>
+./dev -p # for personal setup
+# or
+./dev -w # for work setup
+```
+
+
