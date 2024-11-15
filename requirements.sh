@@ -62,16 +62,6 @@ if ! command -v tree-sitter &>/dev/null; then
     fi
 fi
 
-if ! command -v zellij &>/dev/null; then
-    echo "Install zellij"
-    cargo install --locked zellij
-fi
-
-if ! command -v sk &>/dev/null; then
-    echo "Install sk"
-    cargo install --locked skim
-fi
-
 # install delta diff tool if not found
 if ! command -v delta &>/dev/null; then
     echo "Install delta"

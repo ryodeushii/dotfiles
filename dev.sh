@@ -107,11 +107,6 @@ fi
 ln -s $(pwd)/git/.$config.gitconfig ~/.user.gitconfig
 ln -s $(pwd)/git/gitconfig ~/.gitconfig
 
-if [ -d ~/.config/zellij ]; then
-rm -rf ~/.config/zellij
-fi
-ln -s $(pwd)/zellij ~/.config/zellij
-
 if [ $config == "personal" ]; then
     echo "Copy gpg config to fix signing issue in neovim"
     if [ -f ~/.gnupg/gpg.conf ]; then
