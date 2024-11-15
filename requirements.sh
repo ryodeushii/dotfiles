@@ -1,7 +1,6 @@
 #!/bin/bash
 
-goversion=1.22.2.linux-amd64
-
+goversion=1.23.3.linux-amd64
 
 if ! command -v proto &>/dev/null; then
     echo "Install moonrepos's proto cli for toolchain management"
@@ -9,55 +8,58 @@ if ! command -v proto &>/dev/null; then
 fi
 
 if ! command -v cargo &>/dev/null; then
-	echo "Install rust"
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    echo "Install rust"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
 if ! command -v go &>/dev/null; then
-	echo "Install golang from website"
-	wget -c https://go.dev/dl/go$goversion.tar.gz
-	sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go$goversion.tar.gz
-	rm go$goversion.tar.gz
+    echo "Install golang from website"
+    wget -c https://go.dev/dl/go$goversion.tar.gz
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go$goversion.tar.gz
+    rm go$goversion.tar.gz
 fi
 
 if ! command -v node &>/dev/null; then
-	echo "Install NVM, node not found"
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-	node_version=$(nvm ls-remote | tail -n 1)
-	nvm install $node_version
-	nvm alias default $node_version
+    echo "Install NVM, node not found"
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    node_version=$(nvm ls-remote | tail -n 1)
+    nvm install $node_version
+    nvm alias default $node_version
 fi
 
 if ! command -v zoxide &>/dev/null; then
-	echo "Install zoxide"
-	cargo install zoxide --locked
+    echo "Install zoxide"
+    cargo install zoxide --locked
 fi
 
 if ! command -v bat &>/dev/null; then
-	echo "Install bat"
-	cargo install bat --locked
+    echo "Install bat"
+    cargo install bat --locked
 fi
 
 if ! command -v fzf &>/dev/null; then
-	echo "Install fzf"
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install
+    echo "Install fzf"
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
 fi
 
+if ! command -v sesh &>/dev/null; then
+    go install github.com/joshmedeski/sesh@latest
+fi
 
 # if there is cargo - install tree-sitter-cli with cargo
 # else if there is npm - install tree-sitter-cli with npm
 # else - exit with error
 if ! command -v tree-sitter &>/dev/null; then
-	echo "Install tree-sitter-cli"
-	if command -v cargo &>/dev/null; then
-	    cargo install tree-sitter-cli
-	elif command -v npm &>/dev/null; then
-	    npm install -g tree-sitter-cli
-	else
-	    echo "No package manager found"
-	    exit 1
-	fi
+    echo "Install tree-sitter-cli"
+    if command -v cargo &>/dev/null; then
+        cargo install tree-sitter-cli
+    elif command -v npm &>/dev/null; then
+        npm install -g tree-sitter-cli
+    else
+        echo "No package manager found"
+        exit 1
+    fi
 fi
 
 if ! command -v zellij &>/dev/null; then
@@ -70,16 +72,8 @@ if ! command -v sk &>/dev/null; then
     cargo install --locked skim
 fi
 
-
 # install delta diff tool if not found
 if ! command -v delta &>/dev/null; then
     echo "Install delta"
     cargo install git-delta
 fi
-
-#
-# # install oxlint cli if not found
-# if ! command -v oxlint &>/dev/null; then
-#     echo "Install oxlint"
-#     npm i -g oxlint
-# fi

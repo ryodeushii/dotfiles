@@ -165,4 +165,3 @@ export GPG_TTY=$(tty)
 # proto
 export PROTO_HOME="$HOME/.proto";
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
-eval "$(zellij setup --generate-auto-start bash)"
