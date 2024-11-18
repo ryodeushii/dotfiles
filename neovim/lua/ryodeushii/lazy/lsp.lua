@@ -8,41 +8,31 @@ return {
     },
     version = 'v0.*',
     opts = {
+      opts_extend = { "sources.completion.enabled_providers" },
       highlight = {
+        ns = vim.api.nvim_create_namespace('blink_cmp'),
         use_nvim_cmp_as_default = true,
       },
       nerd_font_variant = 'normal',
-
-    },
-    keymap = {
-      show = '<C-space>',
-      hide = '<C-e>',
-      accept = { '<Tab>', '<C-y>' },
-      select_and_accept = '',
-      select_prev = { '<Up>', '<C-p>' },
-      select_next = { '<Down>', '<C-n>' },
-
-      show_documentation = '<C-space>',
-      hide_documentation = '<C-space>',
-      scroll_documentation_up = '',
-      scroll_documentation_down = '',
-
-      snippet_forward = '<Tab>',
-      snippet_backward = '<S-Tab>',
-    },
-    config = function()
-      local opts = {
-        completion = {
-          enabled_providers = { "lsp", "path", "snippets", "buffer" },
+      keymap = { preset = "default" },
+      completion = {
+        enabled_providers = { "lsp", "path", "snippets", "buffer" },
+      },
+      trigger = {
+        signature_help = {
+          enabled = true,
+        }
+      },
+      windows = {
+        max_height = 10,
+        documentation = {
+          auto_show = true,
         },
-        highlight = {
-          use_nvim_cmp_as_default = true,
-        },
-        nerd_font_variant = 'normal',
-
+        ghost_text = {
+          enable = true,
+        }
       }
-      require("blink.cmp").setup(opts)
-    end,
+    },
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -64,7 +54,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "j-hui/fidget.nvim",
     },
-    config = function()
+    config = function(_, opts)
       local capabilities = vim.tbl_deep_extend(
         "force",
         {},
@@ -177,7 +167,7 @@ return {
           focusable = false,
           style = "minimal",
           border = "rounded",
-          source = "always",
+          source = true,
           header = "",
           prefix = "",
         },
@@ -229,6 +219,10 @@ return {
         end,
 
       })
+      for server, config in pairs(opts.servers or {}) do
+        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
     end
   },
   {
