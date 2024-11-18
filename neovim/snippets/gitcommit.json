@@ -25,23 +25,23 @@
     },
     "docs conventional commit": {
         "prefix": "docs",
-        "body": ["docs(${1:scope}): :books: ${2:title}", "", "$0"]
+        "body": ["docs(${1:scope}): :memo: ${2:title}", "", "$0"]
     },
     "style conventional commit": {
         "prefix": "style",
-        "body": ["style(${1:scope}): :gem: ${2:title}", "", "$0"]
+        "body": ["style(${1:scope}): :lipstick: ${2:title}", "", "$0"]
     },
     "refactor conventional commit": {
         "prefix": "refactor",
-        "body": ["refactor(${1:scope}): :hammer: ${2:title}", "", "$0"]
+        "body": ["refactor(${1:scope}): :recycle: ${2:title}", "", "$0"]
     },
     "perf conventional commit": {
         "prefix": "perf",
-        "body": ["perf(${1:scope}): :rocket: ${2:title}", "", "$0"]
+        "body": ["perf(${1:scope}): :zap: ${2:title}", "", "$0"]
     },
     "test conventional commit": {
         "prefix": "test",
-        "body": ["test(${1:scope}): :rotating_light: ${2:title}", "", "$0"]
+        "body": ["test(${1:scope}): :white_check_mark: ${2:title}", "", "$0"]
     },
     "breaking change conventional commit footer": {
         "prefix": "BREAK",
