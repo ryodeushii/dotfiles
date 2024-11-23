@@ -14,3 +14,16 @@ vim.keymap.set(
     buffer = 0, desc = "[Golang] Debug test"
   }
 )
+
+if not vim.fn.executable("golangci-lint") then
+  error("golangci-lint not installed")
+end
+
+
+vim.api.nvim_command("command! GolangciLintFix !golangci-lint run --fix")
+vim.keymap.set(
+  "n",
+  "<leader>lf",
+  "<cmd>silent! GolangciLintFix<CR>",
+  { silent = true, desc = "Run golangci-lint with fix" }
+)

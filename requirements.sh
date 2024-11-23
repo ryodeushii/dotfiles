@@ -67,3 +67,16 @@ if ! command -v delta &>/dev/null; then
     echo "Install delta"
     cargo install git-delta
 fi
+
+if ! command -v golangci-lint &>/dev/null; then
+    echo "Install golangci-lint"
+    go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+fi
+
+if ! command -v gh &>/dev/null; then
+    echo "Install gh"
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+    sudo apt-add-repository https://cli.github.com/packages
+    sudo apt update
+    sudo apt install gh
+fi

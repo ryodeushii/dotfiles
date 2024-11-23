@@ -152,21 +152,6 @@ return {
     end,
   },
   {
-    "rcarriga/cmp-dap",
-    dependencies = { "nvim-cmp" },
-    after = "nvim-dap",
-    config = function()
-      require("cmp").setup.filetype(
-        { "dap-repl", "dapui_watches", "dapui_hover" },
-        {
-          sources = {
-            { name = "dap" },
-          },
-        }
-      )
-    end,
-  },
-  {
     "mfussenegger/nvim-dap",
     config = function()
       -- replace B sign of breakpoint with red square

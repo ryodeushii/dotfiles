@@ -6,32 +6,19 @@ return {
     dependencies = {
       'rafamadriz/friendly-snippets',
     },
-    version = 'v0.*',
+    version = 'v0.5.1',
+    opts_extend = { "sources.completion.enabled_providers" },
     opts = {
-      opts_extend = { "sources.completion.enabled_providers" },
       highlight = {
         ns = vim.api.nvim_create_namespace('blink_cmp'),
         use_nvim_cmp_as_default = true,
       },
-      nerd_font_variant = 'normal',
-      keymap = { preset = "default" },
       completion = {
         enabled_providers = { "lsp", "path", "snippets", "buffer" },
       },
-      trigger = {
-        signature_help = {
-          enabled = true,
-        }
-      },
-      windows = {
-        max_height = 10,
-        documentation = {
-          auto_show = true,
-        },
-        ghost_text = {
-          enable = true,
-        }
-      }
+      nerd_font_variant = 'normal',
+      keymap = { preset = "default" },
+      trigger = { signature_help = { enabled = false } },
     },
   },
   {
@@ -53,6 +40,7 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "j-hui/fidget.nvim",
+      "saghen/blink.cmp",
     },
     config = function(_, opts)
       local capabilities = vim.tbl_deep_extend(
@@ -79,6 +67,7 @@ return {
           "dockerls",
           "pylsp",
           "csharp_ls",
+          "golangci_lint_ls"
         },
         handlers = {
           function(server_name) -- default handler (optional)
@@ -87,6 +76,19 @@ return {
             }
           end,
 
+          ["golangci_lint_ls"] = function()
+            local lspconfig = require("lspconfig")
+            lspconfig.golangci_lint_ls.setup {
+              capabilities = capabilities,
+              cmd = { "golangci-lint-langserver" },
+              filetypes = { "go" },
+              root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+              init_options = {
+                -- command = { "golangci-lint", "run", "--issues-exit-code=1",  },
+                command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
+              },
+            }
+          end,
           ["yamlls"] = function()
             local lspconfig = require("lspconfig")
             lspconfig.yamlls.setup {
@@ -110,6 +112,7 @@ return {
                     ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
                     ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-{compose,stack}*.{yml,yaml}",
                     ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
+                    ["https://golangci-lint.run/jsonschema/golangci.jsonschema.json"] = ".golangci.{yml,yaml}"
                   }
                 }
               }
@@ -228,7 +231,9 @@ return {
   {
     'dmmulroy/ts-error-translator.nvim',
     config = function()
-      require('ts-error-translator').setup()
+      require('ts-error-translator').setup({
+        filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+      })
     end
   },
   {
