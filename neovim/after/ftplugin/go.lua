@@ -24,6 +24,7 @@ vim.api.nvim_command("command! GolangciLintFix !golangci-lint run --fix")
 vim.keymap.set(
   "n",
   "<leader>lf",
-  "<cmd>silent! GolangciLintFix<CR>",
+  -- "<cmd>silent! GolangciLintFix<CR>",
+  "<cmd>GolangciLintFix<CR>",
   { silent = true, desc = "Run golangci-lint with fix" }
 )
