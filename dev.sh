@@ -9,17 +9,15 @@
 config=""
 
 function usage() {
-  echo "Usage: $0 [-p] [-w]"
-  echo "  -p  Use personal config"
-  echo "  -w  Use work config"
-  echo "  -h  Show usage"
-  echo
+    echo "Usage: $0 [-p] [-w]"
+    echo "  -p  Use personal config"
+    echo "  -w  Use work config"
+    echo "  -h  Show usage"
+    echo
 }
 
-
-
 while getopts ":pwh" opt; do
-  case ${opt} in
+    case ${opt} in
     p)
         echo "Personal config selected"
         config="personal"
@@ -30,7 +28,10 @@ while getopts ":pwh" opt; do
         config="work"
         break
         ;;
-    h)  usage; exit 0 ;;
+    h)
+        usage
+        exit 0
+        ;;
     *)
         echo "You need to specify a flag to indicate if you want to use personal or work config"
         exit 1
@@ -39,20 +40,17 @@ while getopts ":pwh" opt; do
         echo "Invalid option: -${OPTARG}"
         usage
         ;;
-  esac
+    esac
 done
 
 for arg in config; do
-  if [[ -z "${!arg}" ]]; then
-    echo "You need to specify a flag to indicate if you want to use personal or work config"
-    echo
-    usage
-    exit 1
-  fi
+    if [[ -z "${!arg}" ]]; then
+        echo "You need to specify a flag to indicate if you want to use personal or work config"
+        echo
+        usage
+        exit 1
+    fi
 done
-
-
-
 
 # This script is used to run the development environment for the project.
 ./requirements.sh
@@ -80,32 +78,39 @@ rm -rf ~/.bash_config
 ln -s $(pwd)/bash/bash_config.sh ~/.bash_config
 
 if [ -f ./bash/bash_vars.sh ]; then
-    rm  -rf ~/.bash_vars
+    rm -rf ~/.bash_vars
     ln -s $(pwd)/bash/bash_vars.sh ~/.bash_vars
 fi
 rm -rf ~/.bash_aliases
 ln -s $(pwd)/bash/bash_aliases.sh ~/.bash_aliases
 
 if [ -f ~/.bashrc ]; then
-mv ~/.bashrc ~/.bashrc.bak
-ln -s $(pwd)/bash/bashrc.sh ~/.bashrc
+    mv ~/.bashrc ~/.bashrc.bak
+    ln -s $(pwd)/bash/bashrc.sh ~/.bashrc
 fi
 
 echo "GIT..."
 # if no .gitconfig.bak then backup
 if [ -f ~/.gitconfig ]; then
-[ -f ~/.gitconfig.bak ] ||mv ~/.gitconfig ~/.gitconfig.bak
+    [ -f ~/.gitconfig.bak ] || mv ~/.gitconfig ~/.gitconfig.bak
 
-# if work config is selected then replace include path in gitconfig with work config
-# if personal config is selected then replace include path in gitconfig with personal config
-rm ~/.gitconfig
+    # if work config is selected then replace include path in gitconfig with work config
+    # if personal config is selected then replace include path in gitconfig with personal config
+    rm ~/.gitconfig
 fi
 
 if [ -f ~/.user.gitconfig ]; then
-rm ~/.user.gitconfig
+    rm ~/.user.gitconfig
 fi
 ln -s $(pwd)/git/.$config.gitconfig ~/.user.gitconfig
 ln -s $(pwd)/git/gitconfig ~/.gitconfig
+
+if [ -d ~/.config/lazygit ]; then
+    rm -rf ~/.config/lazygit
+fi
+
+mkdir -p ~/.config/lazygit
+ln -s $(pwd)/lazygit.config.yml ~/.config/lazygit/config.yml
 
 if [ $config == "personal" ]; then
     echo "Copy gpg config to fix signing issue in neovim"

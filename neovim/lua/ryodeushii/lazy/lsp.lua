@@ -18,7 +18,7 @@ return {
       },
       nerd_font_variant = 'normal',
       keymap = { preset = "default" },
-      trigger = { signature_help = { enabled = false } },
+      trigger = { signature_help = { enabled = true } },
     },
   },
   {

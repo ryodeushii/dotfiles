@@ -80,3 +80,9 @@ if ! command -v gh &>/dev/null; then
     sudo apt update
     sudo apt install gh
 fi
+
+if ! command -v lazygit &>/dev/null; then
+    echo "Install lazygit"
+    go install github.com/jesseduffield/lazygit@latest
+fi
+
