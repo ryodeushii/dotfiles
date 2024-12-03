@@ -1,21 +1,19 @@
 return {
-  "phaazon/hop.nvim",
-  branch = "v2",
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    config = function()
+      ---@type Flash.Config
+      local opts = {}
+      local flash = require("flash")
+      flash.setup(opts)
 
-  config = function()
-    local hop = require("hop")
-
-    hop.setup({
-      keys = 'etovxqpdygfblzhckisuran',
-      current_line_only = false,
-    })
-
-    vim.keymap.set('', '<leader><leader>e', function()
-      vim.cmd("HopWord")
-    end, { remap = true })
-    vim.keymap.set('', '<leader><leader>/', function()
-      vim.cmd("HopPattern")
-    end, { remap = true })
-  end,
-
+      vim.keymap.set({ "v", "n", "x" }, "<leader><leader>e", function() flash.jump() end, { desc = "Flash" })
+      vim.keymap.set({ "v", "n", "x" }, "s", function() flash.jump() end, { desc = "Flash" })
+      vim.keymap.set({ "v", "n", "x" }, "<leader><leader>/", function() flash.toggle() end, { desc = "Toggle Flash Search" })
+      vim.keymap.set({ "v", "n", "x" }, "S", function() flash.treesitter() end, { desc = "Flash Treesitter" })
+      vim.keymap.set({ "v", "n", "x" }, "R", function() flash.treesitter_search() end, { desc = "Treesitter Search" })
+      vim.keymap.set({ "o" }, "r", function() flash.remote() end, { desc = "Remote Flash" })
+    end,
+  }
 }
