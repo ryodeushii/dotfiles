@@ -121,3 +121,9 @@ if [ $config == "personal" ]; then
 
     ln -s $(pwd)/gpg.conf ~/.gnupg/gpg.conf
 fi
+
+echo "Running neovim lazy sync & cleanup"
+nvim --headless +"Lazy sync" +"Lazy clean" +qall
+
+echo "Install plugins for tmux"
+~/.tmux/plugins/tpm/scripts/install_plugins.sh
