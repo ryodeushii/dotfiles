@@ -102,7 +102,6 @@ plugins=(
   git
   bashmarks
   npm
-  nvm
   sudo
 )
 
@@ -144,10 +143,6 @@ export EDITOR='nvim'
 eval "$(zoxide init bash)"
 
 export PATH=~/.local/bin:"$PATH"
-# setup NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # setup go
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/go/bin
@@ -165,3 +160,5 @@ export GPG_TTY=$(tty)
 # proto
 export PROTO_HOME="$HOME/.proto";
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
+eval "$(proto activate bash -c global)"
+
