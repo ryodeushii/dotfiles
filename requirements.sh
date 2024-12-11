@@ -86,3 +86,7 @@ if ! command -v lazygit &>/dev/null; then
     go install github.com/jesseduffield/lazygit@latest
 fi
 
+if ! command -v slides &>/dev/null; then
+    echo "Install slides"
+    go install github.com/maaslalani/slides@latest
+fi

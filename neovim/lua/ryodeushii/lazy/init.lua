@@ -9,5 +9,4 @@ return {
     name = "plenary",
     after = "luarocks.nvim",
   },
-  "gpanders/editorconfig.nvim",
 }
