@@ -176,6 +176,9 @@ return {
         },
       })
 
+            -- diagnostics to qflist
+     vim.keymap.set({"n","v"}, "<C-q>","<cmd>lua vim.diagnostic.setqflist()<CR>" , { silent = true })
+
 
       local lspconfig = require("lspconfig")
 
@@ -217,7 +220,7 @@ return {
         capabilities = capabilities,
         flags = { debounce_text_changes = 500 },
 
-        on_attach = function(client, bufnr)
+        on_attach = function(client)
           client.server_capabilities.documentFormattingProvider = true
         end,
 
