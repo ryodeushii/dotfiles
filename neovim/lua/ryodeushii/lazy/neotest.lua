@@ -6,21 +6,21 @@ return {
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
       "rouge8/neotest-rust",
-      "nvim-neotest/neotest-go",
-      "nvim-neotest/neotest-jest",
+      "fredrikaverpil/neotest-golang",
+      "rcasia/neotest-bash",
+      { "fredrikaverpil/neotest-golang", version = "*" },       -- Installation
       "nvim-neotest/neotest-plenary",
+      "nvim-neotest/neotest-jest",
+      "marilari88/neotest-vitest",
       "nvim-neotest/nvim-nio",
     },
     config = function()
       local neotest = require("neotest")
       neotest.setup({
         adapters = {
-          require("neotest-go") {
-            experimental = {
-              test_table = true,
-            },
-            args = { "-count=1", "-timeout=60s" },
-          },
+          require("neotest-golang"),
+          require("neotest-bash"),
+          require("neotest-vitest"),
           require("neotest-rust") {
             args = { "--no-capture" },
             dap_adapter = "lldb"
@@ -34,7 +34,6 @@ return {
             jestConfigFile = '',
             jest_test_discovery = false,
           }),
-          require("neotest-go"),
           require("neotest-plenary")
         }
       })
@@ -45,14 +44,6 @@ return {
 
       vim.keymap.set("n", "<leader>tf", function()
         neotest.run.run(vim.fn.expand("%"))
-      end)
-
-      vim.keymap.set("n", "<leader>dt", function()
-        neotest.run.run({ strategy = "dap" })
-      end)
-
-      vim.keymap.set("n", "<leader>ta", function()
-        neotest.run.attach()
       end)
     end,
   },

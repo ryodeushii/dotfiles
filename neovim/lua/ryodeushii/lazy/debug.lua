@@ -146,7 +146,6 @@ return {
                 ensure_installed = {
                     "codelldb",
                     "delve",
-                    "bash",
                 }
             })
         end,

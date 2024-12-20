@@ -1,3 +1,8 @@
+require("kulala").setup({
+  split_direction = "vertical",
+  default_view = "headers_body",
+})
+
 vim.api.nvim_buf_set_keymap(
   0,
   "n",

@@ -2,12 +2,6 @@
 return {
   {
     'mistweaverco/kulala.nvim',
-    opts   = {},
-    config = function()
-      require("kulala").setup({
-        split_direction = "vertical",
-        default_view = "headers_body",
-      })
-    end
+    lazy = true,
   },
 }
