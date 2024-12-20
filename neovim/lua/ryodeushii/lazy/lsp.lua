@@ -176,8 +176,8 @@ return {
         },
       })
 
-            -- diagnostics to qflist
-     vim.keymap.set({"n","v"}, "<C-q>","<cmd>lua vim.diagnostic.setqflist()<CR>" , { silent = true })
+      -- diagnostics to qflist
+      vim.keymap.set({ "n", "v" }, "<C-q>", "<cmd>lua vim.diagnostic.setqflist()<CR>", { silent = true })
 
 
       local lspconfig = require("lspconfig")
@@ -225,6 +225,15 @@ return {
         end,
 
       })
+
+      lspconfig.rust_analyzer.setup({
+        root_dir = lspconfig.util.root_pattern('Cargo.toml'),
+        capabilities = capabilities,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = true
+        end,
+      })
+
       for server, config in pairs(opts.servers or {}) do
         config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
         lspconfig[server].setup(config)
