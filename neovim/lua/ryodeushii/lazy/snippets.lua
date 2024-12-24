@@ -75,20 +75,6 @@ return {
         revert   = "🗑",
       }
 
-      local message_table = {
-        feat     = "Add new feature",
-        fix      = "Fix a bug",
-        chore    = "Update something",
-        docs     = "Update documentation",
-        style    = "Update style",
-        refactor = "Refactor code",
-        perf     = "Improve performance",
-        test     = "Add or update tests",
-        build    = "Update build system",
-        ci       = "Update CI",
-        revert   = "Revert changes",
-      }
-
       -- conventional commit snippets with dynamic nodes so if no context provided - do not use brackets + use icons for each type
       -- https://www.conventionalcommits.org/en/v1.0.0/
       local commit_snippets = {
@@ -116,7 +102,7 @@ return {
             end, { 1 }),
           d(4, function(args)
             local type = args[1][1]
-            return sn(nil, { i(1, message_table[type] or "")
+            return sn(nil, { r(1, "commit_message", i(nil, "commit message"))
             })
           end, { 1 }),
         }, {})
