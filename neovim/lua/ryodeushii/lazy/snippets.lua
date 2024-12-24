@@ -6,7 +6,7 @@ return {
     config = function()
       local ls = require("luasnip")
       ls.setup({})
-      vim.keymap.set({ "i", "s" }, "<C-l>", function()
+      vim.keymap.set({ "i", "s" }, "<C-s>", function()
         if ls.choice_active() then
           ls.change_choice(1)
         end
@@ -17,22 +17,30 @@ return {
       -- some shorthands...
       local s = ls.snippet
       local sn = ls.snippet_node
+      local isn = ls.indent_snippet_node
       local t = ls.text_node
       local i = ls.insert_node
       local f = ls.function_node
       local c = ls.choice_node
       local d = ls.dynamic_node
       local r = ls.restore_node
-      local l = require("luasnip.extras").lambda
-      local rep = require("luasnip.extras").rep
-      local p = require("luasnip.extras").partial
-      local m = require("luasnip.extras").match
-      local n = require("luasnip.extras").nonempty
-      local dl = require("luasnip.extras").dynamic_lambda
+      local events = require("luasnip.util.events")
+      local ai = require("luasnip.nodes.absolute_indexer")
+      local extras = require("luasnip.extras")
+      local l = extras.lambda
+      local rep = extras.rep
+      local p = extras.partial
+      local m = extras.match
+      local n = extras.nonempty
+      local dl = extras.dynamic_lambda
       local fmt = require("luasnip.extras.fmt").fmt
       local fmta = require("luasnip.extras.fmt").fmta
-      local types = require("luasnip.util.types")
       local conds = require("luasnip.extras.expand_conditions")
+      local postfix = require("luasnip.extras.postfix").postfix
+      local types = require("luasnip.util.types")
+      local parse = require("luasnip.util.parser").parse_snippet
+      local ms = ls.multi_snippet
+      local k = require("luasnip.nodes.key_indexer").new_key
 
       -- trim whitespace and newlines, input is a string, output is a string
       --- @param s string
@@ -53,16 +61,65 @@ return {
         }),
       })
 
+      local types_table = {
+        feat     = "✨",
+        fix      = "🐛",
+        chore    = "♻️",
+        docs     = "📚",
+        style    = "💎",
+        refactor = "📦",
+        perf     = "🚀",
+        test     = "🚨",
+        build    = "🛠",
+        ci       = "⚙️",
+        revert   = "🗑",
+      }
+
+      local message_table = {
+        feat     = "Add new feature",
+        fix      = "Fix a bug",
+        chore    = "Update something",
+        docs     = "Update documentation",
+        style    = "Update style",
+        refactor = "Refactor code",
+        perf     = "Improve performance",
+        test     = "Add or update tests",
+        build    = "Update build system",
+        ci       = "Update CI",
+        revert   = "Revert changes",
+      }
+
       -- conventional commit snippets with dynamic nodes so if no context provided - do not use brackets + use icons for each type
       -- https://www.conventionalcommits.org/en/v1.0.0/
-      local scope_choice = c(1, { sn(nil, { t("("), i(1, "scope"), t("): ") }), t(": "), t("!: ") })
       local commit_snippets = {
-        s("feat", {
-          t("feat"),
-          scope_choice,
-          t(":sparkles: "),
-          i(2, "feature added")
-        })
+        s("commit", {
+          c(1, {
+            t("feat"),
+            t("fix"),
+            t("chore"),
+            t("docs"),
+            t("style"),
+            t("refactor"),
+            t("perf"),
+            t("test"),
+            t("build"),
+            t("ci"),
+            t("revert"),
+          }),
+          c(2, {
+            sn(nil, { t("("), i(1, "scope"), t("): ") }), t(": "), t("!: ")
+          }),
+          d(3,
+            function(args)
+              local type = args[1][1]
+              return sn(nil, { t(string.format(" %s ", types_table[type] or "")) })
+            end, { 1 }),
+          d(4, function(args)
+            local type = args[1][1]
+            return sn(nil, { i(1, message_table[type] or "")
+            })
+          end, { 1 }),
+        }, {})
       }
       ls.add_snippets("gitcommit", commit_snippets)
       ls.add_snippets("lazygit", commit_snippets)

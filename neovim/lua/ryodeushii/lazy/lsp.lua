@@ -38,7 +38,7 @@ return {
         },
       },
       sources = {
-        default = { "lsp", "path", "luasnip", "buffer" },
+        default = { "lsp", "luasnip", "path", "buffer" },
       },
       keymap = {
         preset = "default",
