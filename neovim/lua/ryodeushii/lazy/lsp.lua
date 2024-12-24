@@ -6,19 +6,33 @@ return {
     dependencies = {
       'rafamadriz/friendly-snippets',
     },
-    version = 'v0.5.1',
+    version = '*',
     opts_extend = { "sources.completion.enabled_providers" },
     opts = {
-      highlight = {
-        ns = vim.api.nvim_create_namespace('blink_cmp'),
+      appearance = {
         use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono'
       },
       completion = {
-        enabled_providers = { "lsp", "path", "snippets", "buffer" },
+        documentation = { auto_show = false },
+        menu = {
+          draw = {
+            columns = {
+              { "label",     "label_description", gap = 1 },
+              { "kind_icon", "kind" }
+            },
+          },
+        },
       },
-      nerd_font_variant = 'normal',
-      keymap = { preset = "default" },
-      trigger = { signature_help = { enabled = true } },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      keymap = {
+        preset = "default",
+        ['<Up>'] = { 'select_prev', 'fallback' },
+        ['<Down>'] = { 'select_next', 'fallback' },
+      },
+      signature = { enabled = true }
     },
   },
   {
