@@ -1,0 +1,11 @@
+{
+	"name": "custom_snippets",
+	"contributes": {
+		"snippets": [
+			{
+				"language": "gitcommit",
+				"path": "snippets/gitcommit.json"
+			}
+		]
+	}
+}

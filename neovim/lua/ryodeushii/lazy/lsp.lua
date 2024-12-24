@@ -4,11 +4,29 @@ return {
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
     dependencies = {
-      'rafamadriz/friendly-snippets',
+      -- 'rafamadriz/friendly-snippets',
+      {
+        'L3MON4D3/LuaSnip',
+        version = 'v2.*',
+        config = function()
+          require("luasnip").setup({})
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end
+      }
     },
     version = '*',
     opts_extend = { "sources.completion.enabled_providers" },
     opts = {
+      snippets = {
+        expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
+        active = function(filter)
+          if filter and filter.direction then
+            return require('luasnip').jumpable(filter.direction)
+          end
+          return require('luasnip').in_snippet()
+        end,
+        jump = function(direction) require('luasnip').jump(direction) end,
+      },
       appearance = {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = 'mono'
@@ -25,7 +43,7 @@ return {
         },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path", "luasnip", "buffer" },
       },
       keymap = {
         preset = "default",

@@ -22,6 +22,7 @@ indent_size = 2
 # JSON-Files
 [*.json]
 indent_style = tab
+indent_size = 2
 
 # YAML-Files
 [*.{yaml,yml}]
