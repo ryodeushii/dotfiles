@@ -4,14 +4,9 @@ return {
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
     dependencies = {
-      -- 'rafamadriz/friendly-snippets',
       {
         'L3MON4D3/LuaSnip',
         version = 'v2.*',
-        config = function()
-          require("luasnip").setup({})
-          require("luasnip.loaders.from_vscode").lazy_load()
-        end
       }
     },
     version = '*',
