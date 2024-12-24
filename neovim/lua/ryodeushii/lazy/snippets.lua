@@ -1,6 +1,7 @@
 return {
   {
     'L3MON4D3/LuaSnip',
+    dependencies = { "rafamadriz/friendly-snippets" },
     version = 'v2.*',
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
@@ -12,8 +13,8 @@ return {
         end
       end)
 
-      -- FIXME: when conventional commits will be rewritten to luasnip
-      -- require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load()
+
       -- some shorthands...
       local s = ls.snippet
       local sn = ls.snippet_node
