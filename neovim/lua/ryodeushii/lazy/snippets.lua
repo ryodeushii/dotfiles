@@ -7,7 +7,7 @@ return {
     config = function()
       local ls = require("luasnip")
       ls.setup({})
-      vim.keymap.set({ "i", "s" }, "<C-s>", function()
+      vim.keymap.set({ "i", "s" }, "<A-l>", function()
         if ls.choice_active() then
           ls.change_choice(1)
         end
