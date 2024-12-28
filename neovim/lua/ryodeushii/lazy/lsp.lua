@@ -118,6 +118,8 @@ return {
             }
           end,
           ["yamlls"] = function()
+            -- NOTE: use the following example as reference in yaml files for specific schema
+            -- # yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
             local lspconfig = require("lspconfig")
             lspconfig.yamlls.setup {
               capabilities = capabilities,
