@@ -7,11 +7,11 @@ return {
     config = function()
       local ls = require("luasnip")
       ls.setup({})
-      vim.keymap.set({ "i", "s" }, "<A-l>", function()
+      vim.keymap.set({ "i", "s" }, "<C-f>", function()
         if ls.choice_active() then
           ls.change_choice(1)
         end
-      end)
+      end, { desc = "Change choice [snippets]" })
 
       require("luasnip.loaders.from_vscode").lazy_load()
 
