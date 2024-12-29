@@ -9,7 +9,6 @@ return {
       "nvim-tree/nvim-web-devicons"
     },
     config = function()
-      ApplyColorScheme()
       local presets = require("markview.presets")
 
       -- define custom keymaps to toggle the preview, toggle checkboxes and render the entire file
