@@ -10,15 +10,6 @@ return {
           enabled = true,
           auto_trigger = true,
           debounce = 75,
-          -- keymap = {
-          --   accept = "<A-l>",
-          --   accept_word = false,
-          --   accept_line = false,
-          --   next = "<A-]>",
-          --   prev = "<A-[>",
-          --   dismiss = "<C-]>",
-          -- },
-          --
         },
         filetypes = {
           javascript = true,
@@ -53,9 +44,7 @@ return {
       },
       opts = {
         debug = false, -- Enable debugging
-        -- See Configuration section for rest
       },
-      -- See Commands section for default commands if you want to lazy load on them
     },
   }
 }

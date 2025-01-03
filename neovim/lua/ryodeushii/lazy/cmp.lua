@@ -1,5 +1,10 @@
 --- @module 'blink.cmp'
 
+-- TODO: write custopm cmp source for blink.cmp to complete available versions while in go.mod file
+-- go list -m -versions -json github.com/go-playground/validator/v10
+-- golang commat to find versions of a module (to use in custom cmp source for go mod)
+
+
 local npm_versions_sort = function(entry1, entry2)
   local filename = vim.fn.expand('%:t')
   if filename == 'package.json' then
@@ -79,8 +84,13 @@ return {
     --- @param opts blink.cmp.Config
     opts = function(_, opts)
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
-        default = { "lsp", "path", "snippets", "buffer", "luasnip", "npm" },
+        default = { "lsp", "path", "snippets", "buffer", "luasnip", "npm", "markdown" },
         providers = {
+          markdown = {
+            name = 'RenderMarkdown',
+            module = 'render-markdown.integ.blink',
+            fallbacks = { 'lsp' },
+          },
           lsp = {
             name = "lsp",
             enabled = true,

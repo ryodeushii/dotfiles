@@ -256,13 +256,6 @@ return {
             dap.listeners.before.launch.dapui_config = function()
                 dapui.open()
             end
-            -- NOTE: due to nature of nodejs tests - it's better to close dapui manually
-            -- dap.listeners.before.event_terminated.dapui_config = function()
-            --     dapui.close()
-            -- end
-            -- dap.listeners.before.event_exited.dapui_config = function()
-            --     dapui.close()
-            -- end
         end,
     },
 }

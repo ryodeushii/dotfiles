@@ -7,7 +7,6 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "rouge8/neotest-rust",
       "fredrikaverpil/neotest-golang",
-      "rcasia/neotest-bash",
       { "fredrikaverpil/neotest-golang", version = "*" },       -- Installation
       "nvim-neotest/neotest-plenary",
       "nvim-neotest/neotest-jest",
@@ -19,7 +18,6 @@ return {
       neotest.setup({
         adapters = {
           require("neotest-golang"),
-          require("neotest-bash"),
           require("neotest-vitest"),
           require("neotest-rust") {
             args = { "--no-capture" },
