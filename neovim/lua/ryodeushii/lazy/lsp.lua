@@ -1,5 +1,50 @@
 --- @module 'blink.cmp'
 
+local npm_versions_sort = function(entry1, entry2)
+  local filename = vim.fn.expand('%:t')
+  if filename == 'package.json' then
+    -- {
+    --   cursor_column = 26,
+    --   kind = 10,
+    --   label = "1.0.0",
+    --   score = 0,
+    --   score_offset = 0,
+    --   source_id = "npm",
+    --   source_name = "npm"
+    -- }
+    local source1 = entry1.source_name
+    local source2 = entry2.source_name
+
+    -- make source npm has higher priority
+    if source1 == 'npm' and source2 ~= 'npm' then
+      return true
+    end
+
+    if source1 ~= 'npm' and source2 == 'npm' then
+      return false
+    end
+
+    -- if both source are npm, sort by version
+    if source1 == 'npm' and source2 == 'npm' then
+      local label1 = entry1.label
+      local label2 = entry2.label
+      local major1, minor1, patch1 = string.match(label1, '(%d+)%.(%d+)%.(%d+)')
+      local major2, minor2, patch2 = string.match(label2, '(%d+)%.(%d+)%.(%d+)')
+      if major1 ~= major2 then
+        return tonumber(major1) > tonumber(major2)
+      end
+      if minor1 ~= minor2 then
+        return tonumber(minor1) > tonumber(minor2)
+      end
+      if patch1 ~= patch2 then
+        return tonumber(patch1) > tonumber(patch2)
+      end
+    end
+  end
+
+  return false
+end
+
 return {
   {
     "saghen/blink.compat",
@@ -166,50 +211,7 @@ return {
         sorts = {
           'score',
           'sort_text',
-          function(entry1, entry2)
-            local filename = vim.fn.expand('%:t')
-            if filename == 'package.json' then
-              -- {
-              --   cursor_column = 26,
-              --   kind = 10,
-              --   label = "1.0.0",
-              --   score = 0,
-              --   score_offset = 0,
-              --   source_id = "npm",
-              --   source_name = "npm"
-              -- }
-              local source1 = entry1.source_name
-              local source2 = entry2.source_name
-
-              -- make source npm has higher priority
-              if source1 == 'npm' and source2 ~= 'npm' then
-                return true
-              end
-
-              if source1 ~= 'npm' and source2 == 'npm' then
-                return false
-              end
-
-              -- if both source are npm, sort by version
-              if source1 == 'npm' and source2 == 'npm' then
-                local label1 = entry1.label
-                local label2 = entry2.label
-                local major1, minor1, patch1 = string.match(label1, '(%d+)%.(%d+)%.(%d+)')
-                local major2, minor2, patch2 = string.match(label2, '(%d+)%.(%d+)%.(%d+)')
-                if major1 ~= major2 then
-                  return tonumber(major1) > tonumber(major2)
-                end
-                if minor1 ~= minor2 then
-                  return tonumber(minor1) > tonumber(minor2)
-                end
-                if patch1 ~= patch2 then
-                  return tonumber(patch1) > tonumber(patch2)
-                end
-              end
-            end
-
-            return false
-          end,
+          npm_versions_sort,
         }
       })
 
