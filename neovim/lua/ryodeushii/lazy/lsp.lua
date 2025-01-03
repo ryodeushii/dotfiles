@@ -1,17 +1,15 @@
+--- @module 'blink.cmp'
+
 return {
   {
     "saghen/blink.compat",
-    -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
     version = '*',
-    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
     lazy = true,
-    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
     opts = {},
   },
   {
     "saghen/blink.cmp",
     lazy = false, -- lazy loading handled internally
-    -- optional: provides snippets for the snippet source
     dependencies = {
       {
         "L3MON4D3/LuaSnip",
@@ -34,6 +32,8 @@ return {
     },
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
+    --- @param _ table @unused
+    --- @param opts blink.cmp.Config
     opts = function(_, opts)
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
         default = { "lsp", "path", "snippets", "buffer", "luasnip", "npm", "go_pkgs" },
@@ -43,11 +43,6 @@ return {
             name = "lsp",
             enabled = true,
             module = "blink.cmp.sources.lsp",
-            -- When linking markdown notes, I would get snippets and text in the
-            -- suggestions, I want those to show only if there are no LSP
-            -- suggestions
-            -- Disabling fallbacks as my snippets woudlnt show up
-            -- fallbacks = { "luasnip", "buffer" },
             score_offset = 90, -- the higher the number, the higher the priority
           },
           luasnip = {
@@ -58,19 +53,11 @@ return {
             fallbacks = { "snippets" },
             score_offset = 85,
             max_items = 8,
-            -- Only show luasnip items if I type the trigger_text characters, so
-            -- to expand the "bash" snippet, if the trigger_text is ";" I have to
-            -- type ";bash"
-            -- After accepting the completion, delete the trigger_text characters
-            -- from the final inserted text
           },
           path = {
             name = "Path",
             module = "blink.cmp.sources.path",
             score_offset = 3,
-            -- When typing a path, I would get snippets and text in the
-            -- suggestions, I want those to show only if there are no path
-            -- suggestions
             fallbacks = { "luasnip", "buffer" },
             opts = {
               trailing_slash = false,
@@ -126,7 +113,7 @@ return {
         end,
       })
 
-      opts.snippets = {
+      opts.snippets = vim.tbl_deep_extend("force", opts.snippets or {}, {
         expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
         active = function(filter)
           if filter and filter.direction then
@@ -135,12 +122,14 @@ return {
           return require("luasnip").in_snippet()
         end,
         jump = function(direction) require("luasnip").jump(direction) end,
-      }
-      opts.appearance = {
+      })
+
+      opts.appearance = vim.tbl_deep_extend("force", opts.appearance or {}, {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = "mono"
-      }
-      opts.completion = {
+      })
+
+      opts.completion = vim.tbl_deep_extend("force", opts.completion or {}, {
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
         menu = {
           draw = {
@@ -150,9 +139,9 @@ return {
             },
           },
         },
-      }
+      })
 
-      opts.keymap = {
+      opts.keymap = vim.tbl_deep_extend("force", opts.keymap or {}, {
         preset = "default",
         ["<Tab>"] = { "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
@@ -167,9 +156,62 @@ return {
 
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-e>"] = { "hide", "fallback" },
-      }
+      })
 
-      opts.signature = { enabled = true }
+      opts.signature = vim.tbl_deep_extend("force", opts.signature or {}, {
+        enabled = true,
+      })
+
+      opts.fuzzy = vim.tbl_deep_extend("force", opts.fuzzy or {}, {
+        sorts = {
+          'score',
+          'sort_text',
+          function(entry1, entry2)
+            local filename = vim.fn.expand('%:t')
+            if filename == 'package.json' then
+              -- {
+              --   cursor_column = 26,
+              --   kind = 10,
+              --   label = "1.0.0",
+              --   score = 0,
+              --   score_offset = 0,
+              --   source_id = "npm",
+              --   source_name = "npm"
+              -- }
+              local source1 = entry1.source_name
+              local source2 = entry2.source_name
+
+              -- make source npm has higher priority
+              if source1 == 'npm' and source2 ~= 'npm' then
+                return true
+              end
+
+              if source1 ~= 'npm' and source2 == 'npm' then
+                return false
+              end
+
+              -- if both source are npm, sort by version
+              if source1 == 'npm' and source2 == 'npm' then
+                local label1 = entry1.label
+                local label2 = entry2.label
+                local major1, minor1, patch1 = string.match(label1, '(%d+)%.(%d+)%.(%d+)')
+                local major2, minor2, patch2 = string.match(label2, '(%d+)%.(%d+)%.(%d+)')
+                if major1 ~= major2 then
+                  return tonumber(major1) > tonumber(major2)
+                end
+                if minor1 ~= minor2 then
+                  return tonumber(minor1) > tonumber(minor2)
+                end
+                if patch1 ~= patch2 then
+                  return tonumber(patch1) > tonumber(patch2)
+                end
+              end
+            end
+
+            return false
+          end,
+        }
+      })
 
       return opts
     end,
@@ -196,11 +238,12 @@ return {
       "saghen/blink.cmp",
     },
     config = function(_, opts)
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities()
-      )
+      -- local capabilities = vim.tbl_deep_extend(
+      --   "force",
+      --   {},
+      --   vim.lsp.protocol.make_client_capabilities()
+      -- )
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       require("fidget").setup({})
       require("mason").setup()
@@ -296,13 +339,9 @@ return {
                   workspace = {
                     checkThirdParty = false,
                     library = {
-                      vim.env.VIMRUNTIME
-                      -- Depending on the usage, you might want to add additional paths here.
-                      -- "${3rd}/luv/library"
-                      -- "${3rd}/busted/library",
+                      -- unpack(vim.api.nvim_get_runtime_file('', true)),
+                      vim.env.VIMRUNTIME,
                     }
-                    -- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
-                    -- library = vim.api.nvim_get_runtime_file("", true)
                   }
                 })
               end,
