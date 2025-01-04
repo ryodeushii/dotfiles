@@ -1,5 +1,10 @@
 --- @module 'blink.cmp'
 
+-- TODO: write custopm cmp source for blink.cmp to complete available versions while in go.mod file
+-- go list -m -versions -json github.com/go-playground/validator/v10
+-- golang commat to find versions of a module (to use in custom cmp source for go mod)
+
+
 local npm_versions_sort = function(entry1, entry2)
   local filename = vim.fn.expand('%:t')
   if filename == 'package.json' then
@@ -36,6 +41,7 @@ local npm_versions_sort = function(entry1, entry2)
   return false
 end
 
+
 return {
   {
     "saghen/blink.compat",
@@ -56,13 +62,10 @@ return {
         dependencies = { 'nvim-lua/plenary.nvim' },
         ft = "json",
         config = function()
-          -- if current buffer is package.json, use cmp-npm
-          if vim.fn.expand('%:t') == 'package.json' then
-            require('cmp-npm').setup({
-              only_latest_version = false,
-              only_semantic_versions = true,
-            })
-          end
+          require('cmp-npm').setup({
+            only_latest_version = false,
+            only_semantic_versions = true,
+          })
         end
       }
     },
