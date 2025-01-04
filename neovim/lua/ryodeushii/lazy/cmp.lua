@@ -133,7 +133,13 @@ return {
             opts = {
               keyword_length = 4
             },
-          }
+          },
+          cmdline = {
+            enabled = function()               -- Get the current command-line input
+              local line = vim.fn.getcmdline() -- Ignore completion for commands starting with `!`
+              return not vim.startswith(line, '!')
+            end
+          },
         },
         -- command line completion, thanks to dpetka2001 in reddit
         -- https://www.reddit.com/r/neovim/comments/1hjjf21/comment/m37fe4d/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
