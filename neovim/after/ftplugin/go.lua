@@ -28,3 +28,10 @@ vim.keymap.set(
   "<cmd>GolangciLintFix<CR>",
   { silent = true, desc = "Run golangci-lint with fix" }
 )
+
+local neotest = require("neotest")
+neotest.setup({
+  adapters = {
+    require("neotest-golang"),
+  }
+})
