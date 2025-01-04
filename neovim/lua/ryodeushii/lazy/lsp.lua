@@ -213,8 +213,10 @@ return {
         end,
       })
 
+      local blink_get_capabilities = require('blink.cmp').get_lsp_capabilities
+
       for server, config in pairs(opts.servers or {}) do
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        config.capabilities = blink_get_capabilities(config.capabilities)
         lspconfig[server].setup(config)
       end
     end

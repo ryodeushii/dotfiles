@@ -8,15 +8,6 @@
 local npm_versions_sort = function(entry1, entry2)
   local filename = vim.fn.expand('%:t')
   if filename == 'package.json' then
-    -- {
-    --   cursor_column = 26,
-    --   kind = 10,
-    --   label = "1.0.0",
-    --   score = 0,
-    --   score_offset = 0,
-    --   source_id = "npm",
-    --   source_name = "npm"
-    -- }
     local source1 = entry1.source_name
     local source2 = entry2.source_name
 

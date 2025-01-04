@@ -1,60 +1,38 @@
 return {
   {
     'L3MON4D3/LuaSnip',
-    dependencies = { "rafamadriz/friendly-snippets" },
     version = 'v2.*',
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
-      local ls = require("luasnip")
-      ls.setup({})
+      local luasnip = require("luasnip")
+      luasnip.setup({})
       vim.keymap.set({ "i", "s" }, "<C-f>", function()
-        if ls.choice_active() then
-          ls.change_choice(1)
+        if luasnip.choice_active() then
+          luasnip.change_choice(1)
         end
       end, { desc = "Change choice [snippets]" })
 
-      require("luasnip.loaders.from_vscode").lazy_load()
-
       -- some shorthands...
-      local s = ls.snippet
-      local sn = ls.snippet_node
-      local isn = ls.indent_snippet_node
-      local t = ls.text_node
-      local i = ls.insert_node
-      local f = ls.function_node
-      local c = ls.choice_node
-      local d = ls.dynamic_node
-      local r = ls.restore_node
-      local events = require("luasnip.util.events")
-      local ai = require("luasnip.nodes.absolute_indexer")
-      local extras = require("luasnip.extras")
-      local l = extras.lambda
-      local rep = extras.rep
-      local p = extras.partial
-      local m = extras.match
-      local n = extras.nonempty
-      local dl = extras.dynamic_lambda
-      local fmt = require("luasnip.extras.fmt").fmt
-      local fmta = require("luasnip.extras.fmt").fmta
-      local conds = require("luasnip.extras.expand_conditions")
-      local postfix = require("luasnip.extras.postfix").postfix
-      local types = require("luasnip.util.types")
-      local parse = require("luasnip.util.parser").parse_snippet
-      local ms = ls.multi_snippet
-      local k = require("luasnip.nodes.key_indexer").new_key
+      local s = luasnip.snippet
+      local sn = luasnip.snippet_node
+      local t = luasnip.text_node
+      local i = luasnip.insert_node
+      local c = luasnip.choice_node
+      local d = luasnip.dynamic_node
+      local r = luasnip.restore_node
 
-      -- trim whitespace and newlines, input is a string, output is a string
+      --- trim whitespace and newlines, input is a string, output is a string
       --- @param s string
       --- @return string
-      local function trim(s)
-        return (s:gsub("^%s*(.-)%s*$", "%1"))
+      local function trim(str)
+        return (str:gsub("^%s*(.-)%s*$", "%1"))
       end
       local author = trim(vim.fn.system("git config --get user.name"))
       local email = trim(vim.fn.system("git config --get user.email"))
       local year = trim(vim.fn.system("date +'%Y'"))
 
       -- Snippets
-      ls.add_snippets("all", {
+      luasnip.add_snippets("all", {
         s("copyright", {
           t("© " .. year .. " "),
           i(1, author),
@@ -102,14 +80,13 @@ return {
               return sn(nil, { t(string.format(" %s ", types_table[type] or "")) })
             end, { 1 }),
           d(4, function(args)
-            local type = args[1][1]
             return sn(nil, { r(1, "commit_message", i(nil, "commit message"))
             })
           end, { 1 }),
         }, {})
       }
-      ls.add_snippets("gitcommit", commit_snippets)
-      ls.add_snippets("lazygit", commit_snippets)
+      luasnip.add_snippets("gitcommit", commit_snippets)
+      luasnip.add_snippets("lazygit", commit_snippets)
     end
   }
 

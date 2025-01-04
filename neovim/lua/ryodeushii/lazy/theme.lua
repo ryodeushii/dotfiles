@@ -1,6 +1,6 @@
 -- call this function to apply a color scheme in any module
 function ApplyColorScheme(color)
-  color = color or "rose-pine"
+  color = color or "tokyodark"
 
   vim.cmd.colorscheme(color)
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -10,27 +10,24 @@ end
 
 return {
   {
-    "rose-pine/neovim",
+    "tiagovla/tokyodark.nvim",
     priority = 999,
-    lazy = false,
-    name = "rose-pine",
     config = function()
-      require('rose-pine').setup({
-        dim_inactive_windows = false,
-        extend_background_behind_borders = true,
-        variant = "moon",
-        disable_background = true,
+      require("tokyodark").setup({
+        transparent_background = true,
+        gamma = 1.05,                                                          -- adjust the brightness of the theme
         styles = {
-          italic = false,
+          comments = { italic = false },                                       -- style for comments
+          keywords = { italic = false },                                       -- style for keywords
+          identifiers = { italic = false },                                    -- style for identifiers
+          functions = {},                                                      -- style for functions
+          variables = {},                                                      -- style for variables
         },
-        enable = {
-          terminal = true,
-        },
+        custom_highlights = {} or function(highlights, palette) return {} end, -- extend highlights
+        custom_palette = {} or function(palette) return {} end,                -- extend palette
+        terminal_colors = true,                                                -- enable terminal colors
       })
-
-      vim.cmd("colorscheme rose-pine")
-
       ApplyColorScheme()
-    end
-  }
+    end,
+  },
 }
