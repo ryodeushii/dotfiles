@@ -17,7 +17,6 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "j-hui/fidget.nvim",
       "saghen/blink.cmp",
     },
     config = function(_, opts)
@@ -27,7 +26,6 @@ return {
         vim.lsp.protocol.make_client_capabilities()
       )
 
-      require("fidget").setup({})
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = {
