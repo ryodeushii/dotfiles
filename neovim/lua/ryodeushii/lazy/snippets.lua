@@ -22,7 +22,7 @@ return {
       local r = luasnip.restore_node
 
       --- trim whitespace and newlines, input is a string, output is a string
-      --- @param s string
+      --- @param str string
       --- @return string
       local function trim(str)
         return (str:gsub("^%s*(.-)%s*$", "%1"))
@@ -79,7 +79,7 @@ return {
               local type = args[1][1]
               return sn(nil, { t(string.format(" %s ", types_table[type] or "")) })
             end, { 1 }),
-          d(4, function(args)
+          d(4, function(_)
             return sn(nil, { r(1, "commit_message", i(nil, "commit message"))
             })
           end, { 1 }),

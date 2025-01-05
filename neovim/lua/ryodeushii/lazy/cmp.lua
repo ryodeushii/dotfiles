@@ -116,6 +116,7 @@ return {
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
     --- @param _ table @unused
+    --- @diagnostic disable-next-line: undefined-doc-name
     --- @param opts blink.cmp.Config
     opts = function(_, opts)
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {

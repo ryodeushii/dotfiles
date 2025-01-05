@@ -1,5 +1,6 @@
 local function config_adapters()
   local dap = require("dap")
+  local windows = vim.fn.has "win32" == 1
 
   -- C
   dap.adapters.codelldb = {

@@ -6,7 +6,6 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local fzf = require("fzf-lua")
-      -- local trouble = require("trouble.sources.fzf")
 
       local config = require("fzf-lua.config")
       local actions = require("trouble.sources.fzf").actions
@@ -25,6 +24,7 @@ return {
       vim.keymap.set("n", "<leader>ps", fzf.lgrep_curbuf, { desc = "Live grep current buffer" })
       vim.keymap.set("n", "<leader>fk", fzf.keymaps, { desc = "Find keymaps" })
       vim.keymap.set("n", "<leader>fs", fzf.live_grep, { desc = "Find text in project" })
+      vim.keymap.set("n", "<leader>fl", fzf.lsp_finder, { desc = "Find LSP related things" })
       vim.keymap.set("n", "<leader>fh", fzf.helptags, { desc = "Find help tags" })
     end
   }
