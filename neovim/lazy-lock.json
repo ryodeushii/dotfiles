@@ -7,6 +7,7 @@
   "blink.compat": { "branch": "main", "commit": "5ca8848c8cc32abdc980e5db4f0eb7bb8fbf84dc" },
   "cloak.nvim": { "branch": "main", "commit": "648aca6d33ec011dc3166e7af3b38820d01a71e4" },
   "cmp-npm": { "branch": "main", "commit": "2337f109f51a09297596dd6b538b70ccba92b4e4" },
+  "colorful-menu.nvim": { "branch": "master", "commit": "92423bc905f7ae048da9e519b3f077439a23b97d" },
   "compiler.nvim": { "branch": "main", "commit": "eb7f82bb8f9e722dd194f638e67ec53c12ce5ac5" },
   "copilot.lua": { "branch": "master", "commit": "886ee73b6d464b2b3e3e6a7ff55ce87feac423a9" },
   "flash.nvim": { "branch": "main", "commit": "34c7be146a91fec3555c33fe89c7d643f6ef5cf1" },
