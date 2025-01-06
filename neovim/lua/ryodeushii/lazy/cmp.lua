@@ -102,11 +102,14 @@ return {
         version = 'v2.*',
       },
       {
-        "David-Kunz/cmp-npm",
+        "ryodeushii/cmp_npm",
+        dev = true,
+        -- set path to local plugin
+        dir = vim.fn.stdpath('config') .. '/lua/ryodeushii/cmp_npm',
         dependencies = { 'nvim-lua/plenary.nvim' },
         ft = "json",
         config = function()
-          require('cmp-npm').setup({
+          require('ryodeushii.cmp_npm').setup({
             only_latest_version = false,
             only_semantic_versions = true,
           })
