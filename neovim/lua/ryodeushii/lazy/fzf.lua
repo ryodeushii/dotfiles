@@ -6,6 +6,9 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local fzf = require("fzf-lua")
+      fzf.setup({
+        keymap = { builtin = { true, ["<Esc>"] = "hide" } }
+      })
 
       local config = require("fzf-lua.config")
       local actions = require("trouble.sources.fzf").actions
@@ -13,6 +16,7 @@ return {
       config.defaults.actions.files["ctrl-q"] = actions.file_edit_or_qf
 
       vim.keymap.set('n', '<leader>ff', fzf.files, { desc = 'Find files' })
+      vim.keymap.set('n', '<leader>fg', fzf.git_files, { desc = 'Find Git files' })
       vim.keymap.set('n', '<leader>ft', fzf.treesitter, { desc = 'Find treesitter symbols in current buffer' })
       -- https://github.com/ibhagwan/fzf-lua?tab=readme-ov-file#commands
       vim.keymap.set('n', '<leader>fo', fzf.oldfiles, { desc = 'Find old files' })
