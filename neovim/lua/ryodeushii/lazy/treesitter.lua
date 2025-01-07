@@ -62,6 +62,7 @@ return { {
               ["if"] = "@function.inner",
               ["ac"] = "@class.outer",
               ["ic"] = "@class.inner",
+              ["uc"] = "@comment.outer",
             },
           },
           swap = {
