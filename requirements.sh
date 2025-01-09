@@ -21,10 +21,11 @@ fi
 
 if ! command -v node &>/dev/null; then
     echo "Install NVM, node not found"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    node_version=$(nvm ls-remote | tail -n 1)
-    nvm install $node_version
-    nvm alias default $node_version
+    # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    # node_version=$(nvm ls-remote | tail -n 1)
+    # nvm install $node_version
+    # nvm alias default $node_version
+    proto install node latest
 fi
 
 if ! command -v zoxide &>/dev/null; then
