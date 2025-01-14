@@ -14,7 +14,7 @@ fi
 
 if ! command -v cargo &>/dev/null; then
     echo "Install rust"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
     echo "Activate cargo for setup"
     . "$HOME/.cargo/env"
 fi
