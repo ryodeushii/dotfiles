@@ -12,20 +12,22 @@ if ! [ -d $HOME/.oh-my-bash ]; then
     exit
 fi
 
+if ! command -v cargo &>/dev/null; then
+    echo "Install rust"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
 
 # remove protools file and link one from repo
 [ -d $HOME/.proto ] && rm -rf $HOME/.proto/.prototools
 ! [ -d $HOME/.proto ] && mkdir -p $HOME/.proto
 ln -s $(pwd)/prototools.toml $HOME/.proto/.prototools
 
-cd $HOME/.proto; $HOME/.proto/bin/proto install; cd -
+cd $HOME/.proto && $HOME/.proto/bin/proto install && cd -
 
 echo "Temporarily enable proto, later it'll be handled from bashrc"
-export PROTO_HOME="$HOME/.proto";
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
+export PROTO_HOME="$HOME/.proto"
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 eval "$(proto activate bash -c global)"
-
-
 
 if ! command -v zoxide &>/dev/null; then
     echo "Install zoxide"
