@@ -20,6 +20,13 @@ ln -s $(pwd)/prototools.toml $HOME/.proto/.prototools
 
 cd $HOME/.proto; $HOME/.proto/bin/proto install; cd -
 
+echo "Temporarily enable proto, later it'll be handled from bashrc"
+export PROTO_HOME="$HOME/.proto";
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
+eval "$(proto activate bash -c global)"
+
+
+
 if ! command -v zoxide &>/dev/null; then
     echo "Install zoxide"
     cargo install zoxide --locked
