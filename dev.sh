@@ -69,72 +69,70 @@ done
 echo "Symlink files"
 echo "NEOVIM..."
 
-[ -d ~/.config/nvim ] && rm -rf ~/.config/nvim
-[ -d ~/.config ] || mkdir -p ~/.config/
+[ -d $HOME/.config/nvim ] && rm -rf $HOME/.config/nvim
+[ -d $HOME/.config ] || mkdir -p $HOME/.config/
 
-ln -s $(pwd)/neovim ~/.config/nvim
+ln -s $(pwd)/neovim $HOME/.config/nvim
 
 echo "TMUX..."
-# if no ~/.tmux/plugins/tpm then clone
-[ -d ~/.tmux/plugins/tpm ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-rm -rf ~/.config/tmux
-ln -s $(pwd)/tmux ~/.config/tmux
+# if no $HOME/.tmux/plugins/tpm then clone
+[ -d $HOME/.tmux/plugins/tpm ] || git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+rm -rf $HOME/.config/tmux
+ln -s $(pwd)/tmux $HOME/.config/tmux
 
 echo "BASH..."
-rm -rf ~/.bash_config
-ln -s $(pwd)/bash/bash_config.sh ~/.bash_config
+rm -rf $HOME/.bash_config
+ln -s $(pwd)/bash/bash_config.sh $HOME/.bash_config
 
 if [ -f ./bash/bash_vars.sh ]; then
-    rm -rf ~/.bash_vars
-    ln -s $(pwd)/bash/bash_vars.sh ~/.bash_vars
+    rm -rf $HOME/.bash_vars
+    ln -s $(pwd)/bash/bash_vars.sh $HOME/.bash_vars
 fi
-rm -rf ~/.bash_aliases
-ln -s $(pwd)/bash/bash_aliases.sh ~/.bash_aliases
+rm -rf $HOME/.bash_aliases
+ln -s $(pwd)/bash/bash_aliases.sh $HOME/.bash_aliases
 
-if [ -f ~/.bashrc ]; then
-    mv ~/.bashrc ~/.bashrc.bak
-    ln -s $(pwd)/bash/bashrc.sh ~/.bashrc
+if [ -f $HOME/.bashrc ]; then
+    mv $HOME/.bashrc $HOME/.bashrc.bak
+    ln -s $(pwd)/bash/bashrc.sh $HOME/.bashrc
 fi
 
 echo "GIT..."
 # if no .gitconfig.bak then backup
-if [ -f ~/.gitconfig ]; then
-    [ -f ~/.gitconfig.bak ] || mv ~/.gitconfig ~/.gitconfig.bak
+if [ -f $HOME/.gitconfig ]; then
+    [ -f $HOME/.gitconfig.bak ] || mv $HOME/.gitconfig $HOME/.gitconfig.bak
 
     # if work config is selected then replace include path in gitconfig with work config
     # if personal config is selected then replace include path in gitconfig with personal config
-    rm ~/.gitconfig
+    rm $HOME/.gitconfig
 fi
 
-if [ -f ~/.user.gitconfig ]; then
-    rm ~/.user.gitconfig
+if [ -f $HOME/.user.gitconfig ]; then
+    rm $HOME/.user.gitconfig
 fi
-ln -s $(pwd)/git/.$config.gitconfig ~/.user.gitconfig
-ln -s $(pwd)/git/gitconfig ~/.gitconfig
+ln -s $(pwd)/git/.$config.gitconfig $HOME/.user.gitconfig
+ln -s $(pwd)/git/gitconfig $HOME/.gitconfig
 
-if [ -d ~/.config/lazygit ]; then
-    rm -rf ~/.config/lazygit
-fi
-
-
-if [ -d ~/.config/wezterm ]; then
-    rm -rf ~/.config/wezterm
+if [ -d $HOME/.config/lazygit ]; then
+    rm -rf $HOME/.config/lazygit
 fi
 
+if [ -d $HOME/.config/wezterm ]; then
+    rm -rf $HOME/.config/wezterm
+fi
 
-mkdir -p ~/.config/lazygit
-ln -s $(pwd)/lazygit.config.yml ~/.config/lazygit/config.yml
+mkdir -p $HOME/.config/lazygit
+ln -s $(pwd)/lazygit.config.yml $HOME/.config/lazygit/config.yml
 
-ln -s $(pwd)/wezterm ~/.config/wezterm
+ln -s $(pwd)/wezterm $HOME/.config/wezterm
 
 if [ $config == "personal" ]; then
     echo "Copy gpg config to fix signing issue in neovim"
-    if [ -f ~/.gnupg/gpg.conf ]; then
-        mv ~/.gnupg/gpg.conf ~/.gnupg/gpg.conf.bak
+    if [ -f $HOME/.gnupg/gpg.conf ]; then
+        mv $HOME/.gnupg/gpg.conf $HOME/.gnupg/gpg.conf.bak
     fi
-    [ -d ~/.gnupg ] || mkdir -p ~/.gnupg
+    [ -d $HOME/.gnupg ] || mkdir -p $HOME/.gnupg
 
-    ln -s $(pwd)/gpg.conf ~/.gnupg/gpg.conf
+    ln -s $(pwd)/gpg.conf $HOME/.gnupg/gpg.conf
 fi
 
 echo "Running neovim lazy sync"
@@ -143,4 +141,4 @@ echo "Running neovim lazy clean"
 nvim --headless +"Lazy clean" +q
 
 echo "Install plugins for tmux"
-~/.tmux/plugins/tpm/scripts/install_plugins.sh
+$HOME/.tmux/plugins/tpm/scripts/install_plugins.sh

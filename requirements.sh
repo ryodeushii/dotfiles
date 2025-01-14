@@ -6,7 +6,7 @@ if ! command -v proto &>/dev/null; then
     bash <(curl -fsSL https://moonrepo.dev/install/proto.sh) --yes --no-profile
 fi
 
-if ! [ -d ~/.oh-my-bash ]; then
+if ! [ -d $HOME/.oh-my-bash ]; then
     echo "Installing oh-my-bash..."
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh) --unattended"
     exit
@@ -14,11 +14,11 @@ fi
 
 
 # remove protools file and link one from repo
-[ -d ~/.proto ] && rm -rf ~/.proto/.prototools
-! [ -d ~/.proto ] && mkdir -p ~/.proto
-ln -s $(pwd)/prototools.toml ~/.proto/.prototools
+[ -d $HOME/.proto ] && rm -rf $HOME/.proto/.prototools
+! [ -d $HOME/.proto ] && mkdir -p $HOME/.proto
+ln -s $(pwd)/prototools.toml $HOME/.proto/.prototools
 
-cd ~/.proto; .proto/bin/proto install; cd -
+cd $HOME/.proto; $HOME/.proto/bin/proto install; cd -
 
 if ! command -v zoxide &>/dev/null; then
     echo "Install zoxide"
