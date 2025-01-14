@@ -15,10 +15,10 @@ fi
 
 # remove protools file and link one from repo
 [ -d ~/.proto ] && rm -rf ~/.proto/.prototools
-! [-d ~/.proto ] && mkdir -p ~/.proto
+! [ -d ~/.proto ] && mkdir -p ~/.proto
 ln -s $(pwd)/prototools.toml ~/.proto/.prototools
 
-cd ~/.proto; proto install; cd -
+cd ~/.proto; .proto/bin/proto install; cd -
 
 if ! command -v zoxide &>/dev/null; then
     echo "Install zoxide"
