@@ -1,4 +1,11 @@
 #!/bin/bash
+set -e
+
+# if no curl present - exit with error
+if ! command -v curl &>/dev/null; then
+    echo "curl is required to run this script"
+    exit 1
+fi
 
 # read flag from command line to indicate if work or personal config should be used using flags
 

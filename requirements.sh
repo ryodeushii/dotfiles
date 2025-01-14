@@ -1,12 +1,21 @@
 #!/bin/bash
+set -e
 
 if ! command -v proto &>/dev/null; then
     echo "Install moonrepos's proto cli for toolchain management"
-    curl -fsSL https://moonrepo.dev/install/proto.sh | bash
+    bash <(curl -fsSL https://moonrepo.dev/install/proto.sh) --yes --no-profile
 fi
+
+if ! [ -d ~/.oh-my-bash ]; then
+    echo "Installing oh-my-bash..."
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh) --unattended"
+    exit
+fi
+
 
 # remove protools file and link one from repo
 [ -d ~/.proto ] && rm -rf ~/.proto/.prototools
+! [-d ~/.proto ] && mkdir -p ~/.proto
 ln -s $(pwd)/prototools.toml ~/.proto/.prototools
 
 cd ~/.proto; proto install; cd -
