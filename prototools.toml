@@ -1,0 +1,24 @@
+biome = "1.8.3"
+fzf = "latest"
+gh = "latest"
+go = "1.23.4"
+golangci-lint = "1.63.4"
+jq = "latest"
+moon = "1.30.6"
+node = "22.12.0"
+npm = "bundled"
+pnpm = "9.14.2"
+proto = "0.41.5"
+rust = "latest"
+
+[tools.npm]
+shared-globals-dir = true
+
+[plugins]
+fzf = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/fzf/plugin.toml"
+gh = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/gh/plugin.toml"
+jq = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/jq/plugin.toml"
+moon = "https://raw.githubusercontent.com/moonrepo/moon/master/proto-plugin.toml"
+
+[settings]
+auto-install = true

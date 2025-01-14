@@ -109,8 +109,16 @@ if [ -d ~/.config/lazygit ]; then
     rm -rf ~/.config/lazygit
 fi
 
+
+if [ -d ~/.config/wezterm ]; then
+    rm -rf ~/.config/wezterm
+fi
+
+
 mkdir -p ~/.config/lazygit
 ln -s $(pwd)/lazygit.config.yml ~/.config/lazygit/config.yml
+
+ln -s $(pwd)/wezterm ~/.config/wezterm
 
 if [ $config == "personal" ]; then
     echo "Copy gpg config to fix signing issue in neovim"

@@ -153,7 +153,7 @@ if [ -f ~/.bash_config ]; then
     source ~/.bash_config
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+eval "$(fzf --bash)"
 export GPG_TTY=$(tty)
 
 
