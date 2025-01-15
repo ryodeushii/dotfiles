@@ -62,8 +62,6 @@ done
 # This script is used to run the development environment for the project.
 ./requirements.sh && echo "Requirements installed" || (echo "Requirements failed" && exit 1)
 
-./bash/install.sh
-
 # symlink files
 
 echo "Symlink files"
