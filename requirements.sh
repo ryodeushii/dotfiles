@@ -1,32 +1,35 @@
 #!/bin/bash
-
-goversion=1.23.3.linux-amd64
+set -e
 
 if ! command -v proto &>/dev/null; then
     echo "Install moonrepos's proto cli for toolchain management"
-    curl -fsSL https://moonrepo.dev/install/proto.sh | bash
+    bash <(curl -fsSL https://moonrepo.dev/install/proto.sh) --yes --no-profile
+fi
+
+if ! [ -d $HOME/.oh-my-bash ]; then
+    echo "Installing oh-my-bash..."
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh) --unattended"
+    exit
 fi
 
 if ! command -v cargo &>/dev/null; then
     echo "Install rust"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
+    echo "Activate cargo for setup"
+    . "$HOME/.cargo/env"
 fi
 
-if ! command -v go &>/dev/null; then
-    echo "Install golang from website"
-    wget -c https://go.dev/dl/go$goversion.tar.gz
-    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go$goversion.tar.gz
-    rm go$goversion.tar.gz
-fi
+# remove protools file and link one from repo
+[ -d $HOME/.proto ] && rm -rf $HOME/.proto/.prototools
+! [ -d $HOME/.proto ] && mkdir -p $HOME/.proto
+ln -s $(pwd)/prototools.toml $HOME/.proto/.prototools
 
-if ! command -v node &>/dev/null; then
-    echo "Install NVM, node not found"
-    # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    # node_version=$(nvm ls-remote | tail -n 1)
-    # nvm install $node_version
-    # nvm alias default $node_version
-    proto install node latest
-fi
+cd $HOME/.proto && $HOME/.proto/bin/proto install && cd -
+
+echo "Temporarily enable proto, later it'll be handled from bashrc"
+export PROTO_HOME="$HOME/.proto"
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
+eval "$(proto activate bash -c global)"
 
 if ! command -v zoxide &>/dev/null; then
     echo "Install zoxide"
@@ -36,12 +39,6 @@ fi
 if ! command -v bat &>/dev/null; then
     echo "Install bat"
     cargo install bat --locked
-fi
-
-if ! command -v fzf &>/dev/null; then
-    echo "Install fzf"
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
 fi
 
 if ! command -v sesh &>/dev/null; then
@@ -72,14 +69,6 @@ fi
 if ! command -v golangci-lint &>/dev/null; then
     echo "Install golangci-lint"
     go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-fi
-
-if ! command -v gh &>/dev/null; then
-    echo "Install gh"
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-    sudo apt-add-repository https://cli.github.com/packages
-    sudo apt update
-    sudo apt install gh
 fi
 
 if ! command -v lazygit &>/dev/null; then
