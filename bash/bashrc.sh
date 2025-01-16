@@ -137,6 +137,11 @@ export EDITOR='nvim'
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
 
+# proto
+export PROTO_HOME="$HOME/.proto";
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
+eval "$(proto activate bash -c global)"
+
 # setup cargo (rust)
 . "$HOME/.cargo/env"
 # setup zoxide
@@ -156,9 +161,4 @@ fi
 eval "$(fzf --bash)"
 export GPG_TTY=$(tty)
 
-
-# proto
-export PROTO_HOME="$HOME/.proto";
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
-eval "$(proto activate bash -c global)"
 
