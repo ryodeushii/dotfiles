@@ -28,3 +28,17 @@ vim.keymap.set(
   "<cmd>GolangciLintFix<CR>",
   { silent = true, desc = "Run golangci-lint with fix" }
 )
+
+-- when lsp format used in go, it should call lsp format commadn and then call GolangciLintFix
+vim.keymap.del("n", "<leader>f")
+vim.keymap.set(
+  "n",
+  "<leader>f",
+  function()
+    vim.lsp.buf.format()
+    -- vim.cmd("GolangciLintFix")
+    vim.cmd("silent! GolangciLintFix")
+  end,
+  { desc = "[go] Format buffer and golangci-lint-fix", silent = true }
+)
+
