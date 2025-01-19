@@ -21,6 +21,9 @@ end
 
 
 vim.api.nvim_command("command! GolangciLintFix !golangci-lint run --fix")
+vim.api.nvim_command(
+  "command! GolangciLintFixWorkspace !go work edit -json | jq -r '.Use[].DiskPath'  | xargs -I{} golangci-lint run --fix {}/...")
+
 vim.keymap.set(
   "n",
   "<leader>lf",
@@ -37,8 +40,19 @@ vim.keymap.set(
   function()
     vim.lsp.buf.format()
     -- vim.cmd("GolangciLintFix")
-    vim.cmd("silent! GolangciLintFix")
+    local cmd = "golangci-lint run --fix"
+    if vim.fn.filereadable("go.work") then
+      cmd = "go work edit -json | jq -r '.Use[].DiskPath'  | xargs -I{} golangci-lint run --fix {}/..."
+    end
+
+    local notification = vim.notify("Running...", vim.log.levels.INFO, { title = "GolangciLintFix", timeout = 1000 })
+    vim.fn.jobstart(cmd, {
+      on_exit = function(_, code)
+        local level = code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
+        vim.notify('Done', level, { title = "GolangciLintFix", timeout = 1000, replace = notification })
+        vim.cmd("e!")
+      end,
+    })
   end,
   { desc = "[go] Format buffer and golangci-lint-fix", silent = true }
 )
-

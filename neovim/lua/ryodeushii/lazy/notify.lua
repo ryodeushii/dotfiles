@@ -29,6 +29,7 @@ return {
       require('lsp-notify').setup({
         notify = require('notify'),
       })
+      vim.notify = notify
     end
   },
 }
