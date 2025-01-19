@@ -1,55 +1,24 @@
 return {
-  "nvim-lualine/lualine.nvim",
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
-    'AndreM222/copilot-lualine'
+  {
+    'echasnovski/mini.statusline',
+    version = false,
+    config = function()
+      require("mini.statusline").setup({
+        -- Content of statusline as functions which return statusline string. See
+        -- `:h statusline` and code of default contents (used instead of `nil`).
+        content = {
+          -- Content for active window
+          active = nil,
+          -- Content for inactive window(s)
+          inactive = nil,
+        },
+
+        -- Whether to use icons by default
+        use_icons = true,
+
+        -- Whether to set Vim's settings for statusline (make it always shown)
+        set_vim_settings = true,
+      })
+    end
   },
-  config = function()
-    require('lualine').setup({
-      options = {
-        icons_enabled = true,
-        theme = 'rose-pine',
-        component_separators = { left = '', right = '' },
-        section_separators = { left = '', right = '' },
-        disabled_filetypes = {
-          statusline = {},
-          winbar = {},
-        },
-        ignore_focus = {},
-        always_divide_middle = true,
-        globalstatus = false,
-        refresh = {
-          statusline = 1000,
-          tabline = 1000,
-          winbar = 1000,
-        }
-      },
-      sections = {
-        lualine_a = { 'mode' },
-        lualine_b = {
-          { 'filename', path = 1 },
-        },
-        lualine_c = { 'branch', 'diff', 'diagnostics' },
-
-        lualine_x = { { 'copilot', show_colors = true }, 'filetype', 'fileformat' },
-        lualine_y = {},
-        lualine_z = { 'location' },
-      },
-      inactive_sections = {
-        lualine_a = {
-          { 'filename', path = 0 },
-        },
-        lualine_b = {},
-        lualine_c = {},
-
-        lualine_x = { 'filetype', 'location' },
-        lualine_y = {},
-        lualine_z = {},
-      },
-      tabline = {},
-      winbar = {},
-      inactive_winbar = {},
-      extensions = {}
-    })
-  end
 }

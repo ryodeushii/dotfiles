@@ -3,7 +3,9 @@ return {
     "ibhagwan/fzf-lua",
     lazy = false,
     -- optional for icon support
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {
+      { 'echasnovski/mini.icons', version = false },
+    },
     config = function()
       local fzf = require("fzf-lua")
       fzf.setup({
@@ -28,7 +30,7 @@ return {
       vim.keymap.set("n", "<leader>ps", fzf.lgrep_curbuf, { desc = "Live grep current buffer" })
       vim.keymap.set("n", "<leader>fk", fzf.keymaps, { desc = "Find keymaps" })
       vim.keymap.set("n", "<leader>fs", fzf.live_grep, { desc = "Find text in project" })
-      vim.keymap.set("n", "<leader>fl", fzf.lsp_finder, { desc = "Find LSP related things" })
+      vim.keymap.set("n", "<leader>fl", fzf.lsp_document_symbols, { desc = "Find LSP related things" })
       vim.keymap.set("n", "<leader>fh", fzf.helptags, { desc = "Find help tags" })
     end
   }

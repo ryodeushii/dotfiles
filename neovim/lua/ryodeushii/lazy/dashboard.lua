@@ -1,6 +1,8 @@
 return {
   "goolord/alpha-nvim",
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {
+    { 'echasnovski/mini.icons', version = false },
+  },
   config = function()
     local dashboard = require("alpha.themes.dashboard")
     local buttons = {
@@ -19,7 +21,7 @@ return {
     local alpha_config = require("alpha.themes.theta")
     -- available: devicons, mini, default is mini
     -- if provider not loaded and enabled is true, it will try to use another provider
-    alpha_config.file_icons.provider = "devicons"
+    alpha_config.file_icons.provider = "mini"
     alpha_config.buttons = buttons
     require("alpha").setup(
       alpha_config.config
