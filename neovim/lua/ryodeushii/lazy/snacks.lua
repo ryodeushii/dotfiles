@@ -1,5 +1,6 @@
 ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 local progress = vim.defaulttable()
+
 vim.api.nvim_create_autocmd("LspProgress", {
   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
@@ -49,6 +50,7 @@ return {
   -- when the profiler is running
   {
     "folke/snacks.nvim",
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings

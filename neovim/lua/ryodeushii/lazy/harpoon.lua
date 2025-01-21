@@ -25,7 +25,6 @@ return {
       end,
     })
 
-    require("telescope").load_extension("harpoon")
     -- add file to list
     vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
     -- quick switch between first 4 files

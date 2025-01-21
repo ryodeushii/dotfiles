@@ -4,7 +4,7 @@ return {
     event = "InsertEnter",
     config = true,
     opts = {
-      disable_filetype = { "TelescopePrompt", "spectre_panel", "snacks_picker_input" },
+      disable_filetype = { "spectre_panel", "snacks_picker_input" },
       disable_in_macro = true,        -- disable when recording or executing a macro
       disable_in_visualblock = false, -- disable when insert after visual block mode
       disable_in_replace_mode = true,
@@ -24,6 +24,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
@@ -240,6 +241,7 @@ return {
   {
     'dmmulroy/ts-error-translator.nvim',
     ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('ts-error-translator').setup({
         filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },

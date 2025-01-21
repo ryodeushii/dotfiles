@@ -1,12 +1,13 @@
 return {
   {
     "nvim-neotest/neotest",
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
       -- "rouge8/neotest-rust",
-      { "fredrikaverpil/neotest-golang", version = "*" },       -- Installation
+      { "fredrikaverpil/neotest-golang", version = "*" }, -- Installation
       "nvim-neotest/neotest-jest",
       "nvim-neotest/nvim-nio",
     },

@@ -2,6 +2,7 @@ return {
   {
     'MeanderingProgrammer/render-markdown.nvim',
     ft = "markdown",
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       { 'echasnovski/mini.icons', version = false },
