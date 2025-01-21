@@ -24,7 +24,7 @@ fi
 ! [ -d $HOME/.proto ] && mkdir -p $HOME/.proto
 ln -s $(pwd)/prototools.toml $HOME/.proto/.prototools
 
-cd $HOME/.proto && $HOME/.proto/bin/proto install && cd -
+cd $HOME/.proto && $HOME/.proto/bin/proto clean plugins --days 0 && $HOME/.proto/bin/proto install && cd -
 
 echo "Temporarily enable proto, later it'll be handled from bashrc"
 export PROTO_HOME="$HOME/.proto"
