@@ -1,22 +1,10 @@
 return {
   {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    after = "mason.nvim",
-    config = function()
-      require("mason-tool-installer").setup({
-        ensure_installed = {
-          "prettier",
-          "prettierd",
-          "shfmt",
-        }
-      })
-    end,
-  },
-  {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
       "saghen/blink.cmp",
     },
     config = function(_, opts)
@@ -27,23 +15,32 @@ return {
       )
 
       require("mason").setup()
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "prettier",
+          "shfmt",
+          -- NOTE: enable if needed
+          -- "prettierd",
+        }
+      })
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
-          "rust_analyzer",
           "ts_ls",
           "gopls",
           "jsonls",
           "eslint",
           "biome",
-          "clangd",
           "bashls",
-          "ast_grep",
           "yamlls",
           "dockerls",
-          "pylsp",
-          "csharp_ls",
           "golangci_lint_ls"
+          -- NOTE: enable if needed or install manually
+          -- "ast_grep",
+          -- "clangd",
+          -- "csharp_ls",
+          -- "pylsp",
+          -- "rust_analyzer",
         },
         handlers = {
           function(server_name) -- default handler (optional)
@@ -60,7 +57,6 @@ return {
               filetypes = { "go" },
               root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
               init_options = {
-                -- command = { "golangci-lint", "run", "--issues-exit-code=1",  },
                 command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
               },
             }
@@ -157,8 +153,6 @@ return {
 
       local lspconfig = require("lspconfig")
 
-      lspconfig.biome.setup({})
-
       lspconfig.gopls.setup({
         capabilities = capabilities,
         filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
@@ -203,13 +197,14 @@ return {
 
       })
 
-      lspconfig.rust_analyzer.setup({
-        root_dir = lspconfig.util.root_pattern('Cargo.toml'),
-        capabilities = capabilities,
-        on_attach = function(client)
-          client.server_capabilities.documentFormattingProvider = true
-        end,
-      })
+      -- TODO: enable when rust_analyzer if needed
+      -- lspconfig.rust_analyzer.setup({
+      --   root_dir = lspconfig.util.root_pattern('Cargo.toml'),
+      --   capabilities = capabilities,
+      --   on_attach = function(client)
+      --     client.server_capabilities.documentFormattingProvider = true
+      --   end,
+      -- })
 
       local blink_get_capabilities = require('blink.cmp').get_lsp_capabilities
 
@@ -221,6 +216,7 @@ return {
   },
   {
     'dmmulroy/ts-error-translator.nvim',
+    ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
     config = function()
       require('ts-error-translator').setup({
         filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },

@@ -44,12 +44,12 @@ vim.keymap.set(
     if vim.fn.filereadable("go.work") then
       cmd = "go work edit -json | jq -r '.Use[].DiskPath'  | xargs -I{} golangci-lint run --fix {}/..."
     end
-
-    local notification = vim.notify("Running...", vim.log.levels.INFO, { title = "GolangciLintFix", timeout = 1000 })
+    local id = "golangci-lint-fix"
+    vim.notify("Running...", vim.log.levels.INFO, { title = "GolangciLintFix", timeout = 1000, id = id })
     vim.fn.jobstart(cmd, {
       on_exit = function(_, code)
         local level = code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
-        vim.notify('Done', level, { title = "GolangciLintFix", timeout = 1000, replace = notification })
+        vim.notify('Done', level, { title = "GolangciLintFix", timeout = 1000, id = id })
         vim.cmd("e!")
       end,
     })

@@ -53,7 +53,7 @@ return {
       })
     end
   },
-  {
+  --[[ {
     "kdheepak/lazygit.nvim",
     lazy = true,
     cmd = {
@@ -72,5 +72,5 @@ return {
     keys = {
       { "<leader>gs", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     }
-  }
+  } ]]
 }

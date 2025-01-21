@@ -123,13 +123,8 @@ return {
     --- @param opts blink.cmp.Config
     opts = function(_, opts)
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
-        default = { "lsp", "path", "snippets", "buffer", "npm", "markdown" },
+        default = { "lsp", "path", "snippets", "buffer", "npm" },
         providers = {
-          markdown = {
-            name = 'RenderMarkdown',
-            module = 'render-markdown.integ.blink',
-            fallbacks = { 'lsp' },
-          },
           lsp = {
             name = "lsp",
             enabled = true,
