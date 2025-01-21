@@ -6,6 +6,8 @@ if ! command -v proto &>/dev/null; then
     bash <(curl -fsSL https://moonrepo.dev/install/proto.sh) --yes --no-profile
 fi
 
+$HOME/.proto/bin/proto upgrade
+
 if ! [ -d $HOME/.oh-my-bash ]; then
     echo "Installing oh-my-bash..."
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh) --unattended"
