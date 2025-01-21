@@ -5,8 +5,8 @@ type = "cli"
 git-url = "https://github.com/sharkdp/hyperfine"
 
 [platform.linux]
-download-file = "hyperfine-v{version}-{arch}-unknown-linux-{libc}.tar.gz"
-exe-path = "hyperfine-v{version}-{arch}-unknown-linux-{libc}/hyperfine"
+archive-prefix = "hyperfine-v{version}-{arch}-unknown-linux-{libc}"
+download-file =  "hyperfine-v{version}-{arch}-unknown-linux-{libc}.tar.gz"
 
 [platform.macos]
 download-file = "hyperfine-v{version}-{arch}-apple-darwin.tar.gz"

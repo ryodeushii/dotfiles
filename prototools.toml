@@ -3,13 +3,13 @@ fzf = "latest"
 gh = "2.65.0"
 go = "1.23.4"
 golangci-lint = "1.63.4"
-hyperfine = "1.19.0"
 jq = "latest"
 moon = "1.30.6"
 node = "22.13.0"
 npm = "bundled"
 pnpm = "9.14.2"
-proto = "0.41.5"
+proto = "latest"
+hyperfine = "1.19.0"
 rust = "latest"
 
 [tools.npm]
@@ -18,6 +18,7 @@ shared-globals-dir = true
 [plugins]
 fzf = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/fzf/plugin.toml"
 gh = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/gh/plugin.toml"
+hyperfine = "https://raw.githubusercontent.com/ryodeushii/dotfiles/refs/heads/master/proto_plugins/hyperfine.toml"
 jq = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/jq/plugin.toml"
 moon = "https://raw.githubusercontent.com/moonrepo/moon/master/proto-plugin.toml"
 
