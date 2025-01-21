@@ -9,4 +9,8 @@ return {
     name = "plenary",
     after = "luarocks.nvim",
   },
+  {
+    'stevearc/dressing.nvim',
+    opts = {},
+  }
 }

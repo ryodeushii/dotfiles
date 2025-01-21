@@ -35,6 +35,7 @@ autocmd('LspAttach', {
   group = RyodeushiiGroup,
   callback = function(e)
     local fzf = require("fzf-lua")
+    -- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, { buffer = e.buf, desc = "Go to definition" })
     vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = e.buf, desc = "Go to definition" })
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, { buffer = e.buf, desc = "Show hover" })
     vim.keymap.set("n", "<leader>vws", fzf.lsp_workspace_symbols, { buffer = e.buf, desc = "Workspace symbol" })
