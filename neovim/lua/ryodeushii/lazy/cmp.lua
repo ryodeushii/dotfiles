@@ -51,6 +51,7 @@ return {
   },
   {
     "xzbdmw/colorful-menu.nvim",
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require("colorful-menu").setup({
         ls = {
@@ -103,6 +104,8 @@ return {
       },
       {
         "ryodeushii/cmp_npm",
+        event = { 'BufReadPre', 'BufNewFile' },
+        ft = "json",
         dev = true,
         -- set path to local plugin
         dir = vim.fn.stdpath('config') .. '/lua/ryodeushii/cmp_npm',
@@ -256,7 +259,6 @@ return {
         ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-e>"] = { "hide", "fallback" },
       })
 
       opts.signature = vim.tbl_deep_extend("force", opts.signature or {}, {
