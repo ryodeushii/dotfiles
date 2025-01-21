@@ -3,5 +3,6 @@ return {
   {
     'mistweaverco/kulala.nvim',
     lazy = true,
+    ft = {"http"},
   },
 }
