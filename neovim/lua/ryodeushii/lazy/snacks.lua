@@ -55,7 +55,9 @@ return {
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
-      animate = {},
+      animate = {
+        enabled = vim.fn.has("nvim-0.10") == 1,
+      },
       bigfile = {},
       dashboard = {
         sections = {
@@ -67,7 +69,8 @@ return {
         },
       },
       lazygit = {},
-      indent = {},
+      indent = { enabled = false  },
+      scope = { enabled = false, min_size = 2, cursor = true, edge = true, debounce = 30 },
       input = { enabled = false }, -- possible replacement for dressing
       notifier = {
         enabled = true,
@@ -82,7 +85,7 @@ return {
       quickfile = { enabled = true },
       picker = { enabled = true },
       statuscolumn = {
-        enabled = true,
+        enabled = false,
         left = { "mark", "sign" }, -- priority of signs on the left (high to low)
         right = { "fold", "git" }, -- priority of signs on the right (high to low)
         folds = {

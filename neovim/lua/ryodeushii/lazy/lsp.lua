@@ -250,6 +250,8 @@ return {
   },
   {
     'ckipp01/nvim-jenkinsfile-linter',
+    cmd = "JenkinsfileLinter",
+    ft = { 'groovy' },
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
       -- require("jenkinsfile_linter").validate()
