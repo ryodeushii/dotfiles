@@ -1,7 +1,7 @@
 # Enable the subsequent settings only in interactive sessions
 case $- in
-  *i*) ;;
-    *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # Path to your oh-my-bash installation.
@@ -81,9 +81,9 @@ OMB_USE_SUDO=true
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
 completions=(
-  git
-  composer
-  ssh
+    git
+    composer
+    ssh
 )
 
 # Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
@@ -91,7 +91,7 @@ completions=(
 # Example format: aliases=(vagrant composer git-avh)
 # Add wisely, as too many aliases slow down shell startup.
 aliases=(
-  general
+    general
 )
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -99,10 +99,10 @@ aliases=(
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  bashmarks
-  npm
-  sudo
+    git
+    bashmarks
+    npm
+    sudo
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -137,9 +137,11 @@ export EDITOR='nvim'
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
 
+# WARN: place all the custom paths before proto, 'cause after that no paths additions will work'
+export PATH="$HOME/.local/bin:$PATH"
 # proto
-export PROTO_HOME="$HOME/.proto";
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
+export PROTO_HOME="$HOME/.proto"
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 eval "$(proto activate bash -c global)"
 
 # setup cargo (rust)
@@ -147,10 +149,6 @@ eval "$(proto activate bash -c global)"
 # setup zoxide
 eval "$(zoxide init bash)"
 
-export PATH=~/.local/bin:"$PATH"
-# setup go
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/go/bin
 # shell copilot
 alias ??="gh copilot suggest "
 
@@ -160,5 +158,3 @@ fi
 
 eval "$(fzf --bash)"
 export GPG_TTY=$(tty)
-
-
