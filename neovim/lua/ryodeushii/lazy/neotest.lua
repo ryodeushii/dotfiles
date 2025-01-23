@@ -16,10 +16,6 @@ return {
       neotest.setup({
         adapters = {
           require("neotest-golang"),
-          -- require("neotest-rust") {
-          --   args = { "--no-capture" },
-          --   dap_adapter = "lldb"
-          -- },
           require("neotest-jest")({
             jestCommand = "npx jest --json --no-coverage",
             env = { CI = true },

@@ -10,13 +10,65 @@ return {
       "rcarriga/nvim-dap-ui",
       "theHamsta/nvim-dap-virtual-text",
       "nvim-neotest/nvim-nio",
-      "willamboman/mason.nvim",
+      "jay-babu/mason-nvim-dap.nvim",
     },
+    keys = { "<F1>", "<F2>", "<F3>", "<F4>", "<F9>", "<F10>", "<leader>b", "<leader>gb", "<leader>?", "<leader>du" },
     config = function()
+      require("mason-nvim-dap").setup({
+        ensure_installed = {
+          "delve",
+          "js",
+        }
+      })
+
       local dap = require("dap")
       local ui = require("dapui")
 
-      require("dapui").setup()
+      require("dapui").setup({
+        layouts = { {
+          elements = {
+            {
+              id = "scopes",
+              size = 0.30
+            },
+            {
+              id = "breakpoints",
+              size = 0.20
+            },
+            {
+              id = "stacks",
+              size = 0.30
+            },
+            {
+              id = "watches",
+              size = 0.30
+            }
+          },
+          position = "left",
+          size = 40
+        }, {
+          elements = {
+            {
+              id = "console",
+              size = 0.25
+            },
+            {
+              id = "repl",
+              size = 0.75
+            },
+          },
+          position = "bottom",
+          size = 10
+        } },
+        mappings = {
+          edit = "e",
+          expand = { "<CR>", "<2-LeftMouse>" },
+          open = "o",
+          remove = "d",
+          repl = "r",
+          toggle = "t"
+        },
+      })
       require("dap-go").setup()
 
       vim.api.nvim_set_hl(0, 'DapStoppedLine', { default = true, link = 'Visual' })
