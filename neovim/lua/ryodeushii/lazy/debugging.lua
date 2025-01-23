@@ -1,9 +1,7 @@
+local js_filetypes = { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' }
 return {
   {
     "mfussenegger/nvim-dap",
-    -- lazy = true,
-    -- event = { "BufReadPre", "BufNewFile" },
-    keys = { "F1", "F2", "F3", "F4", "F9", "F10", "<leader>b", "<leader>gb", "<leader>?", "<leader>du" },
     dependencies = {
       {
         "leoluz/nvim-dap-go",
@@ -15,20 +13,136 @@ return {
       "willamboman/mason.nvim",
     },
     config = function()
-      local dap = require('dap')
-      local ui = require('dapui')
+      local dap = require("dap")
+      local ui = require("dapui")
 
-      require('dapui').setup()
+      require("dapui").setup()
       require("dap-go").setup()
 
-      --[[ NOTE: this is setup for vscode-js-debug to be used
-      {
-        "microsoft/vscode-js-debug",
-        ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-        version = "1.x",
-        build = "npm i && npm run compile vsDebugServerBundle && mv dist out"
-      },
-      NOTE [2]: this should be run by node with this path and port passed:args = { vim.fn.stdpath("data") .. "/lazy/vscode-js-debug" .. "/out/src/vsDebugServer.js", "${port}" } ]]
+      vim.api.nvim_set_hl(0, 'DapStoppedLine', { default = true, link = 'Visual' })
+
+      if not dap.adapters['pwa-node'] then
+        dap.adapters['pwa-node'] = {
+          type = 'server',
+          host = 'localhost',
+          port = '${port}',
+          executable = {
+            command = vim.fn.stdpath("data") .. "/mason/bin/js-debug-adapter",
+            args = {
+              "${port}",
+            },
+          },
+        }
+      end
+
+      if not dap.adapters['node'] then
+        dap.adapters['node'] = function(cb, config)
+          if config.type == 'node' then
+            config.type = 'pwa-node'
+          end
+          local nativeAdapter = dap.adapters['pwa-node']
+          if type(nativeAdapter) == 'function' then
+            nativeAdapter(cb, config)
+          else
+            cb(nativeAdapter)
+          end
+        end
+      end
+
+
+      for _, language in ipairs(js_filetypes) do
+        require("dap").configurations[language] = {
+          {
+            name = 'Launch file',
+            type = 'pwa-node',
+            request = 'launch',
+            program = '${file}',
+            cwd = '${workspaceFolder}',
+            args = { '${file}' },
+            sourceMaps = true,
+            sourceMapPathOverrides = {
+              ['./*'] = '${workspaceFolder}/src/*',
+            },
+          },
+          -- Debug nodejs processes (make sure to add --inspect when you run the process)
+          {
+            name = 'Attach',
+            type = 'pwa-node',
+            request = 'attach',
+            processId = require('dap.utils').pick_process,
+            cwd = '${workspaceFolder}',
+            sourceMaps = true,
+          },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Auto Attach",
+            cwd = vim.fn.getcwd(),
+            protocol = "inspector",
+          },
+          {
+            name = 'Debug Jest Tests',
+            type = 'pwa-node',
+            request = 'launch',
+            runtimeExecutable = 'node',
+            runtimeArgs = { '${workspaceFolder}/node_modules/.bin/jest', '--runInBand' },
+            rootPath = '${workspaceFolder}',
+            cwd = '${workspaceFolder}',
+            console = 'integratedTerminal',
+            internalConsoleOptions = 'neverOpen',
+            -- args = {'${file}', '--coverage', 'false'},
+            -- sourceMaps = true,
+            -- skipFiles = {'<node_internals>/**', 'node_modules/**'},
+          },
+          {
+            name = 'Debug Vitest Tests',
+            type = 'pwa-node',
+            request = 'launch',
+            cwd = vim.fn.getcwd(),
+            program = '${workspaceFolder}/node_modules/vitest/vitest.mjs',
+            args = { 'run', '${file}' },
+            autoAttachChildProcesses = true,
+            smartStep = true,
+            skipFiles = { '<node_internals>/**', 'node_modules/**' },
+          },
+          -- Debug web applications (client side)
+          {
+            name = 'Launch & Debug Chrome',
+            type = 'pwa-chrome',
+            request = 'launch',
+            url = function()
+              local co = coroutine.running()
+              return coroutine.create(function()
+                vim.ui.input({ prompt = 'Enter URL: ', default = 'http://localhost:3000' }, function(url)
+                  if url == nil or url == '' then
+                    return
+                  else
+                    coroutine.resume(co, url)
+                  end
+                end)
+              end)
+            end,
+            webRoot = vim.fn.getcwd(),
+            protocol = 'inspector',
+            sourceMaps = true,
+            userDataDir = false,
+            resolveSourceMapLocations = {
+              '${workspaceFolder}/**',
+              '!**/node_modules/**',
+            },
+
+            -- From https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/dap.lua
+            -- To test how it behaves
+            rootPath = '${workspaceFolder}',
+            cwd = '${workspaceFolder}',
+            console = 'integratedTerminal',
+            internalConsoleOptions = 'neverOpen',
+            sourceMapPathOverrides = {
+              ['./*'] = '${workspaceFolder}/src/*',
+            },
+          },
+        }
+      end
 
       require("nvim-dap-virtual-text").setup()
 
