@@ -126,8 +126,14 @@ return {
     --- @param opts blink.cmp.Config
     opts = function(_, opts)
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
-        default = { "lsp", "path", "snippets", "buffer", "npm" },
+        default = { "lsp", "path", "snippets", "buffer", "npm", --[[ "codeium" ]] },
         providers = {
+          --[[ codeium = {
+            name = "codeium",
+            module = "blink.compat.source",
+            score_offset = 100,
+            async = true,
+          }, ]]
           lsp = {
             name = "lsp",
             enabled = true,
