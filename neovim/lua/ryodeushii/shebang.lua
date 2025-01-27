@@ -1,6 +1,32 @@
 local M = {}
 
+
+
+local is_ft_correct = function()
+  local ft = vim.opt.filetype:get()
+  local correct_fts = {
+    "bash",
+    "zsh",
+    "fish",
+    "bash2",
+    "sh",
+  }
+  if ft == nil then
+    return true
+  end
+
+  if vim.tbl_contains(correct_fts, ft) then
+    return true
+  end
+
+  return false
+end
+
 M.detect_shell = function()
+  if not is_ft_correct() then
+    return
+  end
+
   local shebang = vim.fn.getline(1)
   if shebang:sub(1, 2) ~= "#!" then
     return
