@@ -117,6 +117,8 @@ return {
         { "<leader>fk",  function() Snacks.picker.keymaps() end,                desc = "Keymaps" },
         { "<leader>gl",  function() Snacks.picker.git_log() end,                desc = "Git log" },
         { "<leader>ft",  function() Snacks.picker.todo_comments() end,          desc = "Git status" },
+        { "<leader>fp",  function() Snacks.picker() end,                        desc = "List pickers" },
+
 
         -- lsp related
         { "<leader>vd",  function() Snacks.picker.diagnostics() end,            desc = "Diagnostics" },
