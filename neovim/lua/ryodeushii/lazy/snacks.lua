@@ -69,7 +69,7 @@ return {
         },
       },
       lazygit = {},
-      indent = { enabled = false  },
+      indent = { enabled = false },
       scope = { enabled = false, min_size = 2, cursor = true, edge = true, debounce = 30 },
       input = { enabled = false }, -- possible replacement for dressing
       notifier = {
@@ -105,10 +105,10 @@ return {
       local Snacks = require("snacks")
       return {
         { "<leader>ff",  function() Snacks.picker.files({ hidden = true }) end, desc = "Find files" },
-        { "<C-p>",       function() Snacks.picker.files() end,                  desc = "Find files" },
+        { "<C-p>",       function() Snacks.picker.files({ hidden = true }) end, desc = "Find files" },
         { "<leader>fg",  function() Snacks.picker.git_files() end,              desc = "Find Git files" },
         { "<leader>fb",  function() Snacks.picker.buffers() end,                desc = "Find Buffers" },
-        { "<leader>fs",  function() Snacks.picker.grep() end,                   desc = "Grep" },
+        { "<leader>fs",  function() Snacks.picker.grep({ hidden = true }) end,  desc = "Grep" },
         { "<leader>ps",  function() Snacks.picker.grep({ buffers = true }) end, desc = "Grep" },
         { "<leader>fr",  function() Snacks.picker.resume() end,                 desc = "Resume" },
         { "<leader>fo",  function() Snacks.picker.recent() end,                 desc = "Recent files" },
