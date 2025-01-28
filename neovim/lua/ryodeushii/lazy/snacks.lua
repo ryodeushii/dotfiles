@@ -104,7 +104,7 @@ return {
     keys = function()
       local Snacks = require("snacks")
       return {
-        { "<leader>ff",  function() Snacks.picker.files() end,                  desc = "Find files" },
+        { "<leader>ff",  function() Snacks.picker.files({ hidden = true }) end, desc = "Find files" },
         { "<C-p>",       function() Snacks.picker.files() end,                  desc = "Find files" },
         { "<leader>fg",  function() Snacks.picker.git_files() end,              desc = "Find Git files" },
         { "<leader>fb",  function() Snacks.picker.buffers() end,                desc = "Find Buffers" },
