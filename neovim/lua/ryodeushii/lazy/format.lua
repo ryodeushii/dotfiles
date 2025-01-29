@@ -26,6 +26,8 @@ return {
       },
       formatters_by_ft = {
         lua = { "stylua" },
+        json = { "jq" },
+        jsonc = { "jq" },
         go = { "gofmt" },
         sh = { "shfmt" },
         bash = { "shfmt" },
@@ -35,8 +37,6 @@ return {
         typescriptreact = js_ts_formatters,
         javascriptreact = js_ts_formatters,
       },
-      format_on_save = { timeout_ms = 500 },
-      -- Customize formatters
     },
   },
 }
