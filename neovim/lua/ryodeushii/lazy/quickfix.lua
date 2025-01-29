@@ -2,12 +2,12 @@ return {
   "yorickpeterse/nvim-pqf",
   lazy = true,
   config = function()
-    require('pqf').setup({
+    require("pqf").setup({
       signs = {
-        error = { text = 'E', hl = 'DiagnosticSignError' },
-        warning = { text = 'W', hl = 'DiagnosticSignWarn' },
-        info = { text = 'I', hl = 'DiagnosticSignInfo' },
-        hint = { text = 'H', hl = 'DiagnosticSignHint' },
+        error = { text = "E", hl = "DiagnosticSignError" },
+        warning = { text = "W", hl = "DiagnosticSignWarn" },
+        info = { text = "I", hl = "DiagnosticSignInfo" },
+        hint = { text = "H", hl = "DiagnosticSignHint" },
       },
 
       -- By default, only the first line of a multi line message will be shown.
@@ -21,8 +21,7 @@ return {
       max_filename_length = 0,
 
       -- Prefix to use for truncated filenames.
-      filename_truncate_prefix = '[...]',
+      filename_truncate_prefix = "[...]",
     })
-  end
-
+  end,
 }

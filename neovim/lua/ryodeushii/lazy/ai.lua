@@ -20,9 +20,9 @@ return {
         },
         workspace_root = {
           use_lsp = true,
-        }
+        },
       })
-    end
+    end,
   },
   --[[ {
     "zbirenbaum/copilot.lua",

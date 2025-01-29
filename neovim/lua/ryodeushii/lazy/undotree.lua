@@ -3,7 +3,7 @@ return {
     "tzachar/highlight-undo.nvim",
     keys = { { "u" }, { "<C-r>" } },
     config = function()
-      require('highlight-undo').setup({
+      require("highlight-undo").setup({
         duration = 500,
       })
     end,
@@ -13,6 +13,6 @@ return {
     keys = { { "<leader>u" } },
     config = function()
       vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-    end
-  }
+    end,
+  },
 }

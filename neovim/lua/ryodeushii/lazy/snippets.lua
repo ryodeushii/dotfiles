@@ -1,7 +1,7 @@
 return {
   {
-    'L3MON4D3/LuaSnip',
-    version = 'v2.*',
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       local luasnip = require("luasnip")
@@ -41,17 +41,17 @@ return {
       })
 
       local types_table = {
-        feat     = "✨",
-        fix      = "🐛",
-        chore    = "♻️",
-        docs     = "📚",
-        style    = "💎",
+        feat = "✨",
+        fix = "🐛",
+        chore = "♻️",
+        docs = "📚",
+        style = "💎",
         refactor = "📦",
-        perf     = "🚀",
-        test     = "🚨",
-        build    = "🛠",
-        ci       = "⚙️",
-        revert   = "🗑",
+        perf = "🚀",
+        test = "🚨",
+        build = "🛠",
+        ci = "⚙️",
+        revert = "🗑",
       }
 
       -- conventional commit snippets with dynamic nodes so if no context provided - do not use brackets + use icons for each type
@@ -72,22 +72,21 @@ return {
             t("revert"),
           }),
           c(2, {
-            sn(nil, { t("("), i(1, "scope"), t("): ") }), t(": "), t("!: ")
+            sn(nil, { t("("), i(1, "scope"), t("): ") }),
+            t(": "),
+            t("!: "),
           }),
-          d(3,
-            function(args)
-              local type = args[1][1]
-              return sn(nil, { t(string.format(" %s ", types_table[type] or "")) })
-            end, { 1 }),
-          d(4, function(_)
-            return sn(nil, { r(1, "commit_message", i(nil, "commit message"))
-            })
+          d(3, function(args)
+            local type = args[1][1]
+            return sn(nil, { t(string.format(" %s ", types_table[type] or "")) })
           end, { 1 }),
-        }, {})
+          d(4, function(_)
+            return sn(nil, { r(1, "commit_message", i(nil, "commit message")) })
+          end, { 1 }),
+        }, {}),
       }
       luasnip.add_snippets("gitcommit", commit_snippets)
       luasnip.add_snippets("lazygit", commit_snippets)
-    end
-  }
-
+    end,
+  },
 }

@@ -17,7 +17,7 @@ return {
     lazy = false,
     name = "rose-pine",
     config = function()
-      require('rose-pine').setup({
+      require("rose-pine").setup({
         highlight_groups = {
           StatusLine = { fg = "love", bg = "love", blend = 10 },
           StatusLineNC = { fg = "subtle", bg = "surface" },
@@ -36,8 +36,7 @@ return {
         enable = {
           terminal = true,
         },
-        groups = {
-        },
+        groups = {},
         palette = {
           moon = {
             _bc = "#100f1a",
@@ -105,12 +104,12 @@ return {
             highlight_med = "#403d52",
             highlight_high = "#524f67",
             none = "NONE",
-          }
-        }
+          },
+        },
       })
 
       ApplyColorScheme()
-    end
+    end,
   },
   -- {
   --   "brenoprata10/nvim-highlight-colors",

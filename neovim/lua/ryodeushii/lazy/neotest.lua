@@ -1,7 +1,7 @@
 return {
   {
     "nvim-neotest/neotest",
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
@@ -22,10 +22,10 @@ return {
             cwd = function(path)
               return vim.fn.getcwd()
             end,
-            jestConfigFile = '',
+            jestConfigFile = "",
             jest_test_discovery = false,
           }),
-        }
+        },
       })
 
       vim.keymap.set("n", "<leader>tc", function()

@@ -4,28 +4,27 @@
 -- go list -m -versions -json github.com/go-playground/validator/v10
 -- golang commat to find versions of a module (to use in custom cmp source for go mod)
 
-
 local npm_versions_sort = function(entry1, entry2)
-  local filename = vim.fn.expand('%:t')
-  if filename == 'package.json' then
+  local filename = vim.fn.expand("%:t")
+  if filename == "package.json" then
     local source1 = entry1.source_name
     local source2 = entry2.source_name
 
     -- make source npm has higher priority
-    if source1 == 'npm' and source2 ~= 'npm' then
+    if source1 == "npm" and source2 ~= "npm" then
       return true
     end
 
-    if source1 ~= 'npm' and source2 == 'npm' then
+    if source1 ~= "npm" and source2 == "npm" then
       return false
     end
 
     -- if both source are npm, sort by version
-    if source1 == 'npm' and source2 == 'npm' then
+    if source1 == "npm" and source2 == "npm" then
       local label1 = entry1.label
       local label2 = entry2.label
-      local major1, minor1, patch1 = string.match(label1, '(%d+)%.(%d+)%.(%d+)')
-      local major2, minor2, patch2 = string.match(label2, '(%d+)%.(%d+)%.(%d+)')
+      local major1, minor1, patch1 = string.match(label1, "(%d+)%.(%d+)%.(%d+)")
+      local major2, minor2, patch2 = string.match(label2, "(%d+)%.(%d+)%.(%d+)")
       if major1 ~= major2 then
         return tonumber(major1) > tonumber(major2)
       end
@@ -41,17 +40,16 @@ local npm_versions_sort = function(entry1, entry2)
   return false
 end
 
-
 return {
   {
     "saghen/blink.compat",
-    version = '*',
+    version = "*",
     lazy = true,
     opts = {},
   },
   {
     "xzbdmw/colorful-menu.nvim",
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("colorful-menu").setup({
         ls = {
@@ -100,24 +98,24 @@ return {
     dependencies = {
       {
         "L3MON4D3/LuaSnip",
-        version = 'v2.*',
+        version = "v2.*",
       },
       {
         "ryodeushii/cmp_npm",
-        event = { 'BufReadPre', 'BufNewFile' },
+        event = { "BufReadPre", "BufNewFile" },
         ft = "json",
         dev = true,
         -- set path to local plugin
-        dir = vim.fn.stdpath('config') .. '/lua/ryodeushii/cmp_npm',
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        dir = vim.fn.stdpath("config") .. "/lua/ryodeushii/cmp_npm",
+        dependencies = { "nvim-lua/plenary.nvim" },
         ft = "json",
         config = function()
-          require('ryodeushii.cmp_npm').setup({
+          require("ryodeushii.cmp_npm").setup({
             only_latest_version = false,
             only_semantic_versions = true,
           })
-        end
-      }
+        end,
+      },
     },
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
@@ -126,7 +124,13 @@ return {
     --- @param opts blink.cmp.Config
     opts = function(_, opts)
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
-        default = { "lsp", "path", "snippets", "buffer", "npm", --[[ "codeium" ]] },
+        default = {
+          "lsp",
+          "path",
+          "snippets",
+          "buffer",
+          "npm", --[[ "codeium" ]]
+        },
         providers = {
           --[[ codeium = {
             name = "codeium",
@@ -174,14 +178,14 @@ return {
             name = "npm", -- IMPORTANT: use the same name as you would for nvim-cmp
             module = "blink.compat.source",
             opts = {
-              keyword_length = 4
+              keyword_length = 4,
             },
           },
           cmdline = {
-            enabled = function()               -- Get the current command-line input
+            enabled = function() -- Get the current command-line input
               local line = vim.fn.getcmdline() -- Ignore completion for commands starting with `!`
-              return not vim.startswith(line, '!')
-            end
+              return not vim.startswith(line, "!")
+            end,
           },
         },
         -- command line completion, thanks to dpetka2001 in reddit
@@ -200,19 +204,23 @@ return {
 
       opts.snippets = vim.tbl_deep_extend("force", opts.snippets or {}, {
         preset = "luasnip",
-        expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
+        expand = function(snippet)
+          require("luasnip").lsp_expand(snippet)
+        end,
         active = function(filter)
           if filter and filter.direction then
             return require("luasnip").jumpable(filter.direction)
           end
           return require("luasnip").in_snippet()
         end,
-        jump = function(direction) require("luasnip").jump(direction) end,
+        jump = function(direction)
+          require("luasnip").jump(direction)
+        end,
       })
 
       opts.appearance = vim.tbl_deep_extend("force", opts.appearance or {}, {
         use_nvim_cmp_as_default = true,
-        nerd_font_variant = "mono"
+        nerd_font_variant = "mono",
       })
 
       opts.completion = vim.tbl_deep_extend("force", opts.completion or {}, {
@@ -220,7 +228,9 @@ return {
         menu = {
           draw = {
             columns = {
-              { "kind_icon" }, { "label", gap = 1 }, { "kind" },
+              { "kind_icon" },
+              { "label", gap = 1 },
+              { "kind" },
             },
             components = {
               label = {
@@ -246,7 +256,6 @@ return {
                 end,
               },
             },
-
           },
         },
       })
@@ -273,10 +282,10 @@ return {
 
       opts.fuzzy = vim.tbl_deep_extend("force", opts.fuzzy or {}, {
         sorts = {
-          'score',
-          'sort_text',
+          "score",
+          "sort_text",
           npm_versions_sort,
-        }
+        },
       })
 
       return opts

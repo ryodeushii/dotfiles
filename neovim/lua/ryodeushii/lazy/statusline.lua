@@ -1,6 +1,6 @@
 return {
   {
-    'echasnovski/mini.statusline',
+    "echasnovski/mini.statusline",
     version = false,
     config = function()
       require("mini.statusline").setup({
@@ -19,6 +19,6 @@ return {
         -- Whether to set Vim's settings for statusline (make it always shown)
         set_vim_settings = true,
       })
-    end
+    end,
   },
 }

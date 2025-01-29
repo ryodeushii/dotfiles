@@ -1,4 +1,4 @@
-biome = "1.8.3"
+biome = "1.9.4"
 fzf = "latest"
 gh = "2.65.0"
 go = "1.23.4"
@@ -16,8 +16,10 @@ rust = "latest"
 shared-globals-dir = true
 
 [plugins]
+biome = "https://raw.githubusercontent.com/Phault/proto-toml-plugins/main/biome/plugin.toml"
 fzf = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/fzf/plugin.toml"
 gh = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/gh/plugin.toml"
+golangci-lint = "https://raw.githubusercontent.com/b4nst/proto-plugins/refs/heads/main/toml/golangci-lint.toml"
 hyperfine = "https://raw.githubusercontent.com/ryodeushii/dotfiles/refs/heads/master/proto_plugins/hyperfine.toml"
 jq = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/jq/plugin.toml"
 moon = "https://raw.githubusercontent.com/moonrepo/moon/master/proto-plugin.toml"

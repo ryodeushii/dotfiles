@@ -59,9 +59,7 @@ vim.opt.foldlevelstart = 99
 
 vim.opt.clipboard:append("unnamedplus")
 
-
 vim.opt.cursorline = true
-
 
 -- define custom filetypes overrides
 vim.cmd([[
@@ -82,6 +80,6 @@ vim.opt.hidden = true
 
 vim.filetype.add({
   extension = {
-    ['http'] = 'http',
+    ["http"] = "http",
   },
 })

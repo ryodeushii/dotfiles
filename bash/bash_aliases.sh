@@ -7,23 +7,21 @@ alias gd="git diff"
 alias gpr="git pull --rebase"
 alias gpl="git pull"
 
-function gdd () {
-    git diff origin/$(git branch --show-current)
+function gdd() {
+  git diff origin/$(git branch --show-current)
 }
 
-function gp () {
-    git push origin $(git branch --show-current)
+function gp() {
+  git push origin $(git branch --show-current)
 }
 
-function gu () {
-    git restore --staged $1
+function gu() {
+  git restore --staged $1
 }
 
 alias gp=gp
 alias gdd=gdd
 alias gu=gu
-
-
 
 # general
 

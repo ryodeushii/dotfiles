@@ -5,8 +5,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    local value = ev.data.params
-        .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+    local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
     if not client or type(value) ~= "table" then
       return
     end
@@ -39,8 +38,8 @@ vim.api.nvim_create_autocmd("LspProgress", {
       title = client.name,
       opts = function(notif)
         notif.icon = #progress[client.id] == 0 and " "
-            ---@diagnostic disable-next-line: undefined-field
-            or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+          ---@diagnostic disable-next-line: undefined-field
+          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
       end,
     })
   end,
@@ -50,7 +49,7 @@ return {
   -- when the profiler is running
   {
     "folke/snacks.nvim",
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -89,8 +88,8 @@ return {
         left = { "mark", "sign" }, -- priority of signs on the left (high to low)
         right = { "fold", "git" }, -- priority of signs on the right (high to low)
         folds = {
-          open = false,            -- show open fold icons
-          git_hl = false,          -- use Git Signs hl for fold icons
+          open = false, -- show open fold icons
+          git_hl = false, -- use Git Signs hl for fold icons
         },
         git = {
           -- patterns to match Git signs
@@ -104,32 +103,172 @@ return {
     keys = function()
       local Snacks = require("snacks")
       return {
-        { "<leader>ff",  function() Snacks.picker.files({ hidden = true }) end, desc = "Find files" },
-        { "<C-p>",       function() Snacks.picker.files({ hidden = true }) end, desc = "Find files" },
-        { "<leader>fg",  function() Snacks.picker.git_files() end,              desc = "Find Git files" },
-        { "<leader>fb",  function() Snacks.picker.buffers() end,                desc = "Find Buffers" },
-        { "<leader>fs",  function() Snacks.picker.grep({ hidden = true }) end,  desc = "Grep" },
-        { "<leader>ps",  function() Snacks.picker.grep({ buffers = true }) end, desc = "Grep" },
-        { "<leader>fr",  function() Snacks.picker.resume() end,                 desc = "Resume" },
-        { "<leader>fo",  function() Snacks.picker.recent() end,                 desc = "Recent files" },
-        { "<leader>fw",  function() Snacks.picker.grep_word() end,              desc = "Visual selection or word", mode = { "n", "x", "v" } },
-        { "<leader>fh",  function() Snacks.picker.help() end,                   desc = "Help Pages" },
-        { "<leader>fk",  function() Snacks.picker.keymaps() end,                desc = "Keymaps" },
-        { "<leader>gl",  function() Snacks.picker.git_log() end,                desc = "Git log" },
-        { "<leader>ft",  function() Snacks.picker.todo_comments() end,          desc = "Git status" },
-        { "<leader>fp",  function() Snacks.picker() end,                        desc = "List pickers" },
-
+        {
+          "<leader>ff",
+          function()
+            Snacks.picker.files({ hidden = true })
+          end,
+          desc = "Find files",
+        },
+        {
+          "<C-p>",
+          function()
+            Snacks.picker.files({ hidden = true })
+          end,
+          desc = "Find files",
+        },
+        {
+          "<leader>fg",
+          function()
+            Snacks.picker.git_files()
+          end,
+          desc = "Find Git files",
+        },
+        {
+          "<leader>fb",
+          function()
+            Snacks.picker.buffers()
+          end,
+          desc = "Find Buffers",
+        },
+        {
+          "<leader>fs",
+          function()
+            Snacks.picker.grep({ hidden = true })
+          end,
+          desc = "Grep",
+        },
+        {
+          "<leader>ps",
+          function()
+            Snacks.picker.grep({ buffers = true })
+          end,
+          desc = "Grep",
+        },
+        {
+          "<leader>fr",
+          function()
+            Snacks.picker.resume()
+          end,
+          desc = "Resume",
+        },
+        {
+          "<leader>fo",
+          function()
+            Snacks.picker.recent()
+          end,
+          desc = "Recent files",
+        },
+        {
+          "<leader>fw",
+          function()
+            Snacks.picker.grep_word()
+          end,
+          desc = "Visual selection or word",
+          mode = { "n", "x", "v" },
+        },
+        {
+          "<leader>fh",
+          function()
+            Snacks.picker.help()
+          end,
+          desc = "Help Pages",
+        },
+        {
+          "<leader>fk",
+          function()
+            Snacks.picker.keymaps()
+          end,
+          desc = "Keymaps",
+        },
+        {
+          "<leader>gl",
+          function()
+            Snacks.picker.git_log()
+          end,
+          desc = "Git log",
+        },
+        {
+          "<leader>ft",
+          function()
+            Snacks.picker.todo_comments()
+          end,
+          desc = "Git status",
+        },
+        {
+          "<leader>fp",
+          function()
+            Snacks.picker()
+          end,
+          desc = "List pickers",
+        },
 
         -- lsp related
-        { "<leader>vd",  function() Snacks.picker.diagnostics() end,            desc = "Diagnostics" },
-        { "<leader>vws", function() Snacks.picker.lsp_workspace_symbols() end,  desc = "Diagnostics" },
-        { "gd",          function() Snacks.picker.lsp_definitions() end,        desc = "Goto Definition" },
-        { "gtd",         function() Snacks.picker.lsp_type_definitions() end,   desc = "Goto T[y]pe Definition" },
-        { "gr",          function() Snacks.picker.lsp_references() end,         nowait = true,                     desc = "References" },
-        { "<leader>vrr", function() Snacks.picker.lsp_references() end,         nowait = true,                     desc = "References" },
-        { "gi",          function() Snacks.picker.lsp_implementations() end,    desc = "Goto Implementation" },
-        { "<leader>fl",  function() Snacks.picker.lsp_symbols() end,            desc = "LSP Symbols" },
-        { "<leader>gs",  function() Snacks.lazygit() end,                       desc = "LazyGit" }
+        {
+          "<leader>vd",
+          function()
+            Snacks.picker.diagnostics()
+          end,
+          desc = "Diagnostics",
+        },
+        {
+          "<leader>vws",
+          function()
+            Snacks.picker.lsp_workspace_symbols()
+          end,
+          desc = "Diagnostics",
+        },
+        {
+          "gd",
+          function()
+            Snacks.picker.lsp_definitions()
+          end,
+          desc = "Goto Definition",
+        },
+        {
+          "gtd",
+          function()
+            Snacks.picker.lsp_type_definitions()
+          end,
+          desc = "Goto T[y]pe Definition",
+        },
+        {
+          "gr",
+          function()
+            Snacks.picker.lsp_references()
+          end,
+          nowait = true,
+          desc = "References",
+        },
+        {
+          "<leader>vrr",
+          function()
+            Snacks.picker.lsp_references()
+          end,
+          nowait = true,
+          desc = "References",
+        },
+        {
+          "gi",
+          function()
+            Snacks.picker.lsp_implementations()
+          end,
+          desc = "Goto Implementation",
+        },
+        {
+          "<leader>fl",
+          function()
+            Snacks.picker.lsp_symbols()
+          end,
+          desc = "LSP Symbols",
+        },
+        {
+          "<leader>gs",
+          function()
+            Snacks.lazygit()
+          end,
+          desc = "LazyGit",
+        },
       }
     end,
   },

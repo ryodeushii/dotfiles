@@ -1,11 +1,11 @@
 return {
   {
-    'MeanderingProgrammer/render-markdown.nvim',
+    "MeanderingProgrammer/render-markdown.nvim",
     ft = "markdown",
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      { 'echasnovski/mini.icons', version = false },
+      "nvim-treesitter/nvim-treesitter",
+      { "echasnovski/mini.icons", version = false },
     },
     ---@module 'render-markdown'
     ---@diagnostic disable-next-line: undefined-doc-name

@@ -7,8 +7,8 @@ return {
     local opts = {
       settings = {
         save_on_toggle = true,
-        save_on_ui_close = true
-      }
+        save_on_ui_close = true,
+      },
     }
 
     harpoon:setup(opts)
@@ -26,15 +26,29 @@ return {
     })
 
     -- add file to list
-    vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+    vim.keymap.set("n", "<leader>a", function()
+      harpoon:list():add()
+    end)
     -- quick switch between first 4 files
-    vim.keymap.set("n", "<A-1>", function() harpoon:list():select(1) end)
-    vim.keymap.set("n", "<A-2>", function() harpoon:list():select(2) end)
-    vim.keymap.set("n", "<A-3>", function() harpoon:list():select(3) end)
-    vim.keymap.set("n", "<A-4>", function() harpoon:list():select(4) end)
-    vim.keymap.set("n", "<A-5>", function() harpoon:list():select(5) end)
+    vim.keymap.set("n", "<A-1>", function()
+      harpoon:list():select(1)
+    end)
+    vim.keymap.set("n", "<A-2>", function()
+      harpoon:list():select(2)
+    end)
+    vim.keymap.set("n", "<A-3>", function()
+      harpoon:list():select(3)
+    end)
+    vim.keymap.set("n", "<A-4>", function()
+      harpoon:list():select(4)
+    end)
+    vim.keymap.set("n", "<A-5>", function()
+      harpoon:list():select(5)
+    end)
 
     -- show ui (internal)
-    vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-  end
+    vim.keymap.set("n", "<C-e>", function()
+      harpoon.ui:toggle_quick_menu(harpoon:list())
+    end)
+  end,
 }

@@ -2,7 +2,7 @@ return {
   "folke/todo-comments.nvim",
   after = "nvim-lua/plenary.nvim",
   config = function()
-    require("todo-comments").setup {
+    require("todo-comments").setup({
       signs = true,
       keywords = {
         FIX = {
@@ -39,6 +39,6 @@ return {
         -- regex that will be used to match keywords.
         pattern = [[\b(KEYWORDS):]],
       },
-    }
+    })
   end,
 }

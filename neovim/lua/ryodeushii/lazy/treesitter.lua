@@ -7,8 +7,17 @@ return {
       require("nvim-treesitter.configs").setup({
         -- A list of parser names, or "all"
         ensure_installed = {
-          "vimdoc", "javascript", "typescript", "lua", "rust", "go",
-          "jsdoc", "bash", "markdown", "markdown_inline", "html",
+          "vimdoc",
+          "javascript",
+          "typescript",
+          "lua",
+          "rust",
+          "go",
+          "jsdoc",
+          "bash",
+          "markdown",
+          "markdown_inline",
+          "html",
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -19,7 +28,7 @@ return {
         auto_install = true,
 
         indent = {
-          enable = true
+          enable = true,
         },
 
         highlight = {
@@ -44,7 +53,7 @@ return {
       }
 
       vim.treesitter.language.register("templ", "templ")
-    end
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -98,6 +107,6 @@ return {
           },
         },
       })
-    end
-  }
+    end,
+  },
 }

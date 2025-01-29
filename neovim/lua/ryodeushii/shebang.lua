@@ -1,7 +1,5 @@
 local M = {}
 
-
-
 local is_ft_correct = function()
   local ft = vim.opt.filetype:get()
   local correct_fts = {

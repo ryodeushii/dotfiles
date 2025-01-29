@@ -9,7 +9,7 @@ return {
     after = "luarocks.nvim",
   },
   {
-    'stevearc/dressing.nvim',
+    "stevearc/dressing.nvim",
     opts = {},
-  }
+  },
 }
