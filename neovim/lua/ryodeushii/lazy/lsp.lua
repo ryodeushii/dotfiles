@@ -89,7 +89,7 @@ return {
                 "css",
               },
               capabilities = capabilities,
-              root_dir = lspconfig.util.root_pattern("biome.json", "biome.jsonc", ".git"),
+              root_dir = lspconfig.util.root_pattern("biome.json", "biome.jsonc"),
             })
           end,
 
