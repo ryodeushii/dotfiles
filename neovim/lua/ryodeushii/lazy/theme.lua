@@ -197,8 +197,15 @@ return {
           delta = "#f3be7c",
         },
       })
-      ApplyColorScheme("vague")
+      ApplyColorScheme("ex-vague")
     end,
+  },
+  {
+    "aileot/ex-colors.nvim",
+    lazy = true,
+    cmd = "ExColors",
+    ---@type ExColors.Config
+    opts = {},
   },
   -- {
   --   "brenoprata10/nvim-highlight-colors",
