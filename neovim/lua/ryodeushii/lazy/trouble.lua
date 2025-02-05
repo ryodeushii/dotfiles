@@ -6,11 +6,11 @@ return {
     keys = {
       {
         "[t",
-        "<cmd>Trouble next<cr>",
+        "<cmd>Trouble diagnostics next<cr>",
       },
       {
         "]t",
-        "<cmd>Trouble previous<cr>",
+        "<cmd>Trouble diagnostics prev<cr>",
       },
       {
         "<leader>tt",
