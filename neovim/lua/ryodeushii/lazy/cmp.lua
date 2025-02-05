@@ -226,6 +226,9 @@ return {
       opts.completion = vim.tbl_deep_extend("force", opts.completion or {}, {
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
         menu = {
+          auto_show = function(ctx)
+            return ctx.mode ~= "cmdline" or not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+          end,
           draw = {
             columns = {
               { "kind_icon" },

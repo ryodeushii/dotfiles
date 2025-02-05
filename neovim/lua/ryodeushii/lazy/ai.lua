@@ -18,6 +18,9 @@ return {
             prev = "<M-k>",
           },
         },
+        ignore_filetypes = {
+          "snacks_picker_input"
+        },
         workspace_root = {
           use_lsp = true,
         },
