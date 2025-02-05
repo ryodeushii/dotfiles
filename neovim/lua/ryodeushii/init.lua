@@ -50,9 +50,11 @@ autocmd("LspAttach", {
       vim.lsp.buf.signature_help()
     end, { buffer = e.buf, desc = "Signature help" })
     vim.keymap.set("n", "[d", function()
+      ---@diagnostic disable-next-line: deprecated
       vim.diagnostic.goto_next()
     end, { buffer = e.buf, desc = "Next diagnostic" })
     vim.keymap.set("n", "]d", function()
+      ---@diagnostic disable-next-line: deprecated
       vim.diagnostic.goto_prev()
     end, { buffer = e.buf, desc = "Previous diagnostic" })
   end,
@@ -65,3 +67,5 @@ autocmd("BufReadPost", {
     require("ryodeushii.shebang").detect_shell()
   end,
 })
+-- ApplyColorScheme("oldworld")
+ApplyColorScheme("ex-oldworld")
