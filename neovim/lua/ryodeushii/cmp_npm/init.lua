@@ -111,6 +111,8 @@ function source:complete(params, callback)
             if a_patch ~= b_patch then
               return tonumber(a_patch) > tonumber(b_patch)
             end
+
+            return false
           end)
           callback(items)
         end,
@@ -127,10 +129,10 @@ function source:complete(params, callback)
         local result = job:result()
         local items = {}
         for _, npm_item in ipairs(result) do
-          local name, _, version = string.match(npm_item, "(.*)\t(.*)\t(.*)\t")
-          name = name:gsub("%s.*", "")
-          local label = name .. " " .. version
-          table.insert(items, { label = label, insertText = name })
+          local npm_pkg_name, _, version = string.match(npm_item, "(.*)\t(.*)\t(.*)\t")
+          npm_pkg_name = npm_pkg_name:gsub("%s.*", "")
+          local label = npm_pkg_name .. " " .. version
+          table.insert(items, { label = label, insertText = npm_pkg_name })
         end
         callback(items)
       end,

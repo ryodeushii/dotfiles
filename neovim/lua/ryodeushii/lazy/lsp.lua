@@ -177,8 +177,9 @@ return {
         },
       })
       vim.diagnostic.config({
+        virtual_lines = true,
         update_in_insert = true,
-        float = {
+        float=  {
           focusable = false,
           style = "minimal",
           border = "rounded",
@@ -227,7 +228,7 @@ return {
         root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
         single_file_support = true,
         handlers = {
-          ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+          ["textDocument/publishDiagnostics"] = function(_, result, ctx)
             if result.diagnostics ~= nil then
               local idx = 1
               while idx <= #result.diagnostics do
@@ -238,7 +239,7 @@ return {
                 end
               end
             end
-            vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+            vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
           end,
         },
         settings = {

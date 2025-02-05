@@ -108,7 +108,6 @@ return {
         -- set path to local plugin
         dir = vim.fn.stdpath("config") .. "/lua/ryodeushii/cmp_npm",
         dependencies = { "nvim-lua/plenary.nvim" },
-        ft = "json",
         config = function()
           require("ryodeushii.cmp_npm").setup({
             only_latest_version = false,
@@ -123,6 +122,7 @@ return {
     --- @diagnostic disable-next-line: undefined-doc-name
     --- @param opts blink.cmp.Config
     opts = function(_, opts)
+      ---@diagnostic disable-next-line: inject-field
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
         default = {
           "lsp",
@@ -202,6 +202,7 @@ return {
         end,
       })
 
+      ---@diagnostic disable-next-line: inject-field
       opts.snippets = vim.tbl_deep_extend("force", opts.snippets or {}, {
         preset = "luasnip",
         expand = function(snippet)
@@ -218,16 +219,18 @@ return {
         end,
       })
 
+      ---@diagnostic disable-next-line: inject-field
       opts.appearance = vim.tbl_deep_extend("force", opts.appearance or {}, {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = "mono",
       })
 
+      ---@diagnostic disable-next-line: inject-field
       opts.completion = vim.tbl_deep_extend("force", opts.completion or {}, {
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
         menu = {
           auto_show = function(ctx)
-            return ctx.mode ~= "cmdline" or not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+            return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
           end,
           draw = {
             columns = {
@@ -263,6 +266,7 @@ return {
         },
       })
 
+      ---@diagnostic disable-next-line: inject-field
       opts.keymap = vim.tbl_deep_extend("force", opts.keymap or {}, {
         preset = "default",
         ["<Tab>"] = { "snippet_forward", "fallback" },
@@ -279,10 +283,12 @@ return {
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
       })
 
+      ---@diagnostic disable-next-line: inject-field
       opts.signature = vim.tbl_deep_extend("force", opts.signature or {}, {
         enabled = true,
       })
 
+      ---@diagnostic disable-next-line: inject-field
       opts.fuzzy = vim.tbl_deep_extend("force", opts.fuzzy or {}, {
         sorts = {
           "score",
