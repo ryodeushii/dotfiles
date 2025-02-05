@@ -68,7 +68,7 @@ function source:complete(params, callback)
         on_exit = function(job)
           local result = job:result()
           table.remove(result, 1)
-          table.remove(result, table.getn(result))
+          table.remove(result, #result)
           local items = {}
           for _, npm_item in ipairs(result) do
             local version = string.match(npm_item, '%s*"(.*)",?')

@@ -1,6 +1,6 @@
 return {
   "yorickpeterse/nvim-pqf",
-  lazy = true,
+  -- event = { "BufReadPre", "BufNewFile" },
   config = function()
     require("pqf").setup({
       signs = {

@@ -28,34 +28,34 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
--- vim.opt.colorcolumn = "80"
 
-vim.opt.foldlevel = 20
+--[[ zc - Close (fold) the current fold under the cursor.
+zo - Open (unfold) the current fold under the cursor.
+za - Toggle between closing and opening the fold under the cursor.
+zR - Open all folds in the current buffer.
+zM - Close all folds in the current buffer. ]]
 
--- zc - Close (fold) the current fold under the cursor.
--- zo - Open (unfold) the current fold under the cursor.
--- za - Toggle between closing and opening the fold under the cursor.
--- zR - Open all folds in the current buffer.
--- zM - Close all folds in the current buffer.
+-- vim.opt.foldlevel = 20
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldlevelstart = 99
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevelstart = 99
+local option = vim.opt
+vim.api.nvim_create_autocmd("BufReadPost", {
+    callback = function()
+        vim.defer_fn(function()
+            option.foldmethod = "expr"
+            option.foldexpr = "nvim_treesitter#foldexpr()"
+            option.foldcolumn = "1"
+            -- opt.foldtext = ""
 
--- if vim.fn.has('wsl') == 1 then
---     vim.g.clipboard = {
---         name = 'WslClipboard',
---         copy = {
---             ['+'] = 'clip.exe',
---             ['*'] = 'clip.exe',
---         },
---         paste = {
---             ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
---             ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
---         },
---         cache_enabled = 0,
---     }
--- end
+            option.foldnestmax = 3
+            option.foldlevel = 99
+            option.foldlevelstart = 99
+        end, 100)
+    end,
+})
+
 
 vim.opt.clipboard:append("unnamedplus")
 

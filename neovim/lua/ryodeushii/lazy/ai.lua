@@ -2,6 +2,7 @@ return {
   {
     "Exafunction/codeium.nvim",
     event = "InsertEnter",
+    cmd = "Codeium",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -19,7 +20,8 @@ return {
           },
         },
         ignore_filetypes = {
-          "snacks_picker_input"
+          "snacks_picker_input",
+          "oil",
         },
         workspace_root = {
           use_lsp = true,
