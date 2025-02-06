@@ -17,7 +17,12 @@ return {
           "bash",
           "markdown",
           "markdown_inline",
-          "html",
+          "json",
+          "jsonc",
+          "tsx",
+          "dockerfile",
+          "yaml",
+          "toml"
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
