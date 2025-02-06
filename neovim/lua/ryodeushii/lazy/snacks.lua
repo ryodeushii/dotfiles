@@ -84,7 +84,7 @@ return {
       quickfile = { enabled = true },
       picker = { enabled = true },
       statuscolumn = {
-        enabled = true,
+        enabled = false,
         left = { "mark", "sign" }, -- priority of signs on the left (high to low)
         right = { "fold", "git" }, -- priority of signs on the right (high to low)
         folds = {
@@ -97,7 +97,7 @@ return {
         },
         refresh = 50, -- refresh at most every 50ms
       },
-      words = { enabled = true },
+      words = { enabled = false },
     },
 
     keys = function()

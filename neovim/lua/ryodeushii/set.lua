@@ -24,6 +24,9 @@ vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
+vim.opt.numberwidth=3
+vim.opt.signcolumn="yes:1"
+vim.opt.statuscolumn="%l%s"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
@@ -46,7 +49,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         vim.defer_fn(function()
             option.foldmethod = "expr"
             option.foldexpr = "nvim_treesitter#foldexpr()"
-            option.foldcolumn = "1"
+            -- option.foldcolumn = "1"
             -- opt.foldtext = ""
 
             option.foldnestmax = 3

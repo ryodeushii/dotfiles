@@ -24,6 +24,9 @@ return {
       local dap = require("dap")
       local ui = require("dapui")
 
+      vim.fn.sign_define('DapBreakpoint', {text='', texthl='DapUIStop', linehl='', numhl='DapUIStop'})
+      vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='DapUIStop', linehl='', numhl='DapUIStop'})
+
       require("dapui").setup({
         layouts = {
           {
