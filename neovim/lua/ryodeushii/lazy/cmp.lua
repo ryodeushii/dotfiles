@@ -129,15 +129,16 @@ return {
           "path",
           "snippets",
           "buffer",
-          "npm", --[[ "codeium" ]]
+          "npm",
+          "codeium",
         },
         providers = {
-          --[[ codeium = {
+          codeium = {
             name = "codeium",
             module = "blink.compat.source",
             score_offset = 100,
             async = true,
-          }, ]]
+          },
           lsp = {
             name = "lsp",
             enabled = true,

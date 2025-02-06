@@ -8,9 +8,9 @@ return {
     },
     config = function()
       require("codeium").setup({
-        enable_cmp_source = false,
+        enable_cmp_source = true,
         virtual_text = {
-          enabled = true,
+          enabled = false,
           map_keys = true,
           key_bindings = {
             accept = "<M-l>",
@@ -19,9 +19,10 @@ return {
             prev = "<M-k>",
           },
         },
-        ignore_filetypes = {
-          "snacks_picker_input",
-          "oil",
+        filetypes = {
+          snacks_picker_input = false,
+          snacks_input = false,
+          oil = false,
         },
         workspace_root = {
           use_lsp = true,
