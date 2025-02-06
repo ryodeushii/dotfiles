@@ -196,10 +196,11 @@ return {
       )
 
       vim.diagnostic.config({
-        virtual_lines = true,
+        virtual_lines = false,
+        virtual_text = true,
         update_in_insert = true,
         float = {
-          focusable = false,
+          focusable = true,
           style = "minimal",
           border = "rounded",
           source = true,
