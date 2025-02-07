@@ -51,6 +51,7 @@ return {
       })
 
       require("mason-lspconfig").setup({
+        automatic_installation = true,
         ensure_installed = {
           "lua_ls",
           "ts_ls",
@@ -159,7 +160,7 @@ return {
                   workspace = {
                     checkThirdParty = false,
                     library = {
-                      unpack(vim.api.nvim_get_runtime_file('', true)),
+                      unpack(vim.api.nvim_get_runtime_file("", true)),
                       -- vim.env.VIMRUNTIME,
                     },
                   },
