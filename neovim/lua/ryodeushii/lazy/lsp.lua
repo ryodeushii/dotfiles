@@ -336,4 +336,53 @@ return {
       vim.cmd("command! JenkinsfileLinter lua require('jenkinsfile_linter').validate()")
     end,
   },
+  {
+    "chrisgrieser/nvim-chainsaw",
+    event = "VeryLazy",
+    opts = {}, -- required even if left empty
+    keys = {
+      {
+        "<leader>lv",
+        function()
+          require("chainsaw").variableLog()
+        end,
+        desc = "Insert Log statement (variable)",
+      },
+      {
+        "<leader>lo",
+        function()
+          require("chainsaw").objectLog()
+        end,
+        desc = "Insert Log statement (object)",
+      },
+      {
+        "<leader>la",
+        function()
+          require("chainsaw").assertLog()
+        end,
+        desc = "Insert Log statement (assert)",
+      },
+      {
+        "<leader>lm",
+        function()
+          require("chainsaw").messageLog()
+        end,
+        desc = "Insert Log statement (message)",
+      },
+      {
+        "<leader>lt",
+        function()
+          require("chainsaw").timeLog()
+        end,
+        desc = "Insert Log statement (time)",
+      },
+      {
+        "<leader>rL",
+        function()
+          require("chainsaw").removeLogs()
+        end,
+        desc = "Remove Log statements in buffer",
+      },
+    },
+  },
 }
