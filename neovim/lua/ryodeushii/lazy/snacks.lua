@@ -275,6 +275,13 @@ return {
           desc = "LSP Symbols",
         },
         {
+          "<leader>fz",
+          function()
+            Snacks.picker.zoxide()
+          end,
+          desc = "Zoxide picker",
+        },
+        {
           "<leader>gs",
           function()
             Snacks.lazygit()
