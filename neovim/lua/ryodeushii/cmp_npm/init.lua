@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local Job = require("plenary.job")
 
 local source = {}
