@@ -12,7 +12,7 @@ return {
       "nvim-neotest/nvim-nio",
       "jay-babu/mason-nvim-dap.nvim",
     },
-    keys = { "<F1>", "<F2>", "<F3>", "<F4>", "<F9>", "<F10>", "<leader>b", "<leader>gb", "<leader>?", "<leader>du" },
+    keys = { "<F1>", "<F2>", "<F3>", "<F4>", "<F9>", "<F10>", "<leader>b", "<leader>B", "<leader>gb", "<leader>?", "<leader>du" },
     config = function()
       require("mason-nvim-dap").setup({
         ensure_installed = {
@@ -204,6 +204,7 @@ return {
       require("nvim-dap-virtual-text").setup()
 
       vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "[debug] Toggle debug breakpoint" })
+      vim.keymap.set("n", "<leader>B", dap.clear_breakpoints, { desc = "[debug] Clear breakpoints" })
       vim.keymap.set("n", "<leader>gb", dap.run_to_cursor, { desc = "[debug] Run to cursor" })
 
       vim.keymap.set("n", "<leader>?", function()
