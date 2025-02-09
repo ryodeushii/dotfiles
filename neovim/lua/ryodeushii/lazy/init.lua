@@ -8,8 +8,4 @@ return {
     "nvim-lua/plenary.nvim",
     after = "luarocks.nvim",
   },
-  {
-    "stevearc/dressing.nvim",
-    opts = {},
-  },
 }
