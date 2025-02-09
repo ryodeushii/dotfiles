@@ -1,8 +1,4 @@
---- @module 'blink.cmp'
-
--- TODO: write custom cmp source for blink.cmp to complete available versions while in go.mod file
--- go list -m -versions -json github.com/go-playground/validator/v10
--- golang commat to find versions of a module (to use in custom cmp source for go mod)
+local codeium_disabled_filetypes = { "oil", "snacks_picker_input" }
 
 local npm_versions_sort = function(entry1, entry2)
   local filename = vim.fn.expand("%:t")
@@ -70,6 +66,18 @@ return {
           })
         end,
       },
+      {
+        "ryodeushii/cmp_gopkgs",
+        event = { "BufReadPre", "BufNewFile" },
+        dev = true,
+        -- set path to local plugin
+        dir = vim.fn.stdpath("config") .. "/lua/ryodeushii/cmp_gopkgs",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+          local source = require("ryodeushii.cmp_gopkgs")
+          require("cmp").register_source("go_pkgs", source.new())
+        end,
+      },
     },
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
@@ -77,7 +85,6 @@ return {
     --- @diagnostic disable-next-line: undefined-doc-name
     --- @param opts blink.cmp.Config
     opts = function(_, opts)
-      ---@diagnostic disable-next-line: inject-field
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
         default = {
           "lsp",
@@ -85,15 +92,10 @@ return {
           "snippets",
           "buffer",
           "npm",
+          "go_pkgs",
           "codeium",
         },
         providers = {
-          codeium = {
-            name = "codeium",
-            module = "blink.compat.source",
-            score_offset = 100,
-            async = true,
-          },
           lsp = {
             name = "lsp",
             enabled = true,
@@ -129,7 +131,20 @@ return {
             min_keyword_length = 4,
             score_offset = 80, -- the higher the number, the higher the priority
           },
-
+          codeium = {
+            name = "codeium",
+            module = "blink.compat.source",
+            score_offset = 100,
+            enabled = function(args)
+              -- return false if vim.bo.filetype in codeium_disabled_filetypes
+              return not vim.tbl_contains(codeium_disabled_filetypes, vim.bo.filetype)
+            end,
+            async = true,
+          },
+          go_pkgs = {
+            name = "go_pkgs", -- IMPORTANT: use the same name as you would for nvim-cmp
+            module = "blink.compat.source",
+          },
           npm = {
             name = "npm", -- IMPORTANT: use the same name as you would for nvim-cmp
             module = "blink.compat.source",
@@ -158,7 +173,6 @@ return {
         end,
       })
 
-      ---@diagnostic disable-next-line: inject-field
       opts.snippets = vim.tbl_deep_extend("force", opts.snippets or {}, {
         preset = "luasnip",
         expand = function(snippet)
@@ -175,13 +189,11 @@ return {
         end,
       })
 
-      ---@diagnostic disable-next-line: inject-field
       opts.appearance = vim.tbl_deep_extend("force", opts.appearance or {}, {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = "mono",
       })
 
-      ---@diagnostic disable-next-line: inject-field
       opts.completion = vim.tbl_deep_extend("force", opts.completion or {}, {
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
         menu = {
@@ -189,10 +201,15 @@ return {
             return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
           end,
           draw = {
+            treesitter = {
+              "lsp",
+              "codeium",
+            },
             columns = {
               { "kind_icon" },
               { "label", gap = 1 },
               { "kind" },
+              { "source_name" },
             },
             components = {
               label = {
@@ -203,7 +220,6 @@ return {
         },
       })
 
-      ---@diagnostic disable-next-line: inject-field
       opts.keymap = vim.tbl_deep_extend("force", opts.keymap or {}, {
         preset = "default",
         ["<Tab>"] = { "snippet_forward", "fallback" },
@@ -220,12 +236,10 @@ return {
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
       })
 
-      ---@diagnostic disable-next-line: inject-field
       opts.signature = vim.tbl_deep_extend("force", opts.signature or {}, {
         enabled = true,
       })
 
-      ---@diagnostic disable-next-line: inject-field
       opts.fuzzy = vim.tbl_deep_extend("force", opts.fuzzy or {}, {
         sorts = {
           "score",

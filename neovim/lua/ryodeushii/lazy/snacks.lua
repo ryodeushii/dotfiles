@@ -1,6 +1,3 @@
----@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
-local progress = vim.defaulttable()
-
 vim.api.nvim_create_autocmd("LspProgress", {
   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
@@ -38,7 +35,14 @@ return {
       lazygit = {},
       indent = { enabled = true },
       scope = { enabled = false, min_size = 2, cursor = true, edge = true, debounce = 30 },
-      input = { enabled = true },
+      input = {
+        enabled = true,
+        b = { completion = false },
+        bo = {
+          filetype = "snacks_input",
+          buftype = "prompt",
+        },
+      },
       nitifier = {
         enabled = true,
       },
