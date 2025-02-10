@@ -49,8 +49,7 @@ return {
     dependencies = {
       {
         "ryodeushii/cmp_npm",
-        event = { "BufReadPre", "BufNewFile" },
-        ft = "json",
+        event = { "BufReadPre package.json", "BufNewFile package.json" },
         dev = true,
         -- set path to local plugin
         dir = vim.fn.stdpath("config") .. "/lua/ryodeushii/cmp_npm",
@@ -167,6 +166,9 @@ return {
 
       opts.completion = vim.tbl_deep_extend("force", opts.completion or {}, {
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        ghost_text = {
+          enabled = true,
+        },
         menu = {
           auto_show = function(ctx)
             return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
