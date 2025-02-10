@@ -338,51 +338,18 @@ return {
     end,
   },
   {
-    "chrisgrieser/nvim-chainsaw",
-    event = "VeryLazy",
-    opts = {}, -- required even if left empty
+    "someone-stole-my-name/yaml-companion.nvim",
+    dependencies = {
+      { "neovim/nvim-lspconfig" },
+      { "nvim-lua/plenary.nvim" },
+    },
     keys = {
       {
-        "<leader>lv",
+        "<leader>ys",
         function()
-          require("chainsaw").variableLog()
+          require("yaml-companion").open_ui_select()
         end,
-        desc = "Insert Log statement (variable)",
-      },
-      {
-        "<leader>lo",
-        function()
-          require("chainsaw").objectLog()
-        end,
-        desc = "Insert Log statement (object)",
-      },
-      {
-        "<leader>la",
-        function()
-          require("chainsaw").assertLog()
-        end,
-        desc = "Insert Log statement (assert)",
-      },
-      {
-        "<leader>lm",
-        function()
-          require("chainsaw").messageLog()
-        end,
-        desc = "Insert Log statement (message)",
-      },
-      {
-        "<leader>lt",
-        function()
-          require("chainsaw").timeLog()
-        end,
-        desc = "Insert Log statement (time)",
-      },
-      {
-        "<leader>rL",
-        function()
-          require("chainsaw").removeLogs()
-        end,
-        desc = "Remove Log statements in buffer",
+        desc = "Yaml companion",
       },
     },
   },
