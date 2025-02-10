@@ -48,10 +48,6 @@ return {
     lazy = false, -- lazy loading handled internally
     dependencies = {
       {
-        "L3MON4D3/LuaSnip",
-        version = "v2.*",
-      },
-      {
         "ryodeushii/cmp_npm",
         event = { "BufReadPre", "BufNewFile" },
         ft = "json",
@@ -89,7 +85,6 @@ return {
         default = {
           "lsp",
           "path",
-          "snippets",
           "buffer",
           "npm",
           "go_pkgs",
@@ -106,7 +101,7 @@ return {
             name = "Path",
             module = "blink.cmp.sources.path",
             score_offset = 3,
-            fallbacks = { "snippets", "buffer" },
+            fallbacks = { "buffer" },
             opts = {
               trailing_slash = false,
               label_trailing_slash = true,
@@ -122,14 +117,6 @@ return {
             max_items = 3,
             module = "blink.cmp.sources.buffer",
             min_keyword_length = 4,
-          },
-          snippets = {
-            name = "snippets",
-            enabled = true,
-            max_items = 3,
-            module = "blink.cmp.sources.snippets",
-            min_keyword_length = 4,
-            score_offset = 80, -- the higher the number, the higher the priority
           },
           codeium = {
             name = "codeium",
@@ -170,22 +157,6 @@ return {
             return { "cmdline" }
           end
           return {}
-        end,
-      })
-
-      opts.snippets = vim.tbl_deep_extend("force", opts.snippets or {}, {
-        preset = "luasnip",
-        expand = function(snippet)
-          require("luasnip").lsp_expand(snippet)
-        end,
-        active = function(filter)
-          if filter and filter.direction then
-            return require("luasnip").jumpable(filter.direction)
-          end
-          return require("luasnip").in_snippet()
-        end,
-        jump = function(direction)
-          require("luasnip").jump(direction)
         end,
       })
 
