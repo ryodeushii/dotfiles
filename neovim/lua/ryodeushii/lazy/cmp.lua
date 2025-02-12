@@ -141,7 +141,7 @@ return {
           cmdline = {
             enabled = function() -- Get the current command-line input
               local line = vim.fn.getcmdline() -- Ignore completion for commands starting with `!`
-              return not vim.startswith(line, "!")
+              return not (vim.startswith(line, "!") or vim.startswith(line, "%!"))
             end,
           },
         },

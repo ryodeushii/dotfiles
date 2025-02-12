@@ -101,7 +101,8 @@ return {
               capabilities = capabilities,
               cmd = { "golangci-lint-langserver" },
               filetypes = { "go" },
-              root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+              -- root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+              root_dir = lspconfig.util.root_pattern(".golangci.yml", ".golangci.yaml"),
               init_options = {
                 command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
               },
@@ -352,5 +353,10 @@ return {
         desc = "Yaml companion",
       },
     },
+  },
+  {
+    "maxandron/goplements.nvim",
+    ft = "go",
+    opts = {},
   },
 }
