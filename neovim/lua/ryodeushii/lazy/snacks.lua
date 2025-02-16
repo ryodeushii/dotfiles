@@ -265,6 +265,13 @@ return {
           end,
           desc = "LazyGit",
         },
+        {
+          "<leader>f\"",
+          function()
+            Snacks.picker.registers()
+          end,
+          desc = "Registers",
+        },
       }
     end,
   },
