@@ -73,6 +73,11 @@ return {
           require("cmp").register_source("go_pkgs", source.new())
         end,
       },
+      {
+        "Kaiser-Yang/blink-cmp-git",
+        dependencies = { "nvim-lua/plenary.nvim" },
+      },
+      { "bydlw98/blink-cmp-env" },
     },
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
@@ -89,14 +94,33 @@ return {
           return 0
         end,
         default = {
+          "git",
           "lsp",
           "path",
           "buffer",
           "npm",
           "go_pkgs",
           "codeium",
+          "env",
         },
         providers = {
+          git = {
+            module = "blink-cmp-git",
+            name = "Git",
+            opts = {
+              -- options for the blink-cmp-git
+            },
+          },
+          env = {
+            name = "Env",
+            module = "blink-cmp-env",
+            --- @type blink-cmp-env.Options
+            opts = {
+              item_kind = require("blink.cmp.types").CompletionItemKind.Variable,
+              show_braces = false,
+              show_documentation_window = true,
+            },
+          },
           lsp = {
             name = "lsp",
             enabled = true,
@@ -152,9 +176,13 @@ return {
             end,
           },
         },
+      })
+
+
+      opts.cmdline = vim.tbl_deep_extend("force", opts.cmdline or {}, {
         -- command line completion, thanks to dpetka2001 in reddit
         -- https://www.reddit.com/r/neovim/comments/1hjjf21/comment/m37fe4d/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-        cmdline = function()
+        sources = function()
           local type = vim.fn.getcmdtype()
           if type == "/" or type == "?" then
             return { "buffer" }
@@ -164,6 +192,7 @@ return {
           end
           return {}
         end,
+        enabled = true,
       })
 
       opts.appearance = vim.tbl_deep_extend("force", opts.appearance or {}, {

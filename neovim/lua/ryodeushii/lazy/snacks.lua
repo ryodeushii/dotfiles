@@ -19,6 +19,13 @@ return {
     "folke/snacks.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
+      styles = {
+        notification = {
+          wo = {
+            wrap = true,
+          },
+        },
+      },
       animate = {
         enabled = vim.fn.has("nvim-0.10") == 1,
       },
@@ -57,11 +64,10 @@ return {
           buftype = "prompt",
         },
       },
-      nitifier = {
-        enabled = true,
-      },
       notifier = {
         enabled = true,
+        timeout = 5000,
+        style = "fancy",
         icons = {
           error = " ",
           warn = " ",
@@ -71,7 +77,10 @@ return {
         },
       },
       quickfile = { enabled = true },
-      picker = { enabled = true },
+      picker = {
+        enabled = true,
+        ui_select = true,
+      },
       statuscolumn = {
         enabled = true,
         left = { "mark", "sign" }, -- priority of signs on the left (high to low)
@@ -171,6 +180,13 @@ return {
           desc = "Keymaps",
         },
         {
+          "<leader>fn",
+          function()
+            Snacks.picker.notifications()
+          end,
+          desc = "Notifications",
+        },
+        {
           "<leader>gl",
           function()
             Snacks.picker.git_log()
@@ -266,7 +282,7 @@ return {
           desc = "LazyGit",
         },
         {
-          "<leader>f\"",
+          '<leader>f"',
           function()
             Snacks.picker.registers()
           end,
