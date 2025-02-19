@@ -2,13 +2,16 @@
 alias branch="git branch --show-current"
 alias gst="git status"
 alias gd="git diff"
-# alias gdd="git diff origin/$(git branch --show-current)"
-# alias gp="git push origin $(git branch --show-current)"
+alias gD="git -c core.pager="" diff"
 alias gpr="git pull --rebase"
 alias gpl="git pull"
 
 function gdd() {
   git diff origin/$(git branch --show-current)
+}
+
+function gdD() {
+  git -c core.pager="" diff origin/$(git branch --show-current)
 }
 
 function gp() {
@@ -21,6 +24,7 @@ function gu() {
 
 alias gp=gp
 alias gdd=gdd
+alias gdD=gdD
 alias gu=gu
 
 # general
