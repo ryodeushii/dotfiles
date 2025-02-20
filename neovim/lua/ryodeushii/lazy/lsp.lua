@@ -31,7 +31,8 @@ return {
         automatic_installation = true,
         ensure_installed = {
           "lua_ls",
-          "ts_ls",
+          -- "ts_ls",
+          "vtsls",
           "gopls",
           "jsonls",
           "eslint",
@@ -226,7 +227,66 @@ return {
         },
       })
 
-      lspconfig.ts_ls.setup({
+      lspconfig.vtsls.setup({
+        capabilities = capabilities,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = false
+        end,
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+        },
+        root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
+        single_file_support = true,
+        handlers = {
+          ["textDocument/publishDiagnostics"] = function(_, result, ctx)
+            if result.diagnostics ~= nil then
+              local idx = 1
+              while idx <= #result.diagnostics do
+                if result.diagnostics[idx].code == 80001 then
+                  table.remove(result.diagnostics, idx)
+                else
+                  idx = idx + 1
+                end
+              end
+            end
+            vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
+          end,
+        },
+        settings = {
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              maxInlayHintLength = 30,
+              completion = {
+                enableServerSideFuzzyMatch = true,
+              },
+            },
+          },
+          typescript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
+          },
+        },
+      })
+
+      --[[ lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = function(client)
           client.server_capabilities.documentFormattingProvider = false
@@ -266,7 +326,7 @@ return {
             },
           },
         },
-      })
+      }) ]]
 
       lspconfig.eslint.setup({
         capabilities = capabilities,
