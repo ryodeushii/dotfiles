@@ -19,11 +19,12 @@ return {
             next = "<M-j>",
             prev = "<M-k>",
           },
-        },
-        filetypes = {
-          snacks_picker_input = false,
-          snacks_input = false,
-          oil = false,
+          filetypes = {
+            snacks_picker_input = false,
+            snacks_input = false,
+            oil = false,
+          },
+          default_filetype_enabled = true,
         },
         workspace_root = {
           use_lsp = true,
