@@ -10,7 +10,7 @@ node = "22.13.0"
 npm = "bundled"
 pnpm = "9.14.2"
 proto = "latest"
-rust = "latest"
+rust = "1.85.0"
 
 [tools.npm]
 shared-globals-dir = true

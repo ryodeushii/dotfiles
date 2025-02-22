@@ -145,9 +145,8 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 eval "$(proto activate bash -c global)"
 
 # setup cargo (rust)
+export PATH="$HOME/.cargo/bin:$PATH"
 . "$HOME/.cargo/env"
-# setup zoxide
-eval "$(zoxide init bash)"
 
 # shell copilot
 alias ??="gh copilot suggest "
@@ -227,3 +226,5 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+# setup zoxide
+eval "$(zoxide init bash)"
