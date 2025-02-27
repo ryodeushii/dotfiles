@@ -57,7 +57,7 @@ return {
         debug = false, -- Enable debugging
         -- markdown = false,
         -- highlight_headers = true,
-        insert_at_end = true,
+        insert_at_end = false,
         -- See Configuration section for rest
       },
       keys = {
