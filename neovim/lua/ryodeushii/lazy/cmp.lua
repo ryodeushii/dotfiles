@@ -86,13 +86,13 @@ return {
     --- @param opts blink.cmp.Config
     opts = function(_, opts)
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
-        min_keyword_length = function(ctx)
-          -- only applies when typing a command, doesn't apply to arguments
-          if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
-            return 2
-          end
-          return 0
-        end,
+        -- min_keyword_length = function(ctx)
+        --   -- only applies when typing a command, doesn't apply to arguments
+        --   if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
+        --     return 2
+        --   end
+        --   return 0
+        -- end,
         default = {
           "git",
           "lsp",
@@ -206,9 +206,10 @@ return {
           enabled = false,
         },
         menu = {
-          auto_show = function(ctx)
-            return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
-          end,
+          auto_show = true,
+          -- auto_show = function(ctx)
+          --   return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
+          -- end,
           draw = {
             treesitter = {
               "lsp",
