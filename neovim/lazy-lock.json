@@ -8,6 +8,8 @@
   "conform.nvim": { "branch": "master", "commit": "a6f5bdb78caa305496357d17e962bbc4c0b392e2" },
   "copilot.lua": { "branch": "master", "commit": "30321e33b03cb924fdcd6a806a0dc6fa0b0eafb9" },
   "csvview.nvim": { "branch": "main", "commit": "ed446a55b4ff9297d9b94a955db3a2eca6cdb2b2" },
+  "dial.nvim": { "branch": "master", "commit": "34bbd9c387c358190e61ce71017faad3dffa7a74" },
+  "endec.nvim": { "branch": "main", "commit": "949ece728ecc0cacf3c6c81bbcda186fe3fef5cf" },
   "ex-colors.nvim": { "branch": "main", "commit": "1565f1b2d21ee5745015437172b7c9f5bc75e140" },
   "flash.nvim": { "branch": "main", "commit": "3c942666f115e2811e959eabbdd361a025db8b63" },
   "gitsigns.nvim": { "branch": "main", "commit": "4c40357994f386e72be92a46f41fc1664c84c87d" },

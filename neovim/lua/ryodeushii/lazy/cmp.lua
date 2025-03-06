@@ -120,6 +120,7 @@ return {
               show_braces = false,
               show_documentation_window = true,
             },
+            score_offset = -500,
           },
           lsp = {
             name = "lsp",
