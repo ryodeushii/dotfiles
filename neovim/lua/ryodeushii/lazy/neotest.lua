@@ -3,6 +3,9 @@ return {
     "nvim-neotest/neotest",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      {
+        "marilari88/neotest-vitest",
+      },
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       -- "rouge8/neotest-rust",
@@ -14,6 +17,7 @@ return {
       local neotest = require("neotest")
       neotest.setup({
         adapters = {
+          require("neotest-vitest"),
           require("neotest-golang"),
           require("neotest-jest")({
             jestCommand = "npx jest --json --no-coverage",
