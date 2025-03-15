@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local
 return {
   {
     "nvim-neotest/neotest",
@@ -8,19 +9,26 @@ return {
       },
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      -- "rouge8/neotest-rust",
+      "rouge8/neotest-rust",
       { "fredrikaverpil/neotest-golang", version = "*" }, -- Installation
       "nvim-neotest/neotest-jest",
+      "nvim-neotest/neotest-plenary",
       "nvim-neotest/nvim-nio",
     },
     config = function()
       local neotest = require("neotest")
       neotest.setup({
         adapters = {
-          require("neotest-vitest"),
+          require("neotest-plenary"),
+          require("neotest-rust"),
+          require("neotest-vitest")({
+            filter_dir = function(name, rel_path, root)
+              return name ~= "node_modules"
+            end,
+          }),
           require("neotest-golang"),
           require("neotest-jest")({
-            jestCommand = "npx jest --json --no-coverage",
+            jestCommand = "npx -y jest --json --no-coverage",
             env = { CI = true },
             cwd = function(path)
               return vim.fn.getcwd()
