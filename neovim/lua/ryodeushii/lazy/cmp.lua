@@ -83,8 +83,9 @@ return {
     opts_extend = { "sources.completion.enabled_providers" },
     --- @param _ table @unused
     --- @diagnostic disable-next-line: undefined-doc-name
-    --- @param opts blink.cmp.Config
-    opts = function(_, opts)
+    --- @class arg_opts blink.cmp.Config
+    opts = function(_, arg_opts)
+      local opts = arg_opts or {}
       opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
         -- min_keyword_length = function(ctx)
         --   -- only applies when typing a command, doesn't apply to arguments
