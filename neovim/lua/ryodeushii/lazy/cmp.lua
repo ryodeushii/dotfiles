@@ -96,10 +96,20 @@ return {
           "lsp",
           "path",
           "buffer",
-          "npm",
-          "go_pkgs",
+        },
+        per_filetype = {
+          sql = { "dadbod", "lsp", "buffer" },
+          go = { "go_pkgs", "lsp", "path", "buffer", "git" },
+          json = {
+            "lsp",
+            "git",
+            "path",
+            "buffer",
+            "npm",
+          },
         },
         providers = {
+          dadbod = { module = "vim_dadbod_completion.blink", name = "Dadbod" },
           git = {
             module = "blink-cmp-git",
             name = "Git",
@@ -153,7 +163,6 @@ return {
           },
         },
       })
-
 
       opts.cmdline = vim.tbl_deep_extend("force", opts.cmdline or {}, {
         -- command line completion, thanks to dpetka2001 in reddit
