@@ -1,15 +1,14 @@
 return {
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = "markdown",
-    event = { "BufReadPre", "BufNewFile" },
+    "OXY2DEV/markview.nvim",
+    lazy = false,
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      { "echasnovski/mini.icons", version = false },
+      "saghen/blink.cmp",
     },
-    ---@module 'render-markdown'
-    ---@diagnostic disable-next-line: undefined-doc-name
-    ---@type render.md.UserConfig
-    opts = {},
+    opts = {
+      preview = {
+        icon_provider = "mini",
+      },
+    },
   },
 }

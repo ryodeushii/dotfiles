@@ -1,5 +1,3 @@
-local codeium_disabled_filetypes = { "oil", "snacks_picker_input" }
-
 local npm_versions_sort = function(entry1, entry2)
   local filename = vim.fn.expand("%:t")
   if filename == "package.json" then
@@ -77,7 +75,6 @@ return {
         "Kaiser-Yang/blink-cmp-git",
         dependencies = { "nvim-lua/plenary.nvim" },
       },
-      { "bydlw98/blink-cmp-env" },
     },
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
@@ -101,8 +98,6 @@ return {
           "buffer",
           "npm",
           "go_pkgs",
-          "codeium",
-          "env",
         },
         providers = {
           git = {
@@ -111,17 +106,6 @@ return {
             opts = {
               -- options for the blink-cmp-git
             },
-          },
-          env = {
-            name = "Env",
-            module = "blink-cmp-env",
-            --- @type blink-cmp-env.Options
-            opts = {
-              item_kind = require("blink.cmp.types").CompletionItemKind.Variable,
-              show_braces = false,
-              show_documentation_window = true,
-            },
-            score_offset = -500,
           },
           lsp = {
             name = "lsp",
@@ -149,16 +133,6 @@ return {
             max_items = 3,
             module = "blink.cmp.sources.buffer",
             min_keyword_length = 4,
-          },
-          codeium = {
-            name = "codeium",
-            module = "blink.compat.source",
-            score_offset = 100,
-            enabled = function(args)
-              -- return false if vim.bo.filetype in codeium_disabled_filetypes
-              return not vim.tbl_contains(codeium_disabled_filetypes, vim.bo.filetype)
-            end,
-            async = true,
           },
           go_pkgs = {
             name = "go_pkgs", -- IMPORTANT: use the same name as you would for nvim-cmp
@@ -215,7 +189,6 @@ return {
           draw = {
             treesitter = {
               "lsp",
-              "codeium",
             },
             columns = {
               { "kind_icon" },

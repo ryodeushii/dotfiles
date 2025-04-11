@@ -49,45 +49,11 @@ return {
           "<leader>ch",
           "<cmd>CopilotChat<CR>",
           silent = true,
-          desc="Open Copilot Chat",
-          mode = {"n", "v"},
-        }
+          desc = "Open Copilot Chat",
+          mode = { "n", "v" },
+        },
       },
       -- See Commands section for default commands if you want to lazy load on them
     },
   },
-  --[[ {
-    "Exafunction/codeium.nvim",
-    event = "InsertEnter",
-    cmd = "Codeium",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    version = "*",
-    config = function()
-      require("codeium").setup({
-        enabled = false,
-        enable_cmp_source = false,
-        virtual_text = {
-          enabled = true,
-          map_keys = true,
-          key_bindings = {
-            accept = "<M-l>",
-            clear = "<M-e>",
-            next = "<M-j>",
-            prev = "<M-k>",
-          },
-          filetypes = {
-            snacks_picker_input = false,
-            snacks_input = false,
-            oil = false,
-          },
-          default_filetype_enabled = true,
-        },
-        workspace_root = {
-          use_lsp = true,
-        },
-      })
-    end,
-  }, ]]
 }
