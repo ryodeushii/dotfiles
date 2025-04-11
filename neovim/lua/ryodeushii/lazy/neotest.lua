@@ -2,7 +2,16 @@
 return {
   {
     "nvim-neotest/neotest",
-    event = { "BufReadPre", "BufNewFile" },
+    ft = {
+      "typescript",
+      "javascript",
+      "javascriptreact",
+      "typescriptreact",
+      "rust",
+      "go",
+      "lua",
+      "python",
+    },
     dependencies = {
       {
         "marilari88/neotest-vitest",
