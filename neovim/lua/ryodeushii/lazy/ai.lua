@@ -5,6 +5,13 @@ return {
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
+        server_opts_overrides = {
+          settings = {
+            telemetry = {
+              telemetryLevel = "off",
+            },
+          },
+        },
         suggestion = {
           enabled = true,
           auto_trigger = true,

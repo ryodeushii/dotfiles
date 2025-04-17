@@ -228,3 +228,4 @@ fi
 ###-end-npm-completion-###
 # setup zoxide
 eval "$(zoxide init bash)"
+eval "$(pnpm completion bash)"
