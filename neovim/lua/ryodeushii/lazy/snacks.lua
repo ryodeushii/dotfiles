@@ -80,6 +80,11 @@ return {
       picker = {
         enabled = true,
         ui_select = true,
+        previewers = {
+          file = {
+            max_size = 5 * 1024 * 1024, -- 5MB
+          },
+        },
       },
       statuscolumn = {
         enabled = true,
