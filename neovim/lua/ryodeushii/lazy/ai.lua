@@ -29,6 +29,7 @@ return {
           snacks_picker_input = false,
           snacks_input = false,
           tfvars = false,
+          noice = false,
           oil = false,
           ["*"] = true,
         },
