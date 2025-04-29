@@ -1,3 +1,18 @@
+-- call this function to apply a color scheme in any module
+function ApplyColorScheme(color)
+  color = color or "rose-pine-moon"
+
+  vim.cmd.colorscheme(color)
+
+  if color == "rose-pine-moon" then
+    local normal = vim.api.nvim_get_hl(0, { name = "NormalNC" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = normal.bg, fg = normal.fg })
+    vim.api.nvim_set_hl(0, "Normal", { bg = normal.bg, fg = normal.fg })
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = normal.bg, fg = normal.fg })
+  end
+end
+
+
 vim.api.nvim_create_autocmd("LspProgress", {
   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
@@ -14,7 +29,39 @@ vim.api.nvim_create_autocmd("LspProgress", {
 })
 
 return {
-  -- when the profiler is running
+  -- icons
+  {
+    "echasnovski/mini.icons",
+    version = false,
+    config = function()
+      require("mini.icons").setup()
+    end,
+  },
+  -- theme
+  {
+    "aileot/ex-colors.nvim",
+    lazy = true,
+    cmd = "ExColors",
+    opts = {
+      autocmd_patterns = {
+        CmdlineEnter = {
+          ["*"] = {
+            "^debug%u",
+            "^health%u",
+          },
+        },
+      },
+    },
+  },
+  -- {
+  --   "brenoprata10/nvim-highlight-colors",
+  --   event = { 'BufReadPre', 'BufNewFile' },
+  --   config = function()
+  --     require("nvim-highlight-colors").setup({})
+  --   end
+  -- }
+
+  -- snacks
   {
     "folke/snacks.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -296,11 +343,47 @@ return {
       }
     end,
   },
+  -- statusline
+  {
+    "echasnovski/mini.statusline",
+    version = false,
+    config = function()
+      require("mini.statusline").setup({
+        -- Content of statusline as functions which return statusline string. See
+        -- `:h statusline` and code of default contents (used instead of `nil`).
+        content = {
+          -- Content for active window
+          active = nil,
+          -- Content for inactive window(s)
+          inactive = nil,
+        },
+
+        -- Whether to use icons by default
+        use_icons = true,
+
+        -- Whether to set Vim's settings for statusline (make it always shown)
+        set_vim_settings = true,
+      })
+    end,
+  },
+
+
+  -- markdown
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = {
+      "saghen/blink.cmp",
+    },
+    opts = {
+      preview = {
+        icon_provider = "mini",
+      },
+    },
+  },
 }
 
--- picker docs
--- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
-
+---
 --- NOTE: available pickers
 --[[ { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
