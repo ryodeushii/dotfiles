@@ -91,23 +91,24 @@ return {
         --   end
         --   return 0
         -- end,
-        default = {
-          "git",
-          "lsp",
-          "path",
-          "buffer",
-        },
-        per_filetype = {
-          sql = { "dadbod", "lsp", "buffer" },
-          go = { "go_pkgs", "lsp", "path", "buffer", "git" },
-          json = {
-            "lsp",
-            "git",
-            "path",
-            "buffer",
-            "npm",
-          },
-        },
+        default = function(ctx)
+          if vim.bo.filetype == "json" and vim.fn.expand("%:t") == "package.json" then
+            return { "npm", "lsp", "path", "buffer" }
+          elseif vim.bo.filetype == "json" then
+            return { "lsp", "git", "path", "buffer" }
+          elseif vim.bo.filetype == "go" then
+            return { "go_pkgs", "lsp", "path", "buffer", "git" }
+          elseif vim.bo.filetype == "sql" then
+            return { "dadbod", "lsp", "buffer" }
+          else
+            return {
+              "git",
+              "lsp",
+              "path",
+              "buffer",
+            }
+          end
+        end,
         providers = {
           dadbod = { module = "vim_dadbod_completion.blink", name = "Dadbod" },
           git = {
@@ -248,6 +249,7 @@ return {
 
       opts.fuzzy = vim.tbl_deep_extend("force", opts.fuzzy or {}, {
         sorts = {
+          "exact",
           "score",
           "sort_text",
           npm_versions_sort,
