@@ -11,7 +11,7 @@
   "endec.nvim": { "branch": "main", "commit": "3765f250064040725fa637e9a308253e1421b1fd" },
   "ex-colors.nvim": { "branch": "main", "commit": "1a392d549ca2bff1dba15ec43520d2c1da0d7123" },
   "flash.nvim": { "branch": "main", "commit": "3c942666f115e2811e959eabbdd361a025db8b63" },
-  "gitsigns.nvim": { "branch": "main", "commit": "fd50977fce4d5240b910d2b816e71fb726cbbaf7" },
+  "gitsigns.nvim": { "branch": "main", "commit": "ee28ba3e70ecea811b8f6d7b51d81976e94b121c" },
   "goplements.nvim": { "branch": "main", "commit": "a3291c4db092d5bc95ec0e6e2bcfc14587d06dfc" },
   "harpoon": { "branch": "harpoon2", "commit": "ed1f853847ffd04b2b61c314865665e1dadf22c7" },
   "highlight-undo.nvim": { "branch": "main", "commit": "a5e2e2d43f6d131bf526619baeeeec32397b0789" },
