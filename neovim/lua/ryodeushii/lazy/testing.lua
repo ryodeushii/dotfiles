@@ -20,7 +20,8 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "rouge8/neotest-rust",
       { "fredrikaverpil/neotest-golang", version = "*" }, -- Installation
-      "nvim-neotest/neotest-jest",
+      "MuntasirSZN/neotest-jest",
+      -- "nvim-neotest/neotest-jest",
       "nvim-neotest/neotest-plenary",
       "nvim-neotest/nvim-nio",
     },
