@@ -59,18 +59,18 @@ return {
           })
         end,
       },
-      {
-        "ryodeushii/cmp_gopkgs",
-        event = { "BufReadPre", "BufNewFile" },
-        dev = true,
-        -- set path to local plugin
-        dir = vim.fn.stdpath("config") .. "/lua/ryodeushii/cmp_gopkgs",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-          local source = require("ryodeushii.cmp_gopkgs")
-          require("cmp").register_source("go_pkgs", source.new())
-        end,
-      },
+      -- {
+      --   "ryodeushii/cmp_gopkgs",
+      --   event = { "BufReadPre", "BufNewFile" },
+      --   dev = true,
+      --   -- set path to local plugin
+      --   dir = vim.fn.stdpath("config") .. "/lua/ryodeushii/cmp_gopkgs",
+      --   dependencies = { "nvim-lua/plenary.nvim" },
+      --   config = function()
+      --     local source = require("ryodeushii.cmp_gopkgs")
+      --     require("cmp").register_source("go_pkgs", source.new())
+      --   end,
+      -- },
       {
         "Kaiser-Yang/blink-cmp-git",
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -97,7 +97,7 @@ return {
           elseif vim.bo.filetype == "json" then
             return { "lsp", "git", "path", "buffer" }
           elseif vim.bo.filetype == "go" then
-            return { "go_pkgs", "lsp", "path", "buffer", "git" }
+            return { --[["go_pkgs",]] "lsp", "path", "buffer", "git" }
           elseif vim.bo.filetype == "sql" then
             return { "dadbod", "lsp", "buffer" }
           else
@@ -145,10 +145,10 @@ return {
             module = "blink.cmp.sources.buffer",
             min_keyword_length = 4,
           },
-          go_pkgs = {
-            name = "go_pkgs", -- IMPORTANT: use the same name as you would for nvim-cmp
-            module = "blink.compat.source",
-          },
+          -- go_pkgs = {
+          --   name = "go_pkgs", -- IMPORTANT: use the same name as you would for nvim-cmp
+          --   module = "blink.compat.source",
+          -- },
           npm = {
             name = "npm", -- IMPORTANT: use the same name as you would for nvim-cmp
             module = "blink.compat.source",
