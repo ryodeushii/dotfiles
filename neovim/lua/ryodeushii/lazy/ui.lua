@@ -113,6 +113,20 @@ return {
     },
   },
   -- {
+  --   "folke/tokyonight.nvim",
+  --   opts = {
+  --     on_colors = function(colors)
+  --       colors.bg = "#0c0e14"
+  --     end,
+  --     styles = {
+  --       -- Style to be applied to different syntax groups
+  --       -- Value is any valid attr-list value for `:help nvim_set_hl`
+  --       comments = { italic = true },
+  --       keywords = { italic = true },
+  --     },
+  --   },
+  -- },
+  -- {
   --   "brenoprata10/nvim-highlight-colors",
   --   event = { 'BufReadPre', 'BufNewFile' },
   --   config = function()

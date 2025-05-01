@@ -68,5 +68,5 @@ autocmd("BufReadPost", {
   end,
 })
 -- ApplyColorScheme("oldworld")
-ApplyColorScheme("ex-vague")
+ApplyColorScheme("ex-tokyonight-night")
 -- ApplyColorScheme("ex-oldworld")
