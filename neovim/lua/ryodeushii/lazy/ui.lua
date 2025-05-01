@@ -201,9 +201,20 @@ return {
         enabled = true,
         ui_select = true,
         previewers = {
-          file = {
-            max_size = 5 * 1024 * 1024, -- 5MB
+          diff = {
+            builtin = true, -- use Neovim for previewing diffs (true) or use an external tool (false)
+            cmd = { "delta" }, -- example to show a diff with delta
           },
+          git = {
+            builtin = true, -- use Neovim for previewing git output (true) or use git (false)
+            args = {}, -- additional arguments passed to the git command. Useful to set pager options usin `-c ...`
+          },
+          file = {
+            max_size = 10 * 1024 * 1024, -- 10MB
+            max_line_length = 500, -- max line length
+            ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
+          },
+          man_pager = nil, ---@type string? MANPAGER env to use for `man` preview
         },
       },
       statuscolumn = {
