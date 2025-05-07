@@ -1,39 +1,3 @@
-local npm_versions_sort = function(entry1, entry2)
-  local filename = vim.fn.expand("%:t")
-  if filename == "package.json" then
-    local source1 = entry1.source_name
-    local source2 = entry2.source_name
-
-    -- make source npm has higher priority
-    if source1 == "npm" and source2 ~= "npm" then
-      return true
-    end
-
-    if source1 ~= "npm" and source2 == "npm" then
-      return false
-    end
-
-    -- if both source are npm, sort by version
-    if source1 == "npm" and source2 == "npm" then
-      local label1 = entry1.label
-      local label2 = entry2.label
-      local major1, minor1, patch1 = string.match(label1, "(%d+)%.(%d+)%.(%d+)")
-      local major2, minor2, patch2 = string.match(label2, "(%d+)%.(%d+)%.(%d+)")
-      if major1 ~= major2 then
-        return tonumber(major1) > tonumber(major2)
-      end
-      if minor1 ~= minor2 then
-        return tonumber(minor1) > tonumber(minor2)
-      end
-      if patch1 ~= patch2 then
-        return tonumber(patch1) > tonumber(patch2)
-      end
-    end
-  end
-
-  return false
-end
-
 return {
   {
     "saghen/blink.compat",
@@ -44,38 +8,6 @@ return {
   {
     "saghen/blink.cmp",
     lazy = false, -- lazy loading handled internally
-    dependencies = {
-      {
-        "ryodeushii/cmp_npm",
-        event = { "BufReadPre package.json", "BufNewFile package.json" },
-        dev = true,
-        -- set path to local plugin
-        dir = vim.fn.stdpath("config") .. "/lua/ryodeushii/cmp_npm",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-          require("ryodeushii.cmp_npm").setup({
-            only_latest_version = false,
-            only_semantic_versions = true,
-          })
-        end,
-      },
-      -- {
-      --   "ryodeushii/cmp_gopkgs",
-      --   event = { "BufReadPre", "BufNewFile" },
-      --   dev = true,
-      --   -- set path to local plugin
-      --   dir = vim.fn.stdpath("config") .. "/lua/ryodeushii/cmp_gopkgs",
-      --   dependencies = { "nvim-lua/plenary.nvim" },
-      --   config = function()
-      --     local source = require("ryodeushii.cmp_gopkgs")
-      --     require("cmp").register_source("go_pkgs", source.new())
-      --   end,
-      -- },
-      {
-        "Kaiser-Yang/blink-cmp-git",
-        dependencies = { "nvim-lua/plenary.nvim" },
-      },
-    },
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
     --- @param _ table @unused
@@ -92,17 +24,16 @@ return {
         --   return 0
         -- end,
         default = function(ctx)
-          if vim.bo.filetype == "json" and vim.fn.expand("%:t") == "package.json" then
-            return { "npm", "lsp", "path", "buffer" }
-          elseif vim.bo.filetype == "json" then
-            return { "lsp", "git", "path", "buffer" }
-          elseif vim.bo.filetype == "go" then
-            return { --[["go_pkgs",]] "lsp", "path", "buffer", "git" }
+          if vim.bo.filetype == "go" then
+            return {
+              "lsp",
+              "path",
+              "buffer",
+            }
           elseif vim.bo.filetype == "sql" then
             return { "dadbod", "lsp", "buffer" }
           else
             return {
-              "git",
               "lsp",
               "path",
               "buffer",
@@ -111,13 +42,6 @@ return {
         end,
         providers = {
           dadbod = { module = "vim_dadbod_completion.blink", name = "Dadbod" },
-          git = {
-            module = "blink-cmp-git",
-            name = "Git",
-            opts = {
-              -- options for the blink-cmp-git
-            },
-          },
           lsp = {
             name = "lsp",
             enabled = true,
@@ -145,17 +69,6 @@ return {
             module = "blink.cmp.sources.buffer",
             min_keyword_length = 4,
           },
-          -- go_pkgs = {
-          --   name = "go_pkgs", -- IMPORTANT: use the same name as you would for nvim-cmp
-          --   module = "blink.compat.source",
-          -- },
-          npm = {
-            name = "npm", -- IMPORTANT: use the same name as you would for nvim-cmp
-            module = "blink.compat.source",
-            opts = {
-              keyword_length = 4,
-            },
-          },
           cmdline = {
             enabled = function() -- Get the current command-line input
               local line = vim.fn.getcmdline() -- Ignore completion for commands starting with `!`
@@ -166,8 +79,6 @@ return {
       })
 
       opts.cmdline = vim.tbl_deep_extend("force", opts.cmdline or {}, {
-        -- command line completion, thanks to dpetka2001 in reddit
-        -- https://www.reddit.com/r/neovim/comments/1hjjf21/comment/m37fe4d/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
         sources = function()
           local type = vim.fn.getcmdtype()
           if type == "/" or type == "?" then
@@ -252,7 +163,6 @@ return {
           "exact",
           "score",
           "sort_text",
-          npm_versions_sort,
         },
       })
 
