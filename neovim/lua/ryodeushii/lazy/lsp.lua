@@ -1,4 +1,82 @@
+---@diagnostic disable: missing-fields
 return {
+  {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    config = function(opts)
+      local trouble = require("trouble")
+
+      trouble.setup(opts)
+      -- diagnostics (trouble)
+      vim.keymap.set("n", "<leader>xx", function()
+        trouble.toggle({ mode = "diagnostics" })
+      end, { desc = "Toggle Trouble" })
+      -- buffer diagnostics (trouble)
+      vim.keymap.set("n", "<leader>xX", function()
+        trouble.toggle({ mode = "diagnostics", filter = { buf = 0 } })
+      end, { desc = "Toggle Trouble Buffer Diagnostics" })
+      -- symbols (trouble)
+      vim.keymap.set("n", "<leader>cs", function()
+        trouble.toggle({ mode = "symbols", focus = false })
+      end, { desc = "Toggle Trouble Symbols" })
+      -- LSP definitions / references / ... (trouble)
+      vim.keymap.set("n", "<leader>cl", function()
+        trouble.toggle({ mode = "lsp", focus = false, win = { position = "right" } })
+      end, { desc = "Toggle Trouble LSP Definitions / References" })
+      -- location list (trouble)
+      vim.keymap.set("n", "<leader>xL", function()
+        trouble.toggle({ mode = "loclist" })
+      end, { desc = "Toggle Trouble Location List" })
+      -- quickfix list (trouble)
+      vim.keymap.set("n", "<leader>xQ", function()
+        trouble.toggle({ mode = "quickfix" })
+      end, { desc = "Toggle Trouble Quickfix List" })
+    end,
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -28,6 +106,7 @@ return {
       })
 
       require("mason-lspconfig").setup({
+        automatic_enable = true,
         automatic_installation = true,
         ensure_installed = {
           "lua_ls",
@@ -120,60 +199,12 @@ return {
 
           ["lua_ls"] = function()
             local lspconfig = require("lspconfig")
-
             lspconfig.lua_ls.setup({
-              on_init = function(client)
-                if client.workspace_folders then
-                  local path = client.workspace_folders[1].name
-                  if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
-                    return
-                  end
-                end
-                client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                  runtime = {
-                    -- Tell the language server which version of Lua you're using
-                    -- (most likely LuaJIT in the case of Neovim)
-                    version = "LuaJIT",
-                  },
-                  -- Make the server aware of Neovim runtime files
-                  workspace = {
-                    checkThirdParty = false,
-                    library = {
-                      unpack(vim.api.nvim_get_runtime_file("", true)),
-                      -- vim.env.VIMRUNTIME,
-                    },
-                  },
-                })
-              end,
               capabilities = capabilities,
-              settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { "vim", "it", "describe", "before_each", "after_each" },
-                  },
-                },
-              },
             })
           end,
         },
       })
-      -- add highlight to line number
-      -- vim.fn.sign_define(
-      --   "DiagnosticSignError",
-      --   { text = "", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" }
-      -- )
-      -- vim.fn.sign_define(
-      --   "DiagnosticSignWarn",
-      --   { text = "", texthl = "DiagnosticSignWarn", numhl = "DiagnosticSignWarn" }
-      -- )
-      -- vim.fn.sign_define(
-      --   "DiagnosticSignInfo",
-      --   { text = "", texthl = "DiagnosticSignInfo", numhl = "DiagnosticSignInfo" }
-      -- )
-      -- vim.fn.sign_define(
-      --   "DiagnosticSignHint",
-      --   { text = "󰯗", texthl = "DiagnosticSignHint", numhl = "DiagnosticSignHint" }
-      -- )
 
       vim.diagnostic.config({
         virtual_lines = false,
@@ -286,48 +317,6 @@ return {
         },
       })
 
-      --[[ lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-        on_attach = function(client)
-          client.server_capabilities.documentFormattingProvider = false
-        end,
-        filetypes = {
-          "javascript",
-          "javascriptreact",
-          "javascript.jsx",
-          "typescript",
-          "typescriptreact",
-          "typescript.tsx",
-        },
-        root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
-        single_file_support = true,
-        handlers = {
-          ["textDocument/publishDiagnostics"] = function(_, result, ctx)
-            if result.diagnostics ~= nil then
-              local idx = 1
-              while idx <= #result.diagnostics do
-                if result.diagnostics[idx].code == 80001 then
-                  table.remove(result.diagnostics, idx)
-                else
-                  idx = idx + 1
-                end
-              end
-            end
-            vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
-          end,
-        },
-        settings = {
-          typescript = {
-            disableAutomaticTypingAcquisition = false,
-            tsserver = {
-              experimental = {
-                enableProjectDiagnostics = true,
-              },
-            },
-          },
-        },
-      }) ]]
-
       lspconfig.eslint.setup({
         capabilities = capabilities,
         flags = { debounce_text_changes = 500 },
@@ -337,14 +326,13 @@ return {
         end,
       })
 
-      -- TODO: enable when rust_analyzer if needed
-      -- lspconfig.rust_analyzer.setup({
-      --   root_dir = lspconfig.util.root_pattern('Cargo.toml'),
-      --   capabilities = capabilities,
-      --   on_attach = function(client)
-      --     client.server_capabilities.documentFormattingProvider = true
-      --   end,
-      -- })
+      lspconfig.rust_analyzer.setup({
+        root_dir = lspconfig.util.root_pattern("Cargo.toml"),
+        capabilities = capabilities,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = true
+        end,
+      })
 
       local blink_get_capabilities = require("blink.cmp").get_lsp_capabilities
 

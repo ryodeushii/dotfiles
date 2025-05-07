@@ -12,8 +12,21 @@ return {
       "nvim-neotest/nvim-nio",
       "jay-babu/mason-nvim-dap.nvim",
     },
-    keys = { "<F1>", "<F2>", "<F3>", "<F4>", "<F9>", "<F10>", "<leader>b", "<leader>B", "<leader>gb", "<leader>?", "<leader>du" },
+    keys = {
+      "<F1>",
+      "<F2>",
+      "<F3>",
+      "<F4>",
+      "<F9>",
+      "<F10>",
+      "<leader>b",
+      "<leader>B",
+      "<leader>gb",
+      "<leader>?",
+      "<leader>du",
+    },
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require("mason-nvim-dap").setup({
         ensure_installed = {
           "delve",
@@ -24,9 +37,13 @@ return {
       local dap = require("dap")
       local ui = require("dapui")
 
-      vim.fn.sign_define('DapBreakpoint', {text='', texthl='DapUIStop', linehl='', numhl='DapUIStop'})
-      vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='DapUIStop', linehl='', numhl='DapUIStop'})
+      vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapUIStop", linehl = "", numhl = "DapUIStop" })
+      vim.fn.sign_define(
+        "DapBreakpointCondition",
+        { text = "", texthl = "DapUIStop", linehl = "", numhl = "DapUIStop" }
+      )
 
+      ---@diagnostic disable-next-line: missing-fields
       require("dapui").setup({
         layouts = {
           {
@@ -201,13 +218,15 @@ return {
         }
       end
 
-      require("nvim-dap-virtual-text").setup()
+      ---@diagnostic disable-next-line: missing-fields
+      require("nvim-dap-virtual-text").setup({})
 
       vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "[debug] Toggle debug breakpoint" })
       vim.keymap.set("n", "<leader>B", dap.clear_breakpoints, { desc = "[debug] Clear breakpoints" })
       vim.keymap.set("n", "<leader>gb", dap.run_to_cursor, { desc = "[debug] Run to cursor" })
 
       vim.keymap.set("n", "<leader>?", function()
+        ---@diagnostic disable-next-line: missing-fields
         ui.eval(nil, { enter = true })
       end, { desc = "[debug] Evaluate expression" })
       vim.keymap.set("n", "<F1>", dap.continue, { desc = "[debug] Continue" })

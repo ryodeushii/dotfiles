@@ -12,22 +12,6 @@ function ApplyColorScheme(color)
   end
 end
 
--- FIXME: get rid?
--- vim.api.nvim_create_autocmd("LspProgress", {
---   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
---   callback = function(ev)
---     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
---     vim.notify(vim.lsp.status(), "info", {
---       id = "lsp_progress",
---       title = "LSP Progress",
---       opts = function(notif)
---         notif.icon = ev.data.params.value.kind == "end" and " "
---           or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
---       end,
---     })
---   end,
--- })
-
 return {
   {
     "lewis6991/gitsigns.nvim",
@@ -70,7 +54,7 @@ return {
             gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
           end, { desc = "reset hunk" })
           map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "stage buffer" })
-          map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "undo stage hunk" })
+          map("n", "<leader>hu", gitsigns.stage_hunk, { desc = "undo stage hunk" })
           map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "reset buffer" })
           map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "preview hunk" })
           map("n", "<leader>hb", function()
@@ -81,7 +65,7 @@ return {
           map("n", "<leader>hD", function()
             gitsigns.diffthis("~")
           end, { desc = "diff this buffer?" })
-          map("n", "<leader>td", gitsigns.toggle_deleted, { desc = "toggle deleted" })
+          map("n", "<leader>td", gitsigns.preview_hunk_inline, { desc = "toggle deleted" })
 
           -- Text object
           map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select hunk" })
@@ -332,6 +316,7 @@ return {
         {
           "<leader>ft",
           function()
+            ---@diagnostic disable-next-line: undefined-field
             Snacks.picker.todo_comments()
           end,
           desc = "Git status",
