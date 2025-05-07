@@ -1,3 +1,39 @@
+local npm_versions_sort = function(entry1, entry2)
+  local filename = vim.fn.expand("%:t")
+  if filename == "package.json" then
+    local source1 = entry1.source_name
+    local source2 = entry2.source_name
+
+    -- make source npm has higher priority
+    if source1 == "npm" and source2 ~= "npm" then
+      return true
+    end
+
+    if source1 ~= "npm" and source2 == "npm" then
+      return false
+    end
+
+    -- if both source are npm, sort by version
+    if source1 == "npm" and source2 == "npm" then
+      local label1 = entry1.label
+      local label2 = entry2.label
+      local major1, minor1, patch1 = string.match(label1, "(%d+)%.(%d+)%.(%d+)")
+      local major2, minor2, patch2 = string.match(label2, "(%d+)%.(%d+)%.(%d+)")
+      if major1 ~= major2 then
+        return tonumber(major1) > tonumber(major2)
+      end
+      if minor1 ~= minor2 then
+        return tonumber(minor1) > tonumber(minor2)
+      end
+      if patch1 ~= patch2 then
+        return tonumber(patch1) > tonumber(patch2)
+      end
+    end
+  end
+
+  return false
+end
+
 return {
   {
     "saghen/blink.compat",
@@ -10,6 +46,14 @@ return {
     lazy = false, -- lazy loading handled internally
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
+    dependencies = {
+      {
+        "ryodeushii/blink-cmp-npm",
+        dir = vim.fn.stdpath("config") .. "/lua/blink-cmp-npm",
+        fallback = false,
+        dev = true,
+      },
+    },
     --- @param _ table @unused
     --- @diagnostic disable-next-line: undefined-doc-name
     --- @class arg_opts blink.cmp.Config
@@ -24,6 +68,9 @@ return {
         --   return 0
         -- end,
         default = function(ctx)
+          if vim.bo.filetype == "json" and vim.fn.expand("%:t") == "package.json" then
+            return { "npm", "lsp", "path", "buffer" }
+          end
           if vim.bo.filetype == "go" then
             return {
               "lsp",
@@ -42,6 +89,14 @@ return {
         end,
         providers = {
           dadbod = { module = "vim_dadbod_completion.blink", name = "Dadbod" },
+          npm = {
+            name = "npm",
+            module = "blink-cmp-npm",
+            enabled = true,
+            opts = {
+              version_filter = "latest",
+            },
+          },
           lsp = {
             name = "lsp",
             enabled = true,
@@ -163,6 +218,7 @@ return {
           "exact",
           "score",
           "sort_text",
+          npm_versions_sort,
         },
       })
 
