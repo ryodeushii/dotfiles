@@ -1,7 +1,15 @@
 return {
   {
     "numToStr/Comment.nvim",
+    keys = {
+      { "gc", mode = { "n", "v" }, desc = "Comment toggle" },
+      { "gC", mode = { "n", "v" }, desc = "Comment toggle block" },
+      { "gcO", mode = { "n", "v" }, desc = "Comment above" },
+      { "gco", mode = { "n", "v" }, desc = "Comment below" },
+      { "gcA", mode = { "n", "v" }, desc = "Comment end of line" },
+    },
     config = function()
+---@diagnostic disable-next-line: missing-fields
       require("Comment").setup({
         opleader = {
           line = "gc",
