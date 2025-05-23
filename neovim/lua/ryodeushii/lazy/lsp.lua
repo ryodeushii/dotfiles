@@ -301,6 +301,12 @@ return {
             },
           },
           typescript = {
+            preferences = {
+              -- importModuleSpecifier = "relative",
+              includeCompletionsForModuleExports = true,
+              includeCompletionsForImportStatements = true,
+              importModuleSpecifier = "relative",
+            },
             updateImportsOnFileMove = { enabled = "always" },
             suggest = {
               completeFunctionCalls = true,
