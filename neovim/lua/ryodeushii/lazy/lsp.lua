@@ -376,22 +376,23 @@ return {
       vim.cmd("command! JenkinsfileLinter lua require('jenkinsfile_linter').validate()")
     end,
   },
-  {
-    "someone-stole-my-name/yaml-companion.nvim",
-    dependencies = {
-      { "neovim/nvim-lspconfig" },
-      { "nvim-lua/plenary.nvim" },
-    },
-    keys = {
-      {
-        "<leader>ys",
-        function()
-          require("yaml-companion").open_ui_select()
-        end,
-        desc = "Yaml companion",
-      },
-    },
-  },
+  -- works only with telescope.nvim, no way I install it only for this plugin
+  -- {
+  --   "someone-stole-my-name/yaml-companion.nvim",
+  --   dependencies = {
+  --     { "neovim/nvim-lspconfig" },
+  --     { "nvim-lua/plenary.nvim" },
+  --   },
+  --   keys = {
+  --     {
+  --       "<leader>ys",
+  --       function()
+  --         require("yaml-companion").open_ui_select()
+  --       end,
+  --       desc = "Yaml companion",
+  --     },
+  --   },
+  -- },
   {
     "maxandron/goplements.nvim",
     ft = "go",
