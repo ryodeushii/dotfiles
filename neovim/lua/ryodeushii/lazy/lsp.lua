@@ -98,10 +98,12 @@ return {
       require("mason").setup()
       require("mason-tool-installer").setup({
         ensure_installed = {
+          "gdtoolkit",
+          "jq",
+          "markdownlint",
           "prettier",
           "shfmt",
           "stylua",
-          "jq",
         },
       })
 
@@ -109,20 +111,25 @@ return {
         automatic_enable = true,
         automatic_installation = true,
         ensure_installed = {
-          "lua_ls",
-          -- "ts_ls",
-          "vtsls",
+          "bashls",
+          "biome",
+          "clangd",
+          "dockerls",
+          "eslint",
+          "golangci_lint_ls",
           "gopls",
           "jsonls",
-          "eslint",
-          "biome",
-          "bashls",
-          "yamlls",
-          "dockerls",
-          "golangci_lint_ls",
-          "clangd",
+          "lua_ls",
+          "pylsp",
           "rust_analyzer",
+          "sqlls",
+          "vtsls",
+          "yamlls",
         },
+        -- ◍ postgrestools postgres_lsp
+        -- ◍ tailwindcss-language-server tailwindcss
+        -- ◍ terraform-ls terraformls
+
         handlers = {
           function(server_name) -- default handler (optional)
             require("lspconfig")[server_name].setup({
