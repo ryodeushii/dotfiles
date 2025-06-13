@@ -81,9 +81,9 @@ OMB_USE_SUDO=true
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
 completions=(
-  git
-  composer
-  ssh
+    git
+    composer
+    ssh
 )
 
 # Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
@@ -91,7 +91,7 @@ completions=(
 # Example format: aliases=(vagrant composer git-avh)
 # Add wisely, as too many aliases slow down shell startup.
 aliases=(
-  general
+    general
 )
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -99,10 +99,10 @@ aliases=(
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  bashmarks
-  npm
-  sudo
+    git
+    bashmarks
+    npm
+    sudo
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -152,7 +152,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 alias ??="gh copilot suggest "
 
 if [ -f ~/.bash_config ]; then
-  source ~/.bash_config
+    source ~/.bash_config
 fi
 
 eval "$(fzf --bash)"
@@ -166,66 +166,69 @@ export GPG_TTY=$(tty)
 #
 
 if type complete &>/dev/null; then
-  _npm_completion () {
-    local words cword
-    if type _get_comp_words_by_ref &>/dev/null; then
-      _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
-    else
-      cword="$COMP_CWORD"
-      words=("${COMP_WORDS[@]}")
-    fi
+    _npm_completion() {
+        local words cword
+        if type _get_comp_words_by_ref &>/dev/null; then
+            _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
+        else
+            cword="$COMP_CWORD"
+            words=("${COMP_WORDS[@]}")
+        fi
 
-    local si="$IFS"
-    if ! IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${words[@]}" \
-                           2>/dev/null)); then
-      local ret=$?
-      IFS="$si"
-      return $ret
-    fi
-    IFS="$si"
-    if type __ltrim_colon_completions &>/dev/null; then
-      __ltrim_colon_completions "${words[cword]}"
-    fi
-  }
-  complete -o default -F _npm_completion npm
+        local si="$IFS"
+        if ! IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
+            COMP_LINE="$COMP_LINE" \
+            COMP_POINT="$COMP_POINT" \
+            npm completion -- "${words[@]}" \
+            2>/dev/null)); then
+            local ret=$?
+            IFS="$si"
+            return $ret
+        fi
+        IFS="$si"
+        if type __ltrim_colon_completions &>/dev/null; then
+            __ltrim_colon_completions "${words[cword]}"
+        fi
+    }
+    complete -o default -F _npm_completion npm
 elif type compdef &>/dev/null; then
-  _npm_completion() {
-    local si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
+    _npm_completion() {
+        local si=$IFS
+        compadd -- $(COMP_CWORD=$((CURRENT - 1)) \
+            COMP_LINE=$BUFFER \
+            COMP_POINT=0 \
+            npm completion -- "${words[@]}" \
+            2>/dev/null)
+        IFS=$si
+    }
+    compdef _npm_completion npm
 elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    if ! IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)); then
+    _npm_completion() {
+        local cword line point words si
+        read -Ac words
+        read -cn cword
+        let cword-=1
+        read -l line
+        read -ln point
+        si="$IFS"
+        if ! IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+            COMP_LINE="$line" \
+            COMP_POINT="$point" \
+            npm completion -- "${words[@]}" \
+            2>/dev/null)); then
 
-      local ret=$?
-      IFS="$si"
-      return $ret
-    fi
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
+            local ret=$?
+            IFS="$si"
+            return $ret
+        fi
+        IFS="$si"
+    }
+    compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
 # setup zoxide
 eval "$(zoxide init bash)"
 eval "$(pnpm completion bash)"
+
+# Turso
+export PATH="$PATH:/home/ryodeushii/.turso"

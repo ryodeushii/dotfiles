@@ -7,6 +7,7 @@ node = "24.1.0"
 npm = "11.4.1"
 pnpm = "10.11.1"
 proto = "0.49.4"
+python = "3.9.23"
 rust = "1.87.0"
 
 [tools.npm]
@@ -19,6 +20,7 @@ gh = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/gh/plu
 golangci-lint = "https://raw.githubusercontent.com/b4nst/proto-plugins/refs/heads/main/toml/golangci-lint.toml"
 hyperfine = "https://raw.githubusercontent.com/ryodeushii/dotfiles/refs/heads/master/proto_plugins/hyperfine.toml"
 jq = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/jq/plugin.toml"
+kubectl = "https://raw.githubusercontent.com/trillion-labs/proto-plugins/refs/heads/main/kubectl.toml"
 moon = "https://raw.githubusercontent.com/moonrepo/moon/master/proto-plugin.toml"
 
 [settings]

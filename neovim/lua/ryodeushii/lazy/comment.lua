@@ -9,7 +9,7 @@ return {
       { "gcA", mode = { "n", "v" }, desc = "Comment end of line" },
     },
     config = function()
----@diagnostic disable-next-line: missing-fields
+      ---@diagnostic disable-next-line: missing-fields
       require("Comment").setup({
         opleader = {
           line = "gc",
@@ -25,5 +25,10 @@ return {
         },
       })
     end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
   },
 }
