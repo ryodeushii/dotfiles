@@ -33,3 +33,6 @@ alias myip="dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | tr -d '\"'"
 
 alias vim="nvim"
 alias pvim="nvim -i NONE"
+alias npm_patch="npm version patch --no-git-tag"
+alias npm_minor="npm version minor --no-git-tag"
+alias npm_major="npm version major --no-git-tag"
