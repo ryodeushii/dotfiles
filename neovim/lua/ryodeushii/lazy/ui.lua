@@ -144,11 +144,20 @@ return {
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
-    config = function()
-      require("dashboard").setup({
-        -- config
-      })
-    end,
+    opts = {
+      theme = "hyper",
+      shortcut_type = "number",
+      config = {
+        shortcut = {
+          -- action can be a function type
+          { desc = "Lazy", group = "highlight group", key = "L", action = "Lazy" },
+        },
+        packages = { enable = true }, -- show how many plugins neovim loaded
+        project = { enable = false, limit = 0, icon = "", label = "Projects", action = "Telescope find_files cwd=" },
+        mru = { enable = true, limit = 10, icon = "", label = "Recent files", cwd_only = false },
+        footer = {}, -- footer
+      },
+    },
     dependencies = { { "nvim-tree/nvim-web-devicons" } },
   },
   {
