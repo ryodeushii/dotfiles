@@ -8,6 +8,7 @@ pnpm = "10.11.1"
 proto = "0.49.4"
 rust = "1.87.0"
 python = "3.9.23"
+golangci-lint = "1.63.4"
 
 [tools.npm]
 shared-globals-dir = true
@@ -19,6 +20,7 @@ gh = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/gh/plu
 hyperfine = "https://raw.githubusercontent.com/ryodeushii/dotfiles/refs/heads/master/proto_plugins/hyperfine.toml"
 jq = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/jq/plugin.toml"
 kubectl = "https://raw.githubusercontent.com/trillion-labs/proto-plugins/refs/heads/main/kubectl.toml"
+golangci-lint = "https://raw.githubusercontent.com/b4nst/proto-plugins/refs/heads/main/toml/golangci-lint.toml"
 
 [settings]
 auto-install = true
