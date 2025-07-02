@@ -188,7 +188,7 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
+    cmd = { "Telescope" },
     keys = {
       "<leader>ff",
       "<leader>fF",
@@ -293,7 +293,7 @@ return {
           "dashboard",
           "help",
           "lazy",
-          "lsp"
+          "lsp",
         },
       },
     },

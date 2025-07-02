@@ -25,8 +25,9 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.numberwidth = 3
-vim.opt.signcolumn = "yes:1"
-vim.opt.statuscolumn = "%l%s"
+-- vim.opt.signcolumn = "yes:1"
+vim.opt.statuscolumn = "%@SignCb@%s%=%T%@NumCb@%l│%T"
+
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50

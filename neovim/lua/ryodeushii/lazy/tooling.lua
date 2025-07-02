@@ -73,6 +73,7 @@ return {
         cmd = "Mason",
         lazy = true,
         dependencies = {
+          "nvim-telescope/telescope.nvim",
           {
             "mason-org/mason-lspconfig.nvim",
             opts = {
