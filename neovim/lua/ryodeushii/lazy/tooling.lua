@@ -65,46 +65,41 @@ local lsps = {
 
 return {
   {
-    "mason-org/mason.nvim",
-    cmd = "Mason",
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      "neovim/nvim-lspconfig",
-    },
-    opts = {
-      ui = {
-        border = "rounded",
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
-        },
-      },
-    },
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = lsps,
-      automatic_enable = false,
-      automatic_installation = true,
-    },
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-    },
-  },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    otps = {
-      ensure_installed = tools,
-    },
-  },
-  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "saghen/blink.cmp",
+      {
+        "mason-org/mason.nvim",
+        cmd = "Mason",
+        lazy = true,
+        dependencies = {
+          {
+            "mason-org/mason-lspconfig.nvim",
+            opts = {
+              ensure_installed = lsps,
+              automatic_enable = false,
+              automatic_installation = true,
+            },
+          },
+          {
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
+            otps = {
+              ensure_installed = tools,
+            },
+          },
+          "neovim/nvim-lspconfig",
+        },
+        opts = {
+          ui = {
+            border = "rounded",
+            icons = {
+              package_installed = "✓",
+              package_pending = "➜",
+              package_uninstalled = "✗",
+            },
+          },
+        },
+      },
     },
     config = function(_, opts)
       local lspconfig = require("lspconfig")

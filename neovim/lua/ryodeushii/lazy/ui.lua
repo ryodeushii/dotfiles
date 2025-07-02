@@ -142,10 +142,14 @@ return {
     end,
   },
   {
-    "goolord/alpha-nvim",
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
     config = function()
-      require("alpha").setup(require("alpha.themes.dashboard").config)
+      require("dashboard").setup({
+        -- config
+      })
     end,
+    dependencies = { { "nvim-tree/nvim-web-devicons" } },
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -187,6 +191,7 @@ return {
     dependencies = {
       "nvim-telescope/telescope-frecency.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
+      "d4wns-l1ght/telescope-messages.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
@@ -201,12 +206,16 @@ return {
           workspace = "CWD",
         })
       end, { desc = "Telescope find files" })
+      vim.keymap.set("n", "<leader>fm", function()
+        require("telescope").extensions.messages.messages({})
+      end, { desc = "Telescope messages" })
       vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Telescope git files" })
       vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Telescope resume" })
       vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope live grep" })
       vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
       vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope keymaps" })
       vim.keymap.set("n", '<leader>f"', builtin.registers, { desc = "Telescope registers" })
+      vim.keymap.set("n", "<leader>fp", builtin.builtin, { desc = "Telescope pickers" })
       vim.keymap.set("n", "<leader>fp", builtin.builtin, { desc = "Telescope pickers" })
       vim.keymap.set("n", "<leader>vrr", builtin.lsp_references, { desc = "Telescope LSP references" })
       vim.keymap.set("n", "<leader>vri", builtin.lsp_implementations, { desc = "Telescope LSP implementations" })
@@ -250,6 +259,7 @@ return {
       require("telescope").load_extension("ui-select")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("frecency")
+      require("telescope").load_extension("messages")
     end,
   },
 }
