@@ -34,9 +34,11 @@ return {
       require("conform").setup({
         formatters = {
           biome = {
+            command = util.from_node_modules("biome"),
             require_cwd = true,
           },
           biome_organize_imports = {
+            command = util.from_node_modules("biome"),
             require_cwd = true,
           },
           prettier = {

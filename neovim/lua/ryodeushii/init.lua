@@ -50,10 +50,10 @@ autocmd("LspAttach", {
       vim.lsp.buf.signature_help()
     end, { buffer = e.buf, desc = "Signature help" })
     vim.keymap.set("n", "[d", function()
-      vim.diagnostic.jump({ count = 1 })
+      vim.diagnostic.jump({ count = 1, float = true })
     end, { buffer = e.buf, desc = "Next diagnostic" })
     vim.keymap.set("n", "]d", function()
-      vim.diagnostic.jump({ count = -1 })
+      vim.diagnostic.jump({ count = -1, float = true })
     end, { buffer = e.buf, desc = "Previous diagnostic" })
   end,
 })

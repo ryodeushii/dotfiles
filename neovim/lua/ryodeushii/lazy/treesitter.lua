@@ -12,23 +12,17 @@ return {
         ignore_install = {},
         -- A list of parser names, or "all"
         ensure_installed = {
+          "vim",
           "vimdoc",
           "javascript",
           "typescript",
           "lua",
-          "rust",
-          "go",
-          "jsdoc",
           "bash",
           "markdown",
           "markdown_inline",
           "json",
           "jsonc",
-          "tsx",
           "dockerfile",
-          "yaml",
-          "toml",
-          "templ",
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -40,6 +34,7 @@ return {
 
         indent = {
           enable = true,
+          disable = { "python", "c" } -- these and some other langs don't work well
         },
 
         highlight = {

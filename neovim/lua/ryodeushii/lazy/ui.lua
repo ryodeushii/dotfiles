@@ -1,10 +1,10 @@
 -- call this function to apply a color scheme in any module
 function ApplyColorScheme(color)
-  color = color or "rose-pine-moon"
+  color = color or "ex-tokyonight-night"
 
   vim.cmd.colorscheme(color)
 
-  if color == "rose-pine-moon" then
+  if color == "ex-vague" then
     local normal = vim.api.nvim_get_hl(0, { name = "NormalNC" })
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = normal.bg, fg = normal.fg })
     vim.api.nvim_set_hl(0, "Normal", { bg = normal.bg, fg = normal.fg })
@@ -96,347 +96,6 @@ return {
       },
     },
   },
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   opts = {
-  --     on_colors = function(colors)
-  --       colors.bg = "#0c0e14"
-  --     end,
-  --     styles = {
-  --       -- Style to be applied to different syntax groups
-  --       -- Value is any valid attr-list value for `:help nvim_set_hl`
-  --       comments = { italic = true },
-  --       keywords = { italic = true },
-  --     },
-  --   },
-  -- },
-  -- {
-  --   "brenoprata10/nvim-highlight-colors",
-  --   event = { 'BufReadPre', 'BufNewFile' },
-  --   config = function()
-  --     require("nvim-highlight-colors").setup({})
-  --   end
-  -- }
-
-  -- snacks
-  {
-    "folke/snacks.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      styles = {
-        notification = {
-          wo = {
-            wrap = true,
-          },
-        },
-      },
-      animate = {
-        enabled = vim.fn.has("nvim-0.10") == 1,
-      },
-      bigfile = {},
-      dashboard = {
-        preset = {
-          header = [[
-
-██████╗ ██╗   ██╗ ██████╗ ██████╗ ███████╗██╗   ██╗███████╗██╗  ██╗██╗██╗
-██╔══██╗╚██╗ ██╔╝██╔═══██╗██╔══██╗██╔════╝██║   ██║██╔════╝██║  ██║██║██║
-██████╔╝ ╚████╔╝ ██║   ██║██║  ██║█████╗  ██║   ██║███████╗███████║██║██║
-██╔══██╗  ╚██╔╝  ██║   ██║██║  ██║██╔══╝  ██║   ██║╚════██║██╔══██║██║██║
-██║  ██║   ██║   ╚██████╔╝██████╔╝███████╗╚██████╔╝███████║██║  ██║██║██║
-╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝╚═╝
-
-
-
-        ]],
-        },
-        sections = {
-          { section = "header" },
-          { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
-          { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-          { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-          { section = "startup" },
-        },
-      },
-      lazygit = {},
-      indent = { enabled = true },
-      scope = { enabled = false, min_size = 2, cursor = true, edge = true, debounce = 30 },
-      -- input = {
-      --   enabled = true,
-      --   b = { completion = false },
-      --   bo = {
-      --     filetype = "snacks_input",
-      --     buftype = "prompt",
-      --   },
-      -- },
-      notifier = {
-        enabled = true,
-        timeout = 5000,
-        style = "fancy",
-        icons = {
-          error = " ",
-          warn = " ",
-          info = " ",
-          debug = " ",
-          trace = " ",
-        },
-      },
-      quickfile = { enabled = true },
-      picker = {
-        enabled = true,
-        ui_select = true,
-        previewers = {
-          diff = {
-            builtin = true, -- use Neovim for previewing diffs (true) or use an external tool (false)
-            cmd = { "delta" }, -- example to show a diff with delta
-          },
-          git = {
-            builtin = true, -- use Neovim for previewing git output (true) or use git (false)
-            args = {}, -- additional arguments passed to the git command. Useful to set pager options usin `-c ...`
-          },
-          file = {
-            max_size = 10 * 1024 * 1024, -- 10MB
-            max_line_length = 500, -- max line length
-            ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
-          },
-          man_pager = nil, ---@type string? MANPAGER env to use for `man` preview
-        },
-      },
-      statuscolumn = {
-        enabled = true,
-        left = { "mark", "sign" }, -- priority of signs on the left (high to low)
-        right = { "fold", "git" }, -- priority of signs on the right (high to low)
-        folds = {
-          open = true, -- show open fold icons
-          git_hl = false, -- use Git Signs hl for fold icons
-        },
-        git = {
-          -- patterns to match Git signs
-          patterns = { "GitSign", "MiniDiffSign" },
-        },
-        refresh = 50, -- refresh at most every 50ms
-      },
-      words = { enabled = false },
-    },
-
-    keys = function()
-      local Snacks = require("snacks")
-      return {
-        {
-          "<leader>ff",
-          function()
-            Snacks.picker.files({ hidden = true })
-          end,
-          desc = "Find files",
-        },
-        {
-          "<C-p>",
-          function()
-            Snacks.picker.files({ hidden = true })
-          end,
-          desc = "Find files",
-        },
-        {
-          "<leader>fg",
-          function()
-            Snacks.picker.git_files()
-          end,
-          desc = "Find Git files",
-        },
-        {
-          "<leader>fb",
-          function()
-            Snacks.picker.buffers()
-          end,
-          desc = "Find Buffers",
-        },
-        {
-          "<leader>fs",
-          function()
-            Snacks.picker.grep({ hidden = true })
-          end,
-          desc = "Grep",
-        },
-        {
-          "<leader>ps",
-          function()
-            Snacks.picker.grep({ buffers = true })
-          end,
-          desc = "Grep",
-        },
-        {
-          "<leader>fr",
-          function()
-            Snacks.picker.resume()
-          end,
-          desc = "Resume",
-        },
-        {
-          "<leader>fo",
-          function()
-            Snacks.picker.recent()
-          end,
-          desc = "Recent files",
-        },
-        {
-          "<leader>fw",
-          function()
-            Snacks.picker.grep_word()
-          end,
-          desc = "Visual selection or word",
-          mode = { "n", "x", "v" },
-        },
-        {
-          "<leader>fh",
-          function()
-            Snacks.picker.help()
-          end,
-          desc = "Help Pages",
-        },
-        {
-          "<leader>fk",
-          function()
-            Snacks.picker.keymaps()
-          end,
-          desc = "Keymaps",
-        },
-        {
-          "<leader>fn",
-          function()
-            Snacks.picker.notifications()
-          end,
-          desc = "Notifications",
-        },
-        {
-          "<leader>gl",
-          function()
-            Snacks.picker.git_log()
-          end,
-          desc = "Git log",
-        },
-        {
-          "<leader>ft",
-          function()
-            ---@diagnostic disable-next-line: undefined-field
-            Snacks.picker.todo_comments()
-          end,
-          desc = "Git status",
-        },
-        {
-          "<leader>fp",
-          function()
-            Snacks.picker()
-          end,
-          desc = "List pickers",
-        },
-
-        -- lsp related
-        {
-          "<leader>vd",
-          function()
-            Snacks.picker.diagnostics()
-          end,
-          desc = "Diagnostics",
-        },
-        {
-          "<leader>vws",
-          function()
-            Snacks.picker.lsp_workspace_symbols()
-          end,
-          desc = "Diagnostics",
-        },
-        {
-          "gd",
-          function()
-            Snacks.picker.lsp_definitions()
-          end,
-          desc = "Goto Definition",
-        },
-        {
-          "gtd",
-          function()
-            Snacks.picker.lsp_type_definitions()
-          end,
-          desc = "Goto T[y]pe Definition",
-        },
-        {
-          "gr",
-          function()
-            Snacks.picker.lsp_references()
-          end,
-          nowait = true,
-          desc = "References",
-        },
-        {
-          "<leader>vrr",
-          function()
-            Snacks.picker.lsp_references()
-          end,
-          nowait = true,
-          desc = "References",
-        },
-        {
-          "gi",
-          function()
-            Snacks.picker.lsp_implementations()
-          end,
-          desc = "Goto Implementation",
-        },
-        {
-          "<leader>fl",
-          function()
-            Snacks.picker.lsp_symbols()
-          end,
-          desc = "LSP Symbols",
-        },
-        {
-          "<leader>fz",
-          function()
-            Snacks.picker.zoxide()
-          end,
-          desc = "Zoxide picker",
-        },
-        {
-          "<leader>gs",
-          function()
-            Snacks.lazygit()
-          end,
-          desc = "LazyGit",
-        },
-        {
-          '<leader>f"',
-          function()
-            Snacks.picker.registers()
-          end,
-          desc = "Registers",
-        },
-      }
-    end,
-  },
-  -- statusline
-  {
-    "echasnovski/mini.statusline",
-    version = false,
-    config = function()
-      require("mini.statusline").setup({
-        -- Content of statusline as functions which return statusline string. See
-        -- `:h statusline` and code of default contents (used instead of `nil`).
-        content = {
-          -- Content for active window
-          active = nil,
-          -- Content for inactive window(s)
-          inactive = nil,
-        },
-
-        -- Whether to use icons by default
-        use_icons = true,
-
-        -- Whether to set Vim's settings for statusline (make it always shown)
-        set_vim_settings = true,
-      })
-    end,
-  },
-
-  -- nice ui
   {
     "folke/noice.nvim",
     dependencies = {
@@ -487,6 +146,128 @@ return {
         end,
       })
       return opts
+    end,
+  },
+  {
+    "goolord/alpha-nvim",
+    config = function()
+      require("alpha").setup(require("alpha.themes.dashboard").config)
+    end,
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+      -- 'echasnovski/mini.icons',
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("lualine").setup({
+        options = {
+          icons_enabled = true,
+          theme = "auto",
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+          disabled_filetypes = { "alpha", "dashboard" },
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_c = { { "filename", path = 1 } },
+          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_y = { "progress" },
+          lualine_z = { "location", "selectioncount" },
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { "filename" },
+          lualine_x = { "location" },
+          lualine_y = {},
+          lualine_z = {},
+        },
+        tabline = {},
+        extensions = {},
+      })
+    end,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-ui-select.nvim",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
+    },
+    config = function()
+      local actions = require("telescope.actions")
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+      vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Telescope git files" })
+      vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Telescope resume" })
+      vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope live grep" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+      vim.keymap.set("n", "<leader>fh", function()
+        builtin.find_files({ hidden = true })
+      end, { desc = "Telescope hidden files (needed?)" })
+      vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope keymaps" })
+      vim.keymap.set("n", '<leader>f"', builtin.registers, { desc = "Telescope registers" })
+      vim.keymap.set("n", "<leader>fp", builtin.builtin, { desc = "Telescope pickers" })
+      vim.keymap.set("n", "<leader>vrr", builtin.lsp_references, { desc = "Telescope LSP references" })
+      vim.keymap.set("n", "<leader>vri", builtin.lsp_implementations, { desc = "Telescope LSP implementations" })
+      vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { desc = "Telescope LSP definitions" })
+      vim.keymap.set("n", "<leader>gtd", builtin.lsp_type_definitions, { desc = "Telescope LSP type definitions" })
+
+      require("telescope").setup({
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({
+              -- even more opts
+            }),
+
+            -- pseudo code / specification for writing custom displays, like the one
+            -- for "codeactions"
+            -- specific_opts = {
+            --   [kind] = {
+            --     make_indexed = function(items) -> indexed_items, width,
+            --     make_displayer = function(widths) -> displayer
+            --     make_display = function(displayer) -> function(e)
+            --     make_ordinal = function(e) -> string
+            --   },
+            --   -- for example to disable the custom builtin "codeactions" display
+            --      do the following
+            --   codeactions = false,
+            -- }
+          },
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+          },
+        },
+        defaults = {
+          mappings = {
+            i = {
+              ["<esc>"] = actions.close,
+              ["<C-u>"] = false, -- disable clearing the prompt
+              ["<C-d>"] = false, -- disable deleting half of the prompt
+            },
+          },
+          layout_config = {
+            horizontal = { preview_width = 0.6 },
+            vertical = { preview_height = 0.6 },
+          },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
+      })
+      require("telescope").load_extension("ui-select")
+      require("telescope").load_extension("fzf")
     end,
   },
 }
