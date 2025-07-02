@@ -280,4 +280,22 @@ return {
       require("telescope").load_extension("messages")
     end,
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    event = { "BufReadPre", "BufNewFile" },
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {
+      exclude = {
+        filetypes = {
+          "alpha",
+          "dashboard",
+          "help",
+          "lazy",
+          "lsp"
+        },
+      },
+    },
+  },
 }

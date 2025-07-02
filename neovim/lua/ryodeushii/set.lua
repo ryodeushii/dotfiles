@@ -24,13 +24,12 @@ vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
-vim.opt.numberwidth=3
-vim.opt.signcolumn="yes:1"
-vim.opt.statuscolumn="%l%s"
+vim.opt.numberwidth = 3
+vim.opt.signcolumn = "yes:1"
+vim.opt.statuscolumn = "%l%s"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
-
 
 --[[ zc - Close (fold) the current fold under the cursor.
 zo - Open (unfold) the current fold under the cursor.
@@ -43,22 +42,16 @@ zM - Close all folds in the current buffer. ]]
 -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- vim.opt.foldlevelstart = 99
 
-local option = vim.opt
 vim.api.nvim_create_autocmd("BufReadPost", {
-    callback = function()
-        vim.defer_fn(function()
-            option.foldmethod = "expr"
-            option.foldexpr = "nvim_treesitter#foldexpr()"
-            -- option.foldcolumn = "1"
-            -- opt.foldtext = ""
-
-            option.foldnestmax = 3
-            option.foldlevel = 99
-            option.foldlevelstart = 99
-        end, 100)
-    end,
+  callback = function()
+    vim.defer_fn(function()
+      vim.wo.foldmethod = "expr"
+      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.opt.foldlevel = 99
+      vim.opt.foldlevelstart = 99
+    end, 100)
+  end,
 })
-
 
 vim.opt.clipboard:append("unnamedplus")
 

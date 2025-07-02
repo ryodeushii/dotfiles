@@ -43,7 +43,6 @@ return {
   },
   {
     "saghen/blink.cmp",
-    lazy = false, -- lazy loading handled internally
     version = "*",
     opts_extend = { "sources.completion.enabled_providers" },
     dependencies = {
