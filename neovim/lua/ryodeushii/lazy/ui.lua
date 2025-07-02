@@ -72,13 +72,6 @@ return {
         end,
       })
     end,
-  }, -- icons
-  {
-    "echasnovski/mini.icons",
-    version = false,
-    config = function()
-      require("mini.icons").setup()
-    end,
   },
   -- theme
   {
@@ -157,7 +150,6 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
-      -- 'echasnovski/mini.icons',
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
@@ -193,6 +185,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
+      "nvim-telescope/telescope-frecency.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -203,13 +196,15 @@ return {
       local actions = require("telescope.actions")
       local builtin = require("telescope.builtin")
       vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+      vim.keymap.set("n", "<leader>fF", function()
+        require("telescope").extensions.frecency.frecency({
+          workspace = "CWD",
+        })
+      end, { desc = "Telescope find files" })
       vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Telescope git files" })
       vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Telescope resume" })
       vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope live grep" })
       vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-      vim.keymap.set("n", "<leader>fh", function()
-        builtin.find_files({ hidden = true })
-      end, { desc = "Telescope hidden files (needed?)" })
       vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope keymaps" })
       vim.keymap.set("n", '<leader>f"', builtin.registers, { desc = "Telescope registers" })
       vim.keymap.set("n", "<leader>fp", builtin.builtin, { desc = "Telescope pickers" })
@@ -224,20 +219,6 @@ return {
             require("telescope.themes").get_dropdown({
               -- even more opts
             }),
-
-            -- pseudo code / specification for writing custom displays, like the one
-            -- for "codeactions"
-            -- specific_opts = {
-            --   [kind] = {
-            --     make_indexed = function(items) -> indexed_items, width,
-            --     make_displayer = function(widths) -> displayer
-            --     make_display = function(displayer) -> function(e)
-            --     make_ordinal = function(e) -> string
-            --   },
-            --   -- for example to disable the custom builtin "codeactions" display
-            --      do the following
-            --   codeactions = false,
-            -- }
           },
           fzf = {
             fuzzy = true, -- false will only do exact matching
@@ -268,6 +249,7 @@ return {
       })
       require("telescope").load_extension("ui-select")
       require("telescope").load_extension("fzf")
+      require("telescope").load_extension("frecency")
     end,
   },
 }
