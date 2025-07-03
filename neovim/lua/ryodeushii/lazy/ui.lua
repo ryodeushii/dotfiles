@@ -213,6 +213,7 @@ return {
       "<leader>vrr",
       "<leader>vri",
       "<leader>gd",
+      "gd",
       "<leader>gtd",
     },
     dependencies = {
@@ -247,6 +248,7 @@ return {
       vim.keymap.set("n", "<leader>vrr", builtin.lsp_references, { desc = "Telescope LSP references" })
       vim.keymap.set("n", "<leader>vri", builtin.lsp_implementations, { desc = "Telescope LSP implementations" })
       vim.keymap.set("n", "<leader>gd", builtin.lsp_definitions, { desc = "Telescope LSP definitions" })
+      vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Telescope LSP definitions" })
       vim.keymap.set("n", "<leader>gtd", builtin.lsp_type_definitions, { desc = "Telescope LSP type definitions" })
 
       require("telescope").setup({
