@@ -105,6 +105,22 @@ return {
     config = function(_, opts)
       local lspconfig = require("lspconfig")
 
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = true
+        end,
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      })
+
       lspconfig.yamlls.setup({
         capabilities = capabilities,
         settings = {
